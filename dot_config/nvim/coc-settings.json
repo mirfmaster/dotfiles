@@ -1,0 +1,18 @@
+{
+  "eslint.packageManager": "yarn",
+  "eslint.nodePath": ".yarn/sdks",
+  "workspace.workspaceFolderCheckCwd": false,
+  "tsserver.tsdk": ".yarn/sdks/typescript/lib",
+  "eslint.enable": true,
+  "eslint.autoFixOnSave": true,
+  "coc.preferences.formatOnSaveFiletypes": [
+    "css",
+    "javascriptreact",
+    "javascript",
+    "typescriptreact",
+    "typescript",
+    "json",
+    "html"
+  ],
+  "suggest.autoTrigger": "none"
+}
