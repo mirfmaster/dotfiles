@@ -111,38 +111,6 @@ bindkey '`' autosuggest-accept
 #
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
 
-alias batmode="redshift -t 6500:2300 -b 0.85 -l 6.16:106.83"
-alias redshiftx="redshift -x"
-
-alias mydata="cd /media/mirf/My\ Data"
-alias usage="gnome-system-monitor"
-
-alias kittyf="kitty --start-as=fullscreen && exit"
-alias lv="lvim"
-alias v="lvim"
-alias cm="chezmoi"
-alias xx="exit"
-
-alias checkindance="yarn && \
-    docker-compose down -v && \
-    docker-compose up -d db && \
-    yarn build:cli && \
-    sleep 2 && \
-    yarn migrate latest && \
-    yarn seed && \
-    yarn erp-integration && \
-    yarn test:all
-"
-
-alias grhc="git reset --hard HEAD && git clean -fd"
-
-# warp-cli cloudflare
-alias warp="warp-cli"
-alias warps="warp status"
-alias warpc="warp connect"
-alias warpd="warp disconnect"
-alias warpr="warp disconnect && warp connect"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
