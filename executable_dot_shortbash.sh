@@ -11,7 +11,9 @@ alias xx="exit"
 
 # git extension
 # remove committed & clean workspace
-alias grhc="git reset --hard HEAD && git clean -fd" #means git reset hardcore!
+alias grhc="git reset --hard HEAD && git clean -fd" #equivalent to git reset hardcore!
+alias gcml="gcm && ggl" 
+alias gcD="git branch -D" 
 
 # warp-cli cloudflare
 alias wc="warp-cli"
@@ -28,8 +30,15 @@ alias cmd="chezmoi diff"
 alias cmdryrun="chezmoi git pull -- --rebase && chezmoi diff"
 alias cmu="chezmoi update"
 
+alias t="taskwarrior-tui"
+
 ################# FUNCTIONS ########################
 setRepoConfigProfile() {
   git config user.email "mirfmaster@gmail.com"
+  git config user.name "Muhamad Iqbal"
+}
+
+setRepoConfigProfileZOT() {
+  git config user.email "iqbal@zero-one-group.com"
   git config user.name "Muhamad Iqbal"
 }
