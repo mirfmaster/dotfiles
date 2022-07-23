@@ -1,7 +1,7 @@
 alias batmode="redshift -t 6500:2300 -b 0.85 -l 6.16:106.83"
 alias redshiftx="redshift -x"
-
-alias mydata="cd /media/mirf/My\ Data"
+alias hh=history
+alias clear_history='cat /dev/null > ~/.bash_history && history -c'
 alias usage="gnome-system-monitor"
 
 alias kf="kitty --start-as=fullscreen && exit"
