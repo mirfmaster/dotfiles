@@ -1,0 +1,54 @@
+{
+  "workbench.colorTheme": "One Dark Pro",
+  "editor.formatOnSave": true,
+  "files.autoSave": "onWindowChange",
+  "explorer.confirmDelete": false,
+  "intelephense.diagnostics.undefinedTypes": false,
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "workbench.startupEditor": "welcomePage",
+  "git.enableSmartCommit": true,
+  "editor.fontFamily": "'JetBrainsMono NF'",
+  "editor.fontLigatures": true,
+  "terminal.integrated.tabs.enabled": true,
+  "vim.easymotion": true,
+  "vim.incsearch": true,
+  "vim.useSystemClipboard": true,
+  "vim.useCtrlKeys": true,
+  "vim.hlsearch": true,
+  "vim.insertModeKeyBindings": [
+    {
+      "before": ["j", "j"],
+      "after": ["<Esc>"]
+    },
+    {
+      "before": ["j", "k"],
+      "after": ["<Esc>"]
+    }
+  ],
+  "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "before": ["<leader>", "d"],
+      "after": ["d", "d"]
+    },
+    {
+      "before": ["<C-n>"],
+      "commands": [":nohl"]
+    },
+    {
+      "before": ["K"],
+      "commands": ["lineBreakInsert"],
+      "silent": true
+    }
+  ],
+  "vim.leader": "<space>",
+  "vim.handleKeys": {
+    "<C-a>": false,
+    "<C-f>": false,
+    // "<C-r>": false,
+    "<C-b>": false,
+    "<C-j>": false
+    // "<C-w>": false,
+  },
+  "editor.smoothScrolling": true,
+  "git.confirmSync": false
+}
