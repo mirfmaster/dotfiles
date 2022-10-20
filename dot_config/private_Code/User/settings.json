@@ -50,5 +50,7 @@
     // "<C-w>": false,
   },
   "editor.smoothScrolling": true,
-  "git.confirmSync": false
+  "git.confirmSync": false,
+  "window.zoomLevel": -1,
+  "workbench.activityBar.visible": false
 }

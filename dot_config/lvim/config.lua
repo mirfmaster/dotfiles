@@ -28,11 +28,13 @@ vim.api.nvim_set_keymap('i', '<C-c>', [[<Esc>]], { noremap = true, silent = true
 vim.api.nvim_set_keymap('n', '<C-a>', [[ggVG]], { noremap = true, silent = true })
 
 -- NAVIGATION TAB
-lvim.keys.normal_mode["("] = ":bp<cr>"
-lvim.keys.normal_mode[")"] = ":bn<cr>"
+lvim.keys.normal_mode["<A-i>"] = "gT"
+lvim.keys.normal_mode["<A-o>"] = "gt"
+lvim.keys.normal_mode["<A-t>"] = ":tabnew<cr>"
+lvim.keys.normal_mode["<A-x>"] = ":tabc<cr>"
 lvim.keys.normal_mode["<Tab>"] = ":bn<cr>"
 lvim.keys.normal_mode["<S-Tab>"] = ":bp<cr>"
-lvim.keys.normal_mode["<C-S-p>"] = ":Telescope command_center<cr>"
+lvim.keys.normal_mode["<C-p>"] = ":Telescope find_files<cr>"
 
 -- NAVIGATION KEYS
 vim.api.nvim_set_keymap('i', '<A-k>', [[<Up>]], { noremap = true, silent = true })

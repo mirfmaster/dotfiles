@@ -11,9 +11,15 @@ alias hh=history
 alias clear_history='cat /dev/null > ~/.bash_history && history -c'
 alias lg=lazygit
 
+alias zot="cd ~/workspaces/zot"
+alias mirf="cd ~/workspaces/mirf"
+alias arta="cd ~/workspaces/zot/arta"
+alias sebamed="cd ~/workspaces/zot/sebamed-v2"
+
 # git extension
 # remove committed & clean workspace
 alias grhc="git reset --hard HEAD && git clean -fd" #equivalent to git reset hardcore!
+alias gres="git reset" 
 alias gcml="gcm && ggl" 
 alias gcD="git branch -D" 
 alias gs="gst"
