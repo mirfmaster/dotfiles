@@ -1,20 +1,20 @@
 alias batmode="redshift -t 6500:2300 -b 0.85 -l 6.16:106.83"
 alias redshiftx="redshift -x"
+alias batmodex="redshiftx"
 alias bye="shutdown -n now"
+alias hibernate="systemctl hibernate"
 
 alias kf="kitty --start-as=fullscreen && exit"
 alias lv="lvim"
 alias v="lvim"
 alias xx="exit"
+alias x="exit"
+alias c="cd"
 alias rg=ranger
-alias hh=history
+alias h=history
+alias xport="kill-port"
 alias clear_history='cat /dev/null > ~/.bash_history && history -c'
 alias lg=lazygit
-
-alias zot="cd ~/workspaces/zot"
-alias mirf="cd ~/workspaces/mirf"
-alias arta="cd ~/workspaces/zot/arta"
-alias sebamed="cd ~/workspaces/zot/sebamed-v2"
 
 # git extension
 # remove committed & clean workspace
@@ -45,3 +45,22 @@ alias cmu="cm update"
 
 alias t="taskwarrior-tui"
 
+# PHP
+alias cphp="sudo update-alternatives --config php"
+
+# SHORTDIRS
+alias labs="cd ~/.labs"
+
+alias mirf="cd ~/workspaces/mirf"
+alias igapi="cd ~/workspaces/mirf/igapi"
+
+alias zot="cd ~/workspaces/zot"
+alias arta="cd ~/workspaces/zot/arta"
+alias sebamed="cd ~/workspaces/zot/sebamed-v2"
+alias supreme="cd ~/workspaces/zot/supreme-solar"
+alias izone="cd ~/workspaces/zot/izone-infra"
+
+
+## ETC
+# Terraform
+alias tf="terraform"
