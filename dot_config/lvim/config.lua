@@ -31,7 +31,7 @@ map("i", "<C-c>", [[<Esc>]], { noremap = true, silent = true })
 map("n", "<C-a>", [[ggVG]], { noremap = true, silent = true })
 map("i", "<C-BS>", [[<C-w>]], { noremap = true, silent = false, desc = 'Ctrl Backspace' })
 map("n", "<C-a>", [[ggVG]], { noremap = true, silent = true })
-map("n", "<C-p>", ":Telescope session-lens search_session<cr>", { noremap = true, silent = true, desc = 'Open session' })
+map("n", "<C-.>", ":Telescope session-lens search_session<cr>", { noremap = true, silent = true, desc = 'Open session' })
 map("i", "<S-Tab>", [[<C-d>]], { noremap = true, silent = false })
 
 -- map("n", "<f8>", ":cprev<cr>", { desc = "Previous item in quickfix list" })
@@ -120,7 +120,7 @@ lvim.builtin.telescope.defaults.mappings = {
 }
 
 -- Use which-key to add extra bindings with the leader-key prefix
-lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
+lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope find_files<CR>", "Projects" }
 lvim.builtin.which_key.mappings["t"] = {
     name = "+Trouble",
     r = { "<cmd>Trouble lsp_references<cr>", "References" },
@@ -131,7 +131,7 @@ lvim.builtin.which_key.mappings["t"] = {
     w = { "<cmd>Trouble workspace_diagnostics<cr>", "Workspace Diagnostics" },
     t = { "<cmd>TodoTelescope<cr>", "Workspace TODO" },
 }
-lvim.builtin.which_key.mappings['h'] = {}
+-- lvim.builtin.which_key.mappings['h'] = {}
 lvim.builtin.which_key.mappings[';'] = {}
 lvim.builtin.which_key.mappings[";"] = {
     name = "+Harpoon",
