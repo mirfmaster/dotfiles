@@ -15,3 +15,9 @@ dockerStopRestart() {
     docker update --restart=no $(docker ps -a -q)
 }
 
+gtfd() {
+  local template="$1"
+  local path="$2"
+
+  /usr/sbin/terraform-docs --sort-by "required" -c "$template" "$path" > "$path/readme.md"
+}

@@ -64,3 +64,4 @@ alias izone="cd ~/workspaces/zot/izone-infra"
 ## ETC
 # Terraform
 alias tf="terraform"
+alias tfd="terraform-docs"
