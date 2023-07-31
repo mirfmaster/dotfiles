@@ -417,22 +417,14 @@ globalkeys = gears.table.join(
         awful.key({ modkey, "Shift" }, "r", function() awful.spawn.with_shell("sudo reboot") end,
             { description = "Reboot", group = "System" }),
         -- awful.key({ modkey }, "Insert",
-        awful.key({ modkey }, "F10", function()
-          local brightness = tonumber(io.popen("xrandr --verbose | grep -m 1 -i brightness | awk '{print $2}'"):read())
-          brightness = brightness + 0.1
-          if brightness > 1.2 then
-            brightness = 1.2
-          end
-          awful.spawn.with_shell("xrandr --output eDP --brightness " .. brightness)
-        end, { description = "Increase brightness", group = "Brightness" }),
         awful.key({ modkey }, "F9", function()
-          local brightness = tonumber(io.popen("xrandr --verbose | grep -m 1 -i brightness | awk '{print $2}'"):read())
-          brightness = brightness - 0.1
-          if brightness < 0.1 then
-            brightness = 0.1
-          end
-          awful.spawn.with_shell("xrandr --output eDP --brightness " .. brightness)
+          awful.spawn.with_shell('brightnessctl s 10%-')
+          os.execute("brightnessctl s 10%-")
         end, { description = "Decrease brightness", group = "Brightness" }),
+        awful.key({ modkey }, "F10", function()
+          os.execute("brightnessctl s 10%+")
+          awful.spawn.with_shell('brightnessctl s 10%+')
+        end, { description = "Increase brightness", group = "Brightness" }),
 
         awful.key({ modkey }, "F2", function()
           awful.spawn.with_shell("amixer -D pulse sset Master 5%-")
