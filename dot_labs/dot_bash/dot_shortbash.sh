@@ -53,6 +53,7 @@ alias labs="cd ~/.labs"
 
 alias mirf="cd ~/workspaces/mirf"
 alias igapi="cd ~/workspaces/mirf/igapi"
+alias workerphp="cd ~/workspaces/mirf/BJS/worker-php"
 
 alias zot="cd ~/workspaces/zot"
 alias arta="cd ~/workspaces/zot/arta"

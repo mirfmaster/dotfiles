@@ -58,8 +58,8 @@ map("i", "<C-j>", [[<Down>]], { noremap = true, silent = true, desc = "Equivalen
 map("n", "<S-b>", [[^]], { noremap = true, silent = true, desc = "Go to beginning" })
 map("n", "<S-e>", [[$]], { noremap = true, silent = true, desc = "Go to end" })
 
-map("n", "F", ":HopChar2<cr>", { noremap = true, silent = true, })
-map("n", "f", ":HopWord<cr>", { noremap = true, silent = true, })
+map("n", "f", ":HopChar2<cr>", { noremap = true, silent = true, })
+map("n", "F", ":HopWord<cr>", { noremap = true, silent = true, })
 
 -- TERMINAL
 
@@ -139,7 +139,35 @@ lvim.builtin.which_key.mappings["t"] = {
 lvim.builtin.alpha.active = true
 lvim.builtin.alpha.mode = "dashboard"
 lvim.builtin.terminal.active = true
-lvim.builtin.nvimtree.setup.view.side = "left"
+
+local gwidth = vim.api.nvim_list_uis()[1].width
+local gheight = vim.api.nvim_list_uis()[1].height
+local width = 100
+local height = 60
+lvim.builtin.nvimtree.setup.view = {
+    width = width,
+    hide_root_folder = false,
+    number = false,
+    relativenumber = false,
+    signcolumn = "yes",
+    -- height = height,
+    mappings = {
+        custom_only = false,
+        list = {},
+    },
+    float = {
+        enable = true,
+        open_win_config = {
+            relative = "editor",
+            width = width,
+            height = height,
+            row = (gheight - height) * 0.4,
+            col = (gwidth - width) * 0.5,
+        }
+    }
+}
+
+
 lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
 
 lvim.builtin.treesitter.ensure_installed = {
@@ -176,7 +204,7 @@ lvim.builtin.treesitter.highlight.enable = true
 local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup {
     {
-        -- command = "eslint_d",
+        command = "eslint_d",
         exe = "prettierd",
         filetypes = {
             "javascriptreact",
@@ -265,7 +293,10 @@ lvim.plugins = {
     },
     {
         "folke/todo-comments.nvim",
-        requires = "nvim-lua/plenary.nvim"
+        requires = "nvim-lua/plenary.nvim",
+        config = function()
+          require("todo-comments").setup {}
+        end
     },
     { 'godlygeek/tabular', },
     -- { 'ThePrimeagen/harpoon' },
@@ -277,5 +308,66 @@ lvim.plugins = {
           vim.keymap.set('i', '<c-,>', function() return vim.fn['codeium#CycleCompletions']( -1) end, { expr = true })
           vim.keymap.set('i', '<c-x>', function() return vim.fn['codeium#Clear']() end, { expr = true })
         end
-    }
+    },
+    {
+        "nvim-neo-tree/neo-tree.nvim",
+        branch = "v2.x",
+        requires = {
+            "nvim-lua/plenary.nvim",
+            "nvim-tree/nvim-web-devicons",
+            "MunifTanjim/nui.nvim",
+        },
+        config = function()
+          require("neo-tree").setup({
+              close_if_last_window = true,
+              window = {
+                  width = 30,
+              },
+              buffers = {
+                  follow_current_file = true,
+              },
+              filesystem = {
+                  follow_current_file = true,
+                  filtered_items = {
+                      hide_dotfiles = false,
+                      hide_gitignored = false,
+                      hide_by_name = {
+                          "node_modules"
+                      },
+                      never_show = {
+                          ".DS_Store",
+                          "thumbs.db"
+                      },
+                  },
+              },
+          })
+        end
+    },
+    -- {
+    --     "nvim-tree/nvim-tree",
+    --     config = function()
+    --       -- local nvim_tree = require('nvim-tree')
+
+    --       -- local gwidth = vim.api.nvim_list_uis()[1].width
+    --       -- local gheight = vim.api.nvim_list_uis()[1].height
+    --       -- local width = 100
+    --       -- local height = 30
+    --       -- lvim.builtin.nvimtree.setup = {
+    --       --     view = {
+    --       --         width = width,
+    --       --         height = height,
+    --       --         float = {
+    --       --             enable = true,
+    --       --             open_win_config = {
+    --       --                 relative = "editor",
+    --       --                 width = width,
+    --       --                 height = height,
+    --       --                 row = (gheight - height) * 0.4,
+    --       --                 col = (gwidth - width) * 0.5,
+    --       --             }
+    --       --         }
+    --       --     }
+    --       -- }
+    --     end
+    -- }
 }
