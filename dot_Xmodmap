@@ -3,6 +3,13 @@ clear Lock
 keycode 66 = Super_L
 add mod4 = Super_L
 
+! remove Lock = Caps_Lock
+! keycode 105 = Caps_Lock
+! add Lock = Caps_Lock
+
+! Remove existing mappings for Caps Lock
 remove Lock = Caps_Lock
-keycode 105 = Caps_Lock
+keycode 108 = Caps_Lock
+
+! Add the new mapping to the Lock modifier
 ! add Lock = Caps_Lock
