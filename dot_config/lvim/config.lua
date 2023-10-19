@@ -31,6 +31,7 @@ map("n", "<S-l>", ":BufferLineCycleNext<cr>", { noremap = true, silent = true, d
 map("n", "<S-h>", ":BufferLineCyclePrev<cr>", { noremap = true, silent = true, desc = "Prev buffer" })
 map("n", "<S-s>", ":noa w<cr>", { noremap = true, silent = true, desc = 'Save without formatting' })
 map("n", "<A-s>", ":noa w<cr>", { noremap = true, silent = true, desc = 'Save without formatting' })
+
 -- doesnt seems work on alacritty
 map("n", "<C-.>", ":Telescope session-lens search_session<cr>", { noremap = true, silent = true, desc = 'Open session' })
 map("n", "<C-a>", [[ggVG]], { noremap = true, silent = true, desc = "Select all" })
@@ -60,8 +61,8 @@ map("i", "<C-j>", [[<Down>]], { noremap = true, silent = true, desc = "Equivalen
 map("n", "<S-b>", [[^]], { noremap = true, silent = true, desc = "Go to beginning" })
 map("n", "<S-e>", [[$]], { noremap = true, silent = true, desc = "Go to end" })
 
-map("n", "f", ":HopChar2<cr>", { noremap = true, silent = true, })
-map("n", "F", ":HopWord<cr>", { noremap = true, silent = true, })
+map("n", "f", ":HopChar2<cr>", { noremap = true, silent = true, desc = "Hop char" })
+map("n", "F", ":Telescope buffers<cr>", { noremap = true, silent = true, desc = "Search buffers" })
 
 -- HARPOON
 -- lvim.lsp.buffer_mappings.normal_mode[';'] = nil
@@ -93,9 +94,6 @@ function _G.set_terminal_keymaps()
   vim.keymap.set("t", "<C-l>", [[<Right>]], opts)
   vim.keymap.set("t", "<C-,>", [[<C-Left>]], opts)
   vim.keymap.set("t", "<C-.>", [[<C-Right>]], opts)
-  -- vim.keymap.set("t", "<C-l>", [[<Cmd>wincmd l<CR>]], opts)
-  -- vim.keymap.set("t", "<S-h>", [[<Cmd>BufferLineCyclePrev<CR>]], opts)
-  -- vim.keymap.set("t", "<S-l>", [[<Cmd>BufferLineCycleNext<CR>]], opts)
 
   vim.keymap.set("t", "<C-w><C-h>", [[<Cmd>tabp<cr>]], opts)
   vim.keymap.set("t", "<C-w><C-l>", [[<Cmd>tabn<cr>]], opts)
@@ -301,13 +299,6 @@ lvim.plugins = {
       }
     end
   },
-  -- {
-  --   "nvim-telescope/telescope-project.nvim",
-  --   event = "BufWinEnter",
-  --   init = function()
-  --     vim.cmd [[packadd telescope.nvim]]
-  --   end,
-  -- },
   {
     "folke/todo-comments.nvim",
     dependencies = "nvim-lua/plenary.nvim",
