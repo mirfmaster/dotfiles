@@ -67,3 +67,4 @@ alias tfd="terraform-docs"
 alias air='$(go env GOPATH)/bin/air'
 
 alias j="joplin"
+alias jd="~/.joplin/Joplin.AppImage"

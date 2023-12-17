@@ -375,5 +375,9 @@ lvim.plugins = {
     build = ":Neorg sync-parsers",
     dependencies = "nvim-lua/plenary.nvim",
     -- ft = "norg"
+  },
+  {
+    "iamcco/markdown-preview.nvim",
+    build = function() vim.fn["mkdp#util#install"]() end,
   }
 }
