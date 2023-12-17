@@ -18,6 +18,7 @@ vim.opt.relativenumber = true
 vim.opt.wrap = true
 
 vim.g.codeium_no_map_tab = true
+vim.g.maplocalleader = ";"
 
 -- BIND NEW KEYMAPS
 -- UTILITIES
@@ -66,7 +67,7 @@ map("n", "F", ":Telescope buffers<cr>", { noremap = true, silent = true, desc = 
 
 -- HARPOON
 -- lvim.lsp.buffer_mappings.normal_mode[';'] = nil
-lvim.keys.normal_mode[';'] = ':lua require("harpoon.ui").toggle_quick_menu()<cr>'
+lvim.keys.normal_mode['<A-h>'] = ':lua require("harpoon.ui").toggle_quick_menu()<cr>'
 map("n", "<A-1>", ":lua require(\"harpoon.ui\").nav_file(1)<cr>", { noremap = true, silent = true })
 map("n", "<A-2>", ":lua require(\"harpoon.ui\").nav_file(2)<cr>", { noremap = true, silent = true })
 map("n", "<A-3>", ":lua require(\"harpoon.ui\").nav_file(3)<cr>", { noremap = true, silent = true })
@@ -351,4 +352,28 @@ lvim.plugins = {
       })
     end
   },
+  {
+    "nvim-neorg/neorg",
+    config = function()
+      require('neorg').setup {
+        load = {
+          -- ["core.autocommands"] = {},
+          -- ["core.integrations.treesitter"] = {},
+          ["core.defaults"] = {},  -- Loads default behaviour
+          ["core.concealer"] = {}, -- Adds pretty icons to your documents
+          -- ["core.completion"] = {},
+          ["core.dirman"] = {      -- Manages Neorg workspaces
+            config = {
+              workspaces = {
+                notes = "~/spaces/notes",
+              },
+            },
+          },
+        },
+      }
+    end,
+    build = ":Neorg sync-parsers",
+    dependencies = "nvim-lua/plenary.nvim",
+    -- ft = "norg"
+  }
 }

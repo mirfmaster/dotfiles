@@ -15,6 +15,8 @@ alias h=history
 alias xport="kill-port"
 alias clear_history='cat /dev/null > ~/.bash_history && history -c'
 alias lg=lazygit
+# alias postman="~/Applications/Postman/Postman"
+alias postman="nohup ~/Applications/Postman/Postman &>/dev/null &"
 
 # git extension
 # remove committed & clean workspace
@@ -43,26 +45,25 @@ alias cmcd="cm cd"
 alias cmdryrun="cm git pull -- --rebase && cm diff"
 alias cmu="cm update"
 
-alias t="taskwarrior-tui"
-
 # PHP
 alias cphp="sudo update-alternatives --config php"
 
 # SHORTDIRS
 alias labs="cd ~/.labs"
 
-alias mirf="cd ~/workspaces/mirf"
-alias igapi="cd ~/workspaces/mirf/igapi"
-alias workerphp="cd ~/workspaces/mirf/BJS/worker-php"
+alias mirf="cd ~/spaces/mirf"
+alias igapi="cd ~/spaces/mirf/igapi"
+alias workerphp="cd ~/spaces/mirf/BJS/worker-php"
 
-alias zot="cd ~/workspaces/zot"
-alias arta="cd ~/workspaces/zot/arta"
-alias sebamed="cd ~/workspaces/zot/sebamed-v2"
-alias supreme="cd ~/workspaces/zot/supreme-solar"
-alias izone="cd ~/workspaces/zot/izone-infra"
+alias zot="cd ~/spaces/zot"
 
 
 ## ETC
 # Terraform
 alias tf="terraform"
 alias tfd="terraform-docs"
+
+## GOLANG
+alias air='$(go env GOPATH)/bin/air'
+
+alias j="joplin"
