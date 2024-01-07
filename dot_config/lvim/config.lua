@@ -32,6 +32,7 @@ map("n", "<S-l>", ":BufferLineCycleNext<cr>", { noremap = true, silent = true, d
 map("n", "<S-h>", ":BufferLineCyclePrev<cr>", { noremap = true, silent = true, desc = "Prev buffer" })
 map("n", "<S-s>", ":noa w<cr>", { noremap = true, silent = true, desc = 'Save without formatting' })
 map("n", "<A-s>", ":noa w<cr>", { noremap = true, silent = true, desc = 'Save without formatting' })
+map("n", "gl", ":Glow<cr>", { noremap = true, silent = true, desc = 'Glow - Markdown preview' })
 
 -- doesnt seems work on alacritty
 map("n", "<C-.>", ":Telescope session-lens search_session<cr>", { noremap = true, silent = true, desc = 'Open session' })
@@ -50,6 +51,9 @@ map("n", "<C-w><C-l>", ":tabn<cr>", { noremap = true, silent = true, desc = "Nex
 map("n", "<C-w><C-t>", ":terminal<cr>", { noremap = true, silent = true, desc = "Make it as terminal" })
 map("n", "<C-w><C-a>", ":tabnew<cr>", { noremap = true, silent = true, desc = "Open new tab (?)" })
 map("n", "<C-w><C-q>", ":tabc<cr>", { noremap = true, silent = true, desc = "Close current tab" })
+map("n", "<C-w><C-,>", ":vertical resize -5<cr>", { noremap = true, silent = true, desc = "Close current tab" })
+map("n", "<C-w><C-.>", ":vertical resize +5<cr>", { noremap = true, silent = true, desc = "Close current tab" })
+
 map("n", "<C-9>", ":tabp<cr>", { noremap = true, silent = true, desc = "Prevous tab" })
 map("n", "<C-0>", ":tabn<cr>", { noremap = true, silent = true, desc = "Next tab" })
 
@@ -240,16 +244,6 @@ linters.setup {
 -- Autosession
 vim.opt.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal"
 
--- Theme
-lvim.colorscheme = "tokyonight-moon"
--- lvim.colorscheme = "tokyonight"
--- lvim.colorscheme = "tokyodark"
--- vim.colorscheme = "substrata"
--- lvim.colorscheme = "carbonfox"
-
--- lvim.colorscheme = "nordfox"
--- lvim.colorscheme = "vn-night"
-
 -- Additional Plugins
 lvim.plugins = {
   -- COLORSCHEME
@@ -258,6 +252,7 @@ lvim.plugins = {
   { 'kvrohit/substrata.nvim' },
   { "EdenEast/nightfox.nvim" },
   { 'nxvu699134/vn-night.nvim' },
+  { 'rebelot/kanagawa.nvim' },
   -- PLUGINS
   {
     "folke/trouble.nvim",
@@ -353,31 +348,24 @@ lvim.plugins = {
     end
   },
   {
-    "nvim-neorg/neorg",
+    "ellisonleao/glow.nvim",
     config = function()
-      require('neorg').setup {
-        load = {
-          -- ["core.autocommands"] = {},
-          -- ["core.integrations.treesitter"] = {},
-          ["core.defaults"] = {},  -- Loads default behaviour
-          ["core.concealer"] = {}, -- Adds pretty icons to your documents
-          -- ["core.completion"] = {},
-          ["core.dirman"] = {      -- Manages Neorg workspaces
-            config = {
-              workspaces = {
-                notes = "~/spaces/notes",
-              },
-            },
-          },
-        },
-      }
-    end,
-    build = ":Neorg sync-parsers",
-    dependencies = "nvim-lua/plenary.nvim",
-    -- ft = "norg"
-  },
-  {
-    "iamcco/markdown-preview.nvim",
-    build = function() vim.fn["mkdp#util#install"]() end,
+      require("glow").setup({
+        install_path = "/usr/bin/glow", -- default path for installing glow binary
+        width = 160,
+        height = 300,
+      })
+    end
   }
 }
+
+-- Theme
+-- lvim.colorscheme = "tokyonight-moon"
+-- lvim.colorscheme = "tokyonight"
+-- lvim.colorscheme = "tokyodark"
+-- lvim.colorscheme = "substrata"
+-- lvim.colorscheme = "carbonfox"
+lvim.colorscheme = "kanagawa-wave"
+
+-- lvim.colorscheme = "nordfox"
+-- lvim.colorscheme = "vn-night"
