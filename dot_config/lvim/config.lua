@@ -51,8 +51,11 @@ map("n", "<C-w><C-l>", ":tabn<cr>", { noremap = true, silent = true, desc = "Nex
 map("n", "<C-w><C-t>", ":terminal<cr>", { noremap = true, silent = true, desc = "Make it as terminal" })
 map("n", "<C-w><C-a>", ":tabnew<cr>", { noremap = true, silent = true, desc = "Open new tab (?)" })
 map("n", "<C-w><C-q>", ":tabc<cr>", { noremap = true, silent = true, desc = "Close current tab" })
-map("n", "<C-w><C-,>", ":vertical resize -5<cr>", { noremap = true, silent = true, desc = "Close current tab" })
-map("n", "<C-w><C-.>", ":vertical resize +5<cr>", { noremap = true, silent = true, desc = "Close current tab" })
+
+map("n", "<C-Left>", ":vertical resize -5<cr>", { noremap = true, silent = true, desc = "Vertical resize window by -5" })
+map("n", "<C-Right>", ":vertical resize +5<cr>", { noremap = true, silent = true, desc = "Vertical resize window by +5" })
+map("n", "<C-Up>", ":resize +5<cr>", { noremap = true, silent = true, desc = "Close current tab" })
+map("n", "<C-Down>", ":resize -5<cr>", { noremap = true, silent = true, desc = "Close current tab" })
 
 map("n", "<C-9>", ":tabp<cr>", { noremap = true, silent = true, desc = "Prevous tab" })
 map("n", "<C-0>", ":tabn<cr>", { noremap = true, silent = true, desc = "Next tab" })
@@ -362,10 +365,10 @@ lvim.plugins = {
 -- Theme
 -- lvim.colorscheme = "tokyonight-moon"
 -- lvim.colorscheme = "tokyonight"
--- lvim.colorscheme = "tokyodark"
+lvim.colorscheme = "tokyodark"
 -- lvim.colorscheme = "substrata"
 -- lvim.colorscheme = "carbonfox"
-lvim.colorscheme = "kanagawa-wave"
+-- lvim.colorscheme = "kanagawa-wave"
 
 -- lvim.colorscheme = "nordfox"
 -- lvim.colorscheme = "vn-night"
