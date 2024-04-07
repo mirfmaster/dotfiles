@@ -9,7 +9,9 @@ add mod4 = Super_L
 
 ! Remove existing mappings for Caps Lock
 remove Lock = Caps_Lock
-keycode 108 = Caps_Lock
+! using right ALT
+! keycode 108 = Caps_Lock 
+keycode 105 = Caps_Lock
 
 ! Add the new mapping to the Lock modifier
 ! add Lock = Caps_Lock
