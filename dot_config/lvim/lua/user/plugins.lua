@@ -102,6 +102,15 @@ lvim.plugins = {
     end
   },
   { "folke/zen-mode.nvim", },
+  -- { "folke/twilight.nvim", },
+  {
+    'andymass/vim-matchup',
+    config = function()
+      -- may set any options here
+      vim.g.matchup_matchparen_offscreen = { method = "popup" }
+    end
+  },
+  { 'nacro90/numb.nvim' },
   -- {
   --   "ellisonleao/glow.nvim",
   --   config = function()
