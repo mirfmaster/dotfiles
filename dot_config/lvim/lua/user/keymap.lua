@@ -10,7 +10,6 @@ lvim.keys.insert_mode = {
   ["<Down>"] = { "<NOP>", desc = "Disable arrow keys" },
   ["<Left>"] = { "<NOP>", desc = "Disable arrow keys" },
   ["<Right>"] = { "<NOP>", desc = "Disable arrow keys" },
-  ["<M-1>"] = { "<NOP>" }
 }
 lvim.keys.normal_mode = {
   ["<C-w><C-h>"] = { "<NOP>", desc = "Previous tab" },
@@ -23,6 +22,9 @@ lvim.keys.normal_mode = {
 keymap("n", "<C-w><C-v>", "<NOP>", defaultOpts)
 keymap("n", "<C-w><C-s>", "<NOP>", defaultOpts)
 keymap("n", "<F1>", "<NOP>", defaultOpts)
+keymap("n", "<M-1>", "<NOP>", defaultOpts)
+keymap("n", "<M-2>", "<NOP>", defaultOpts)
+keymap("n", "<M-3>", "<NOP>", defaultOpts)
 -----------------------------------------------------------
 
 -- Normal mode key mappings
@@ -30,7 +32,7 @@ lvim.keys.normal_mode = {
   -- NVIM management
   ["<C-x>"] = { ":qa<CR>", desc = "Close buffer", defaultOpts },
   ["<C-q>"] = { ":q<CR>", desc = "Close buffer", defaultOpts },
-  ["<M-q>"] = { ":q<CR>", desc = "Close buffer", defaultOpts },
+  -- ["<M-q>"] = { ":q<CR>", desc = "Close buffer", defaultOpts },
 
   -- File operations
   ["<C-s>"] = { ":w<cr>", desc = "Save", defaultOpts },
@@ -54,15 +56,14 @@ lvim.keys.normal_mode = {
   -- ["<C-w><C-q>"] = { ":tabc<cr>", desc = "Close current tab" },
   -- NOTE: currently trying to use C@M config
   -- Tab management
-  ["<M-t>"] = { ":tabnew<cr>", desc = "Open new tab", defaultOpts },
-  ["<M-w>"] = { ":tabc<cr>", desc = "Close current tab", defaultOpts },
-  ["<M-r>"] = { ":terminal<cr>", desc = "Open terminal", defaultOpts },
-  ["<M-h>"] = { ":tabp<cr>", desc = "Previous tab", defaultOpts },
-  ["<M-l>"] = { ":tabn<cr>", desc = "Next tab", defaultOpts },
-  -- Window
-  ["<M-s>"] = { ":split<cr>", desc = "Split window" },
-  ["<M-v>"] = { ":vsplit<cr>", desc = "Vsplit window" },
-
+  -- ["<M-t>"] = { ":tabnew<cr>", desc = "Open new tab", defaultOpts },
+  -- ["<M-w>"] = { ":tabc<cr>", desc = "Close current tab", defaultOpts },
+  -- ["<M-r>"] = { ":terminal<cr>", desc = "Open terminal", defaultOpts },
+  -- ["<M-h>"] = { ":tabp<cr>", desc = "Previous tab", defaultOpts },
+  -- ["<M-l>"] = { ":tabn<cr>", desc = "Next tab", defaultOpts },
+  -- -- Window
+  -- ["<M-s>"] = { ":split<cr>", desc = "Split window" },
+  -- ["<M-v>"] = { ":vsplit<cr>", desc = "Vsplit window" },
   -- Window resize
   ["<Up>"] = { ":resize +5<cr>", desc = "Upsize", defaultOpts },
   ["<Down>"] = { ":resize -5<cr>", desc = "Downsize", defaultOpts },
@@ -71,18 +72,28 @@ lvim.keys.normal_mode = {
 
   -- Text and content manipulation
   ["<C-a>"] = { "ggVG", desc = "Select all", defaultOpts },
-  ["<M-CR>"] = { ":lua vim.lsp.buf.code_action()<CR>", desc = "Code action", defaultOpts },
 
-  -- HARPOON
-  [";r"] = { ':lua require("harpoon.ui").toggle_quick_menu()<cr>', defaultOpts },
-  [";a"] = { ':lua require("harpoon.mark").add_file()<cr>', defaultOpts },
-  [";s"] = { ":Telescope session-lens search_session<cr>", defaultOpts },
 
   -- Others
   ["gR"] = { "<cmd>Trouble lsp_references<CR>", desc = "LSP References", defaultOpts },
   ["f"] = { ":HopChar2<cr>", desc = "Hop", defaultOpts },
 
-  -- ["gl"] = { ":Glow<cr>", desc = "Glow - Markdown preview", defaultOpts },
+  -- NOTE: Leader ; key
+  [";q"] = { ":q<CR>", desc = "Close buffer", defaultOpts },
+  [";t"] = { ":tabnew<cr>", desc = "Open new tab", defaultOpts },
+  [";w"] = { ":tabc<cr>", desc = "Close current tab", defaultOpts },
+  [";m"] = { ":terminal<cr>", desc = "Open terminal", defaultOpts },
+  [";h"] = { ":tabp<cr>", desc = "Previous tab", defaultOpts },
+  [";l"] = { ":tabn<cr>", desc = "Next tab", defaultOpts },
+  -- HARPOON
+  [";r"] = { ':lua require("harpoon.ui").toggle_quick_menu()<cr>', defaultOpts },
+  [";a"] = { ':lua require("harpoon.mark").add_file()<cr>', defaultOpts },
+  [";s"] = { ":Telescope session-lens search_session<cr>", defaultOpts },
+  -- NOTE: Leader M key
+  -- Window
+  ["<M-s>"] = { ":split<cr>", desc = "Split window" },
+  ["<M-v>"] = { ":vsplit<cr>", desc = "Vsplit window" },
+  ["<M-CR>"] = { ":lua vim.lsp.buf.code_action()<CR>", desc = "Code action", defaultOpts },
 }
 
 -- Insert mode key mappings
@@ -133,10 +144,14 @@ lvim.keys.term_mode = {
   [";;"] = "<C-\\><C-n>",
 
   -- Movement
-  ["<M-j>"] = "<Down>",
-  ["<M-k>"] = "<Up>",
-  ["<M-h>"] = "<Left>",
-  ["<M-l>"] = "<Right>",
+  -- ["<M-j>"] = "<Down>",
+  -- ["<M-k>"] = "<Up>",
+  -- ["<M-h>"] = "<Left>",
+  -- ["<M-l>"] = "<Right>",
+  [";j"] = "<Down>",
+  [";k"] = "<Up>",
+  [";h"] = "<Left>",
+  [";l"] = "<Right>",
   ["<C-,>"] = "<C-Left>",
   ["<C-.>"] = "<C-Right>",
 
@@ -148,10 +163,15 @@ lvim.keys.term_mode = {
 }
 
 -- C@Machine config
-keymap("n", "<m-h>", "<C-w>h", defaultOpts)
-keymap("n", "<m-j>", "<C-w>j", defaultOpts)
-keymap("n", "<m-k>", "<C-w>k", defaultOpts)
-keymap("n", "<m-l>", "<C-w>l", defaultOpts)
+-- keymap("n", "<m-h>", "<C-w>h", defaultOpts)
+-- keymap("n", "<m-j>", "<C-w>j", defaultOpts)
+-- keymap("n", "<m-k>", "<C-w>k", defaultOpts)
+-- keymap("n", "<m-l>", "<C-w>l", defaultOpts)
+
+keymap("n", ";h", "<C-w>h", defaultOpts)
+keymap("n", ";j", "<C-w>j", defaultOpts)
+keymap("n", ";k", "<C-w>k", defaultOpts)
+keymap("n", ";l", "<C-w>l", defaultOpts)
 
 -- keymap("n", "<c-j>", "<c-d>", defaultOpts)
 -- keymap("n", "<c-k>", "<c-u>", defaultOpts)
