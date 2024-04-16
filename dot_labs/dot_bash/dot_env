@@ -1,7 +1,8 @@
 export IS_CONFIGURED=1
 export VOLTA_HOME="$HOME/.volta"
-ZSH_THEME="clean"
+ZSH_THEME="refined"
 export PATH="$VOLTA_HOME/bin:$PATH"
 export PATH="$PATH:/home/$USER/.local/bin"
-export EDITOR='lvim'
+#export EDITOR='lvim'
+export EDITOR='nvim'
 

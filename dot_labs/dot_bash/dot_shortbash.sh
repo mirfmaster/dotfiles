@@ -6,7 +6,7 @@ alias hibernate="systemctl hibernate"
 
 alias kf="kitty --start-as=fullscreen && exit"
 alias lv="lvim"
-alias v="lvim"
+alias v="nvim"
 alias xx="exit"
 alias x="exit"
 alias c="cd"
