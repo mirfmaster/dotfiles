@@ -1,14 +1,3 @@
--- Theme
--- lvim.colorscheme = "tokyonight-moon"
--- lvim.colorscheme = "tokyonight"
-lvim.colorscheme = "tokyodark"
--- lvim.colorscheme = "substrata"
--- lvim.colorscheme = "carbonfox"
--- lvim.colorscheme = "kanagawa-wave"
-
--- lvim.colorscheme = "nordfox"
--- lvim.colorscheme = "vn-night"
-
 -- GLOBAL GENERAL CONFIG
 lvim.leader = "space"
 lvim.log.level = "warn"
