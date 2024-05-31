@@ -1,13 +1,21 @@
+
+-- vim.keymap.set(
+-- 	{"n", "x"},
+-- 	"<leader>rr",
+-- 	function() require('telescope').extensions.refactoring.refactors() end
+-- )
+
+--tte
 return {
   -- disabling alpha nvim
   {
     "rcarriga/nvim-notify",
-    opts = {
-      timeout = 1000,
-      stages = "slide",
-      fps = 144,
-      max_width = 70,
-    },
+    -- opts = {
+    --   timeout = 1000,
+    --   stages = "slide",
+    --   fps = 144,
+    --   max_width = 70,
+    -- },
   },
   -- { "goolord/alpha-nvim", enabled = false },
 
@@ -44,7 +52,7 @@ return {
   -- { 'nacro90/numb.nvim' },
   { "folke/zen-mode.nvim", },
   { "psliwka/vim-smoothie" },
-    {
+  {
     "karb94/neoscroll.nvim",
     event = "BufRead",
     config = function()
@@ -60,6 +68,69 @@ return {
         post_hook = nil, -- Function to run after the scrolling animation ends
         performance_mode = false, -- Disable "Performance Mode" on all buffers.
       }
+    end,
+  },
+  {
+    "ThePrimeagen/refactoring.nvim",
+    lazy = true,
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+    },
+    config = function()
+      require('refactoring').setup({
+        -- overriding printf statement for cpp
+        print_var_statements = {
+            -- add a custom print var statement for cpp
+            php = {
+                -- 'dump("Variable: %s", %s);'
+                'dump(\'Variable: %s %s\', %s);'
+            },
+            go = {
+                'fmt.Println(fmt.Sprintf("%s %%+v ", %s))'
+            }
+        },
+        printf_statements = {
+            -- add a custom print var statement for cpp
+            php = {
+                'dump("Debugging: %s");'
+            }
+        }
+      })
+      -- require("telescope").load_extension("refactoring")
+    end,
+  },
+  {
+  "nvim-neotest/neotest",
+    dependencies = {
+      "nvim-neotest/nvim-nio",
+      "nvim-lua/plenary.nvim",
+      "antoinemadec/FixCursorHold.nvim",
+      "nvim-treesitter/nvim-treesitter",
+
+      -- ADAPTERS
+      "nvim-neotest/neotest-go",
+      "nvim-neotest/neotest-vim-test",
+    },
+    config = function()
+      -- get neotest namespace (api call creates or returns namespace)
+      local neotest_ns = vim.api.nvim_create_namespace("neotest")
+      vim.diagnostic.config({
+        virtual_text = {
+          format = function(diagnostic)
+            local message =
+              diagnostic.message:gsub("\n", " "):gsub("\t", " "):gsub("%s+", " "):gsub("^%s+", "")
+            return message
+          end,
+        },
+      }, neotest_ns)
+      require("neotest").setup({
+          -- your neotest config here
+          adapters = {
+            require("neotest-go"),
+            require("neotest-vim-test"),
+        },
+      })
     end,
   },
 }
