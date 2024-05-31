@@ -19,7 +19,7 @@ return {
       highlighturl = true,                              -- highlight URLs at start
       notifications = true,                             -- enable notifications at start
 
-      -- conceallevel = 0, -- disable conceal
+      conceallevel = 3, -- disable conceal
       -- linebreak = true, -- linebreak soft wrap at words
       list = true, -- show whitespace characters
     },
@@ -37,6 +37,7 @@ return {
         signcolumn = "auto",   -- sets vim.opt.signcolumn to auto
         wrap = true,           -- sets vim.opt.wrap
         breakindent = true,    -- sets vim.opt.breakindent
+        conceallevel = 3, -- disable conceal
       },
       g = {                    -- vim.g.<key>
         -- configure global vim variables (vim.g)
@@ -79,16 +80,38 @@ return {
         ["f"] = { ":HopChar2<cr>", desc = "Hop" },
 
         -- TERMINAL
-        [";t"] = { ":tabnew<cr>", desc = "Open new tab" },
-        [";w"] = { ":tabc<cr>", desc = "Close current tab" },
+        [";wq"] = { ":tabc<cr>", desc = "Close current tab" },
+        [";wa"] = { ":tabnew<cr>", desc = "Open current tab" },
         [";m"] = { ":terminal<cr>", desc = "Open terminal" },
         [";h"] = { ":tabp<cr>", desc = "Previous tab" },
         [";l"] = { ":tabn<cr>", desc = "Next tab" },
+        [";m"] = { ":terminal<cr>", desc = "Terminal" },
+
+        -- REFACTOR
+        [";dV"] = { function() require('refactoring').debug.print_var({below = false}) end, desc = "Print var before" },
+        [";dv"] = { function() require('refactoring').debug.print_var({}) end, desc = "Print var after" },
+        [";dF"] = { function() require('refactoring').debug.printf({below = false}) end, desc = "Print debug before" },
+        [";df"] = { function() require('refactoring').debug.printf({}) end, desc = "Print debug after" },
+        [";dc"] = { function() require('refactoring').debug.cleanup({}) end, desc = "Clear debugging" },
+
+        -- Neotest
+        [";na"] = { ":Neotest attach<cr>", desc = "Neotest attach" },
+        [";ns"] = { ":Neotest summary<cr>", desc = "Neotest summary" },
+        [";np"] = { ":Neotest output-panel<cr>", desc = "Neotest output-panel" },
+        [";no"] = { ":Neotest output<cr>", desc = "Neotest output" },
+        [";nt"] = { function() require("neotest").run.run() end, desc = "Neotest current test" },
+        [";nd"] = { function() require("neotest").run.run({ strategy="dap" }) end, desc = "Neotest current debug" },
+
+        -- Neotest
+        [";od"] = { ":ObsidianDailies<cr>", desc = "Obisidian Dailies" },
+        [";ob"] = { ":ObsidianBacklinks<cr>", desc = "Obisidian Backlinks" },
+        [";or"] = { ":ObsidianRename<cr>", desc = "Obisidian Rename" },
+
 
         -- HARPOON
         [";r"] = { ':lua require("harpoon.ui").toggle_quick_menu()<cr>' },
         [";a"] = { ':lua require("harpoon.mark").add_file()<cr>' },
-        [";s"] = { ":Telescope session-lens search_session<cr>" },
+        -- [";s"] = {":Telescope session-lens search_session<cr>" },
 
         -- ZEN MODE
         [";z"] = { ':ZenMode<cr>' },
@@ -98,6 +121,8 @@ return {
         ["<M-k>"] = { "<Up>", desc = "Buffers" },
         ["<M-j>"] = { "<Down>", desc = "Buffers" },
         ["<M-l>"] = { "<Right>", desc = "Buffers" },
+
+        ["<C-BS>"] = { "<C-w>", desc = "Delete a word" },
       },
       t = {
         -- setting a mapping to false will disable it
@@ -114,6 +139,10 @@ return {
         -- -- Paste most recent yank
         ["p"] = { '"0p' },
         ["P"] = { '"0P' },
+      },
+      x = {
+        [";dv"] = { function() require('refactoring').debug.print_var({}) end, desc = "Next tab" },
+        [";dV"] = { function() require('refactoring').debug.print_var({below = false}) end, desc = "Next tab" },
       },
     },
   },
