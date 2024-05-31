@@ -4,7 +4,12 @@
 -- Configuration documentation can be found with `:h astrocore`
 -- NOTE: We highly recommend setting up the Lua Language Server (`:LspInstall lua_ls`)
 --       as this provides autocomplete and documentation while editing
-
+---
+local resession = require("resession")
+resession.setup()
+-- -- Resession does NOTHING automagically, so we have to set up some keymaps
+-- vim.keymap.set("n", "<leader>ss", resession.save)
+-- vim.keymap.set("n", "<leader>sl", resession.load)
 ---@type LazySpec
 return {
   "AstroNvim/astrocore",
@@ -111,7 +116,14 @@ return {
         -- HARPOON
         [";r"] = { ':lua require("harpoon.ui").toggle_quick_menu()<cr>' },
         [";a"] = { ':lua require("harpoon.mark").add_file()<cr>' },
-        -- [";s"] = {":Telescope session-lens search_session<cr>" },
+        [";s"] = { resession.load},
+        -- [";s"] = {
+        --   function()
+        --     local resession = require("resession")
+        --     resession.setup().load
+        --   end,
+        --   desc = "test"
+        -- },
 
         -- ZEN MODE
         [";z"] = { ':ZenMode<cr>' },
