@@ -11,47 +11,55 @@ sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply mirfmaster
 ```
 
 ### Retrieving Encrypted Files
-Currently, there are no significant vulnerabilities associated with GPG as per the latest CVE records ([references](https://www.cvedetails.com/vulnerability-list/vendor_id-4711/Gnupg.html)). 
 
-This assures the security of the encryption method used for the files in this repository. 
-The encrypted files primarily contain private configurations rather than highly sensitive information. 
+Currently, there are no significant vulnerabilities associated with GPG as per the latest CVE records ([references](https://www.cvedetails.com/vulnerability-list/vendor_id-4711/Gnupg.html)).
+
+This assures the security of the encryption method used for the files in this repository.
+The encrypted files primarily contain private configurations rather than highly sensitive information.
 Therefore, it is safe to provide instructions for decrypting them here.
 
 [References](https://www.chezmoi.io/user-guide/encryption/gpg/)
-1. Import the private GPG key
-   
-	`gpg --import private.key`
-	
-3. Obtain the public GPG key ID
 
-	Retrieve the ID of your public key generated during the import process:
-	`gpg --list-keys`
-4. Insert the ID to be GPG Identifier
+1. Import the private GPG key
+
+   `gpg --import private.key`
+
+2. Obtain the public GPG key ID
+
+   Retrieve the ID of your public key generated during the import process:
+   `gpg --list-keys`
+
+3. Insert the ID to be GPG Identifier
 
 make a folder in `~/.config/chezmoi/chezmoi.toml`
+
 ```
 encryption = "gpg"
 [gpg]
     recipient = "ID_FROM_GPG_PUBLIC_KEY"
 ```
 
-
 ## Application list
 
 | Type                | Name          | Custom Configuration |
 | ------------------- | ------------- | -------------------- |
-| System Operation    | Pop_OS!       | ✅                    |
-| Terminal            | Kitty         | ✅                    |
-| Public DNS resolver | Warp-Cli      | ❌                    |
-| Text Editor         | neovim        | ❌                    |
-|                     | AstroNVIM     | ✅                    |
-|                     | LunarVIM      | ✅                    |
-| Second Brain        | Obsidian      | ✅                    |
-|                     | Obsidian-nvim | ✅                    |
-| Browser             | Chrome        | ✅                    |
-|                     | Firefox       | ❌                    |
-| Auth manager        | Bitwarden     | ✅                    |
-|                     | Authy         | ❌                    |
+| System Operation    | Pop_OS!       | ✅                   |
+| Terminal            | Kitty         | ✅                   |
+| Public DNS resolver | Warp-Cli      | ❌                   |
+| Text Editor         | neovim        | ❌                   |
+|                     | AstroNVIM     | ✅                   |
+|                     | LunarVIM      | ✅                   |
+| Second Brain        | Obsidian      | ✅                   |
+|                     | Obsidian-nvim | ✅                   |
+| Browser             | Chrome        | ✅                   |
+|                     | Firefox       | ❌                   |
+| Auth manager        | Bitwarden     | ✅                   |
+|                     | Authy         | ❌                   |
 
+## Custom keybindings
 
+### Pop_OS!
 
+- Start nvim in fullscreen kitty
+  - Command: `/usr/bin/kitty --start-as=fullscreen nvim`
+  - Keybind: `Super+N`
