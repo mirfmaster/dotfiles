@@ -41,6 +41,8 @@ encryption = "gpg"
 
 ## Application list
 
+### Main
+
 | Type                | Name          | Custom Configuration |
 | ------------------- | ------------- | -------------------- |
 | System Operation    | Pop_OS!       | ✅                   |
@@ -55,6 +57,10 @@ encryption = "gpg"
 |                     | Firefox       | ❌                   |
 | Auth manager        | Bitwarden     | ✅                   |
 |                     | Authy         | ❌                   |
+
+### Supports
+
+- [AppImageLauncher](https://github.com/TheAssassin/AppImageLauncher)
 
 ## Custom keybindings
 
