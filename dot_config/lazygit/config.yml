@@ -1,4 +1,7 @@
 git:
   paging:
     colorArg: always
-    pager: delta --dark --paging=never
+    pager: delta --line-numbers --dark --paging=never
+
+services:
+  "gitlab.zero-one-group.com": "gitlab:gitlab.zero-one-group.com"
