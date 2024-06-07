@@ -68,3 +68,6 @@ alias air='$(go env GOPATH)/bin/air'
 
 alias j="joplin"
 alias jd="~/.joplin/Joplin.AppImage"
+alias ssh-list='grep "^Host " ~/.ssh/config | grep -v "Host \*" | awk "{print NR \": \" \$2}"'
+
+alias vsc="code ."
