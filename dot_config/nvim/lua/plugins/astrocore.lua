@@ -24,7 +24,7 @@ return {
       highlighturl = true,                              -- highlight URLs at start
       notifications = true,                             -- enable notifications at start
 
-      conceallevel = 3, -- disable conceal
+      conceallevel = 2, -- disable conceal
       -- linebreak = true, -- linebreak soft wrap at words
       list = true, -- show whitespace characters
     },
@@ -42,7 +42,13 @@ return {
         signcolumn = "auto",   -- sets vim.opt.signcolumn to auto
         wrap = true,           -- sets vim.opt.wrap
         breakindent = true,    -- sets vim.opt.breakindent
-        conceallevel = 3, -- disable conceal
+        conceallevel = 2, -- disable conceal
+        scrolloff = 8,
+        scrolljump = 1,
+
+        swapfile = false,
+        backup = false,
+        writebackup = false,
       },
       g = {                    -- vim.g.<key>
         -- configure global vim variables (vim.g)
@@ -83,6 +89,8 @@ return {
         ["g*"] = { "g*zz" },
         ["g#"] = { "g#zz" },
         ["f"] = { ":HopChar2<cr>", desc = "Hop" },
+        ["<C-a>"] = { "ggVG" },
+        ["<a-s>"] = { ":noa w" },
 
         -- TERMINAL
         [";wq"] = { ":tabc<cr>", desc = "Close current tab" },
@@ -90,7 +98,6 @@ return {
         [";m"] = { ":terminal<cr>", desc = "Open terminal" },
         [";h"] = { ":tabp<cr>", desc = "Previous tab" },
         [";l"] = { ":tabn<cr>", desc = "Next tab" },
-        [";m"] = { ":terminal<cr>", desc = "Terminal" },
 
         -- REFACTOR
         [";dV"] = { function() require('refactoring').debug.print_var({below = false}) end, desc = "Print var before" },
@@ -106,6 +113,7 @@ return {
         [";no"] = { ":Neotest output<cr>", desc = "Neotest output" },
         [";nt"] = { function() require("neotest").run.run() end, desc = "Neotest current test" },
         [";nd"] = { function() require("neotest").run.run({ strategy="dap" }) end, desc = "Neotest current debug" },
+        [";nf"] = { function() require("neotest").run.run(vim.fn.expand("%")) end, desc = "Neotest current file" },
 
         -- Neotest
         [";od"] = { ":ObsidianDailies<cr>", desc = "Obisidian Dailies" },
@@ -140,8 +148,13 @@ return {
         -- setting a mapping to false will disable it
         -- ["<esc>"] = false,
         [";;"] = { "<C-\\><C-n>", desc = "Escape the terminal" },
-        [";h"] = { "<C-\\><C-n>;h", desc = "Escape the terminal" },
-        [";l"] = { "<C-\\><C-n>;l", desc = "Escape the terminal" },
+        [";h"] = { "<C-\\><C-n>:tabp<cr>", desc = "Previous tab" },
+        [";l"] = { "<C-\\><C-n>:tabn<cr>", desc = "Next tab" },
+
+        ["<M-h>"] = { "<Left>", desc = "Buffers" },
+        ["<M-k>"] = { "<Up>", desc = "Buffers" },
+        ["<M-j>"] = { "<Down>", desc = "Buffers" },
+        ["<M-l>"] = { "<Right>", desc = "Buffers" },
       },
       v = {
         -- Better indenting
