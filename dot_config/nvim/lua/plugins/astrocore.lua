@@ -90,7 +90,7 @@ return {
         ["g#"] = { "g#zz" },
         ["f"] = { ":HopChar2<cr>", desc = "Hop" },
         ["<C-a>"] = { "ggVG" },
-        ["<a-s>"] = { ":noa w" },
+        ["<a-s>"] = { ":noa w<CR>" },
 
         -- TERMINAL
         [";wq"] = { ":tabc<cr>", desc = "Close current tab" },
@@ -142,6 +142,8 @@ return {
         ["<M-j>"] = { "<Down>", desc = "Buffers" },
         ["<M-l>"] = { "<Right>", desc = "Buffers" },
 
+        ["<C-h>"] = { "<Left>", desc = "Buffers" },
+        ["<C-l>"] = { "<Right>", desc = "Buffers" },
         ["<C-BS>"] = { "<C-w>", desc = "Delete a word" },
       },
       t = {
