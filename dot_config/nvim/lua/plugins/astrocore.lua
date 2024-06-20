@@ -76,6 +76,7 @@ return {
           end,
           desc = "Pick to close",
         },
+        ["<Leader>E"] = { ":Neotree dir=./<CR>", desc = "NeoTree reset dir", },
         -- tables with just a `desc` key will be registered with which-key if it's installed
         -- this is useful for naming menus
         ["<Leader>b"] = { desc = "Buffers" },

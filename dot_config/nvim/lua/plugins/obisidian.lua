@@ -74,7 +74,7 @@ return {
     -- Set to false to disable completion.
     nvim_cmp = true,
     -- Trigger completion at 2 chars.
-    min_chars = 2,
+    min_chars = 0,
   },
 
   -- Optional, configure key mappings. These are the defaults. If you don't want to set any keymappings this
