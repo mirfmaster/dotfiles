@@ -64,8 +64,4 @@ encryption = "gpg"
 
 ## Custom keybindings
 
-### Pop_OS!
-
-- Start nvim in fullscreen kitty
-  - Command: `/usr/bin/kitty --start-as=fullscreen nvim`
-  - Keybind: `Super+N`
+- [Pop_OS! Keybindings](./dot_labs/docs/keybinding_popos.md)
