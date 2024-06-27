@@ -158,6 +158,9 @@ return {
         ["<M-k>"] = { "<Up>", desc = "Buffers" },
         ["<M-j>"] = { "<Down>", desc = "Buffers" },
         ["<M-l>"] = { "<Right>", desc = "Buffers" },
+
+        ["<C-w><C-v>"] = { "<C-\\><C-n>:vsplit<cr>", desc = "Buffers" },
+        ["<C-w><C-s>"] = { "<C-\\><C-n>:split<cr>", desc = "Buffers" },
       },
       v = {
         -- Better indenting
