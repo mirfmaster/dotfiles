@@ -8,9 +8,9 @@ sudo apt update -y && sudo apt upgrade -y && sudo apt install -y \
   git\
   ranger\
   ripgrep\
-  xmodmap\
   tree\
   wget\
+  btop
 
 ## ZSH INSTALLATION
 sudo apt install -y zsh

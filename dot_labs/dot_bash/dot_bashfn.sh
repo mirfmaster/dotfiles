@@ -21,3 +21,8 @@ gtfd() {
 
   /usr/sbin/terraform-docs --sort-by "required" -c "$template" "$path" > "$path/readme.md"
 }
+
+cmall() {
+    cm add ~/.labs/
+}
+
