@@ -26,3 +26,7 @@ cmall() {
     cm add ~/.labs/
 }
 
+cmsync() {
+  cm add ~/.labs/
+  cm re-add
+}

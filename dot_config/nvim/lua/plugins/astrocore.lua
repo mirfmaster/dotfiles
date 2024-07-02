@@ -89,7 +89,7 @@ return {
         ["#"] = { "#zz" },
         ["g*"] = { "g*zz" },
         ["g#"] = { "g#zz" },
-        ["f"] = { ":HopChar2<cr>", desc = "Hop" },
+        [";f"] = { ":HopChar2<cr>", desc = "Hop" },
         ["<C-a>"] = { "ggVG" },
         ["<a-s>"] = { ":noa w<CR>" },
 
