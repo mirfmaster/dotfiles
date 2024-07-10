@@ -121,3 +121,4 @@ export PATH="$PNPM_HOME:$PATH"
 
 export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:$GOPATH/bin
+DOCKER_HOST="unix:///var/run/docker.sock"

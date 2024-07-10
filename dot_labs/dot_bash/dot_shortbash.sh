@@ -15,6 +15,7 @@ alias h=history
 alias xport="kill-port"
 alias clear_history='cat /dev/null > ~/.bash_history && history -c'
 alias lg=lazygit
+alias ld=lazydocker
 # alias postman="~/Applications/Postman/Postman"
 alias postman="nohup ~/Applications/Postman/Postman &>/dev/null &"
 
