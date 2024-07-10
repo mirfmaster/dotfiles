@@ -44,6 +44,6 @@ cmsync() {
 
   cd ~/.local/share/chezmoi
   cmpush
-  cd -
   bl_info "Sync success, redirecting to previous pwd~"
+  cd -
 }
