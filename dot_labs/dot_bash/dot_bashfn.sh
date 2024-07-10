@@ -44,5 +44,6 @@ cmsync() {
 
   cd ~/.local/share/chezmoi
   cmpush
+  cd -
   # exit
 }
