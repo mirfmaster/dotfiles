@@ -25,9 +25,10 @@ customCommands:
     context: "files"
     command: "git {{if .SelectedFile.HasUnstagedChanges}} add {{else}} reset {{end}} {{.SelectedFile.Name | quote}}"
     description: "Toggle file staged"
-  - key: "C"
+  - key: "<C-f>"
     context: "global"
-    command: "git commit"
+    command: "git fetch --all"
+    loadingText: "Fetching all changes"
     subprocess: true
   - key: "n"
     context: "localBranches"
