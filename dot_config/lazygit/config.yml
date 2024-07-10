@@ -5,3 +5,50 @@ git:
 
 services:
   "gitlab.zero-one-group.com": "gitlab:gitlab.zero-one-group.com"
+
+os:
+  editPreset: "nvim"
+  open: "xdg-open {{filename}} >/dev/null"
+
+gui:
+  authorColors:
+    "Muhamad Iqbal": "#4682B4"
+  theme:
+    selectedLineBgColor:
+      - reverse
+
+customCommands:
+  - key: "<c-r>"
+    context: "commits"
+    command: 'hub browse -- "commit/{{.SelectedLocalCommit.Hash}}"'
+  - key: "a"
+    context: "files"
+    command: "git {{if .SelectedFile.HasUnstagedChanges}} add {{else}} reset {{end}} {{.SelectedFile.Name | quote}}"
+    description: "Toggle file staged"
+  - key: "C"
+    context: "global"
+    command: "git commit"
+    subprocess: true
+  - key: "n"
+    context: "localBranches"
+    prompts:
+      - type: "menu"
+        title: "What kind of branch is it?"
+        key: "BranchType"
+        options:
+          - name: "feature"
+            description: "a feature branch"
+            value: "feature"
+          - name: "hotfix"
+            description: "a hotfix branch"
+            value: "hotfix"
+          - name: "release"
+            description: "a release branch"
+            value: "release"
+      - type: "input"
+        title: "What is the new branch name?"
+        key: "BranchName"
+        initialValue: ""
+    command: >
+      bash -c 'branch_type="{{.Form.BranchType}}"; branch_name="{{.Form.BranchName}}"; new_branch="${branch_type}/${branch_name}"; git checkout -b "$new_branch"'
+    loadingText: "Creating branch"
