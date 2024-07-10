@@ -30,7 +30,7 @@ cmall() {
 }
 
 cmpush() {
-  bl_info "Pushing"
+  bl_info "Syncing working directory with remote repository"
   sleep 1
   ga .
   gcmsg "."
@@ -38,10 +38,10 @@ cmpush() {
 }
 
 cmsync() {
-  bl_info "Syncing local config with chezmoi with remote repository"
+  bl_info "Syncing local changes with working directory"
   cm add ~/.labs/
   cm re-add
-  # cmcd
+
   cd ~/.local/share/chezmoi
   cmpush
 }
