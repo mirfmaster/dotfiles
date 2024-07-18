@@ -6,4 +6,7 @@ return {
   { import = "astrocommunity.colorscheme.tokyonight-nvim" },
   -- 
   { import = "astrocommunity.diagnostics.trouble-nvim" },
+  --
+  { import = "astrocommunity.motion.mini-ai" },
+  { import = "astrocommunity.motion.mini-surround" },
 }

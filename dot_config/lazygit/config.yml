@@ -40,16 +40,19 @@ customCommands:
           - name: "feature"
             description: "a feature branch"
             value: "feature"
+          - name: "fix"
+            description: "a fix branch"
+            value: "fix"
           - name: "hotfix"
             description: "a hotfix branch"
             value: "hotfix"
-          - name: "release"
-            description: "a release branch"
-            value: "release"
+          - name: "dev"
+            description: "a playground branch"
+            value: "dev"
       - type: "input"
         title: "What is the new branch name?"
         key: "BranchName"
         initialValue: ""
     command: >
-      bash -c 'branch_type="{{.Form.BranchType}}"; branch_name="{{.Form.BranchName}}"; new_branch="${branch_type}/${branch_name}"; git checkout -b "$new_branch"'
+      bash -c 'branch_type="{{.Form.BranchType}}"; branch_name="{{.Form.BranchName}}"; sanitized_branch_name=$(echo "$branch_name" | sed "s/ /-/g"); new_branch="${branch_type}/${sanitized_branch_name}"; git checkout -b "$new_branch"'
     loadingText: "Creating branch"
