@@ -72,3 +72,5 @@ alias jd="~/.joplin/Joplin.AppImage"
 alias ssh-list='grep "^Host " ~/.ssh/config | grep -v "Host \*" | awk "{print NR \": \" \$2}"'
 
 alias vsc="code ."
+alias nscan="nmap -sP"
+alias nscanhome="nscan 192.168.100.0/24"
