@@ -1,25 +1,19 @@
 return {
   "epwalsh/obsidian.nvim",
   version = "*",  -- recommended, use latest release instead of latest commit
-  -- lazy = function ()
-  --   return string.find(vim.fn.getcwd(), "") == nil
-  -- end,
   lazy= false,
-  -- lazy = function()
-  --   -- __AUTO_GENERATED_PRINT_VAR_START__
-  --   print([==[function vim.fn.getcwd():]==], vim.inspect(vim.fn.getcwd())) -- __AUTO_GENERATED_PRINT_VAR_END__
-  --   -- __AUTO_GENERATED_PRINT_VAR_START__
-  --   print([==[function string.find(vim.fn.getcwd(), "") == nil:]==], vim.inspect(string.find(vim.fn.getcwd(), "") ~= nil)) -- __AUTO_GENERATED_PRINT_VAR_END__
-  --   return string.find(vim.fn.getcwd(), "") ~= nil
-  -- end,
   ft = "markdown",
   -- Replace the above line with this if you only want to load obsidian.nvim for markdown files in your vault:
-  -- event = {
-  --   -- If you want to use the home shortcut '~' here you need to call 'vim.fn.expand'.
-  --   -- E.g. "BufReadPre " .. vim.fn.expand "~" .. "/my-vault/**.md"
-  --   "BufReadPre /home/mirf/Documents//Personal/**.md",
-  --   "BufNewFile /home/mirf/Documents//Personal/**.md",
-  -- },
+  event = {
+    -- If you want to use the home shortcut '~' here you need to call 'vim.fn.expand'.
+    -- E.g. "BufReadPre " .. vim.fn.expand "~" .. "/my-vault/**.md"
+    "BufReadPre " .. vim.fn.expand "~" .. "/Personal/**.md",
+    "BufNewFile " .. vim.fn.expand "~" .. "/Personal/**.md",
+    "BufReadPre " .. vim.fn.expand "~" .. "/The Second Brain/**.md",
+    "BufNewFile " .. vim.fn.expand "~" .. "/The Second Brain/**.md",
+    -- "BufReadPre /home/mirf/Documents/Personal/**.md",
+    -- "BufNewFile /home/mirf/Documents/Personal/**.md",
+  },
   dependencies = {
     -- Required.
     "nvim-lua/plenary.nvim",
@@ -38,10 +32,10 @@ return {
       name = "The Second Brain",
       path = "~/Documents/Vaults/The Second Brain",
     },
-    -- {
-    --   name = "Personal",
-    --   path = "~/Documents/Vaults/Personal",
-    -- },
+    {
+      name = "Personal",
+      path = "~/Documents/Vaults/Personal",
+    },
   },
 
   -- Alternatively - and for backwards compatibility - you can set 'dir' to a single path instead of
@@ -94,31 +88,31 @@ return {
       end,
       opts = { buffer = true },
     },
-    -- Toggle check-boxes.
-    [";on"] = {
-      action = ":ObsidianNew<cr>",
-      opts = { buffer = true },
-    },
-    [";ot"] = {
-      action = ":ObsidianTemplate<cr>",
-      opts = { buffer = true },
-    },
-    [";ow"] = {
-      action = ":ObsidianWorkspace<cr>",
-      opts = { buffer = true },
-    },
-    [";od"] = {
-      action = ":ObsidianDailies<cr>",
-      opts = { buffer = true },
-    },
-    [";og"] = {
-      action = ":ObsidianTags<cr>",
-      opts = { buffer = true },
-    },
-    [";oo"] = {
-      action = ":ObsidianOpen<cr>",
-      opts = { buffer = true },
-    },
+    -- -- Toggle check-boxes.
+    -- [";on"] = {
+    --   action = ":ObsidianNew<cr>",
+    --   opts = { buffer = true },
+    -- },
+    -- [";ot"] = {
+    --   action = ":ObsidianTemplate<cr>",
+    --   opts = { buffer = true },
+    -- },
+    -- [";ow"] = {
+    --   action = ":ObsidianWorkspace<cr>",
+    --   -- opts = { buffer = true },
+    -- },
+    -- [";od"] = {
+    --   action = ":ObsidianDailies<cr>",
+    --   opts = { buffer = true },
+    -- },
+    -- [";og"] = {
+    --   action = ":ObsidianTags<cr>",
+    --   opts = { buffer = true },
+    -- },
+    -- [";oo"] = {
+    --   action = ":ObsidianOpen<cr>",
+    --   opts = { buffer = true },
+    -- },
     -- Smart action depending on context, either follow link or toggle checkbox.
     ["<cr>"] = {
       action = function()
@@ -134,33 +128,21 @@ return {
   -- new_notes_location = "notes_subdir",
 
   -- Optional, customize how note IDs are generated given an optional title.
-  ---@param title string|?
+  ---@param title string
   ---@return string
-  -- note_id_func = function(title)
-  --   -- Create note IDs in a Zettelkasten format with a timestamp and a suffix.
-  --   -- In this case a note with the title 'My new note' will be given an ID that looks
-  --   -- like '1657296016-my-new-note', and therefore the file name '1657296016-my-new-note.md'
-  --   local suffix = ""
-  --   if title ~= nil then
-  --     -- If title is given, transform it into valid file name.
-  --     suffix = title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
-  --   else
-  --     -- If title is nil, just add 4 random uppercase letters to the suffix.
-  --     for _ = 1, 4 do
-  --       suffix = suffix .. string.char(math.random(65, 90))
-  --     end
-  --   end
-  --   return tostring(os.time()) .. "-" .. suffix
-  -- end,
+  note_id_func = function(title)
+
+    return title
+  end,
 
   -- Optional, customize how note file names are generated given the ID, target directory, and title.
   -- ---@param spec { id: string, dir: obsidian.Path, title: string|? }
   -- ---@return string|obsidian.Path The full path to the new note.
-  -- note_path_func = function(spec)
-  --   -- This is equivalent to the default behavior.
-  --   local path = spec.dir / tostring(spec.id)
-  --   return path:with_suffix(".md")
-  -- end,
+  note_path_func = function(spec)
+    -- This is equivalent to the default behavior.
+    local path = spec.dir / tostring(spec.id)
+    return path:with_suffix(".md")
+  end,
 
   -- Optional, customize how wiki links are formatted. You can set this to one of:
   --  * "use_alias_only", e.g. '[[Foo Bar]]'
@@ -189,7 +171,7 @@ return {
 
   -- Optional, boolean or a function that takes a filename and returns a boolean.
   -- `true` indicates that you don't want obsidian.nvim to manage frontmatter.
-  disable_frontmatter = true,
+  disable_frontmatter = false,
 
   -- Optional, alternatively you can customize the frontmatter data.
   ---@return table

@@ -118,10 +118,15 @@ return {
         [";nd"] = { function() require("neotest").run.run({ strategy="dap" }) end, desc = "Neotest current debug" },
         [";nf"] = { function() require("neotest").run.run(vim.fn.expand("%")) end, desc = "Neotest current file" },
 
-        -- Neotest
+        -- Obsidian.nvim
         [";od"] = { ":ObsidianDailies<cr>", desc = "Obisidian Dailies" },
         [";ob"] = { ":ObsidianBacklinks<cr>", desc = "Obisidian Backlinks" },
         [";or"] = { ":ObsidianRename<cr>", desc = "Obisidian Rename" },
+        [";on"] = { ":ObsidianNew<cr>", desc = "Obisidian New Files" },
+        [";ow"] = { ":ObsidianWorkspace<cr>", desc = "Obisidian Workspace" },
+        [";og"] = { ":ObsidianTags<cr>", desc = "Obisidian Workspace" },
+        [";ot"] = { ":ObsidianTemplate<cr>", desc = "Obisidian Templates" },
+        [";oo"] = { ":ObsidianOpen<cr>", desc = "Obisidian Open" },
 
 
         -- HARPOON
@@ -144,6 +149,8 @@ return {
         ["<M-k>"] = { "<Up>", desc = "Buffers" },
         ["<M-j>"] = { "<Down>", desc = "Buffers" },
         ["<M-l>"] = { "<Right>", desc = "Buffers" },
+
+        ["<C-c>"] = false, -- disable to force brain use jj / jk
 
         ["<C-h>"] = { "<Left>", desc = "Buffers" },
         ["<C-l>"] = { "<Right>", desc = "Buffers" },

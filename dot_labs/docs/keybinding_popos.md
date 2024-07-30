@@ -35,8 +35,10 @@
 ## Custom Shortcuts
 
 - **Focus monitor left:**
+
   - Command: `/usr/bin/xdotool mousemove 500 75 click 1`
   - Shortcut: `Super + ,`
+
 - **Focus monitor right:**
 
   - Command: `/usr/bin/xdotool mousemove 2420 35 click 1`
@@ -48,5 +50,16 @@
   - Shortcut: `Super + N`
 
 - **Reload Xmodmap:**
+
   - Command: `/usr/bin/xmodmap ~/.Xmodmap`
   - Shortcut: `Super + F12`
+
+- **Open The Second Brain:**
+
+  - Command: `/home/mirf/.local/bin/kitty -d /home/mirf/Documents/Vaults/The\ Second\ Brain nvim`
+  - Shortcut: `Super + [`
+
+- **Open Personal:**
+
+  - Command: `/home/mirf/.local/bin/kitty -d /home/mirf/Documents/Vaults/Personal nvim`
+  - Shortcut: `Super + ]`

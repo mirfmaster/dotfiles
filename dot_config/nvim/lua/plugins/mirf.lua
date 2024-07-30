@@ -208,4 +208,5 @@ return {
       return opts
     end,
   },
+  { 'echasnovski/mini.trailspace', version = '*' },
 }
