@@ -35,6 +35,13 @@ return {
     {
       name = "Personal",
       path = "~/Documents/Vaults/Personal",
+      overrides = {
+          daily_notes = {
+            folder = "01 Timebox",
+            date_format = "%Y/%m/%d",
+            template = "99 Templates/Time boxing template.md"
+          },
+      }
     },
   },
 
