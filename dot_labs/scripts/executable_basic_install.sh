@@ -10,6 +10,7 @@ sudo apt update -y && sudo apt upgrade -y && sudo apt install -y \
   ripgrep\
   tree\
   wget\
+  fzf\
   btop
 
 ## ZSH INSTALLATION
