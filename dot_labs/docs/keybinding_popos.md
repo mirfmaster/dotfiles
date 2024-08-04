@@ -56,10 +56,10 @@
 
 - **Open The Second Brain:**
 
-  - Command: `/home/mirf/.local/bin/kitty -d /home/mirf/Documents/Vaults/The\ Second\ Brain nvim`
+  - Command: `sh -c "$(which kitty) -d /home/mirf/Documents/Vaults/The\ Second\ Brain nvim"`
   - Shortcut: `Super + [`
 
 - **Open Personal:**
 
-  - Command: `/home/mirf/.local/bin/kitty -d /home/mirf/Documents/Vaults/Personal nvim`
+  - Command: `sh -c "$(which kitty) -d /home/mirf/Documents/Vaults/Personal nvim"`
   - Shortcut: `Super + ]`
