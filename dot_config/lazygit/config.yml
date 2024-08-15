@@ -56,3 +56,12 @@ customCommands:
     command: >
       bash -c 'branch_type="{{.Form.BranchType}}"; branch_name="{{.Form.BranchName}}"; sanitized_branch_name=$(echo "$branch_name" | sed "s/ /-/g"); new_branch="${branch_type}/${sanitized_branch_name}"; git checkout -b "$new_branch"'
     loadingText: "Creating branch"
+  - key: "<C-n>"
+    context: "files"
+    prompts:
+      - type: "input"
+        title: "Commit message"
+        key: "message"
+    command: "git commit --no-verify -m '{{.Form.message}}'"
+    loadingText: "Committing changes without hook"
+    description: "Commit without hook"
