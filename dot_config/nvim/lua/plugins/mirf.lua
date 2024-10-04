@@ -111,6 +111,7 @@ return {
       -- ADAPTERS
       "nvim-neotest/neotest-go",
       "nvim-neotest/neotest-vim-test",
+      "olimorris/neotest-phpunit",
     },
     config = function()
       -- get neotest namespace (api call creates or returns namespace)
@@ -129,6 +130,7 @@ return {
           adapters = {
             require("neotest-go"),
             require("neotest-vim-test"),
+            require("neotest-phpunit"),
         },
       })
     end,
@@ -332,4 +334,21 @@ return {
     end,
   },
   { 'echasnovski/mini.trailspace', version = '*' },
+  {
+    "kawre/leetcode.nvim",
+    build = ":TSUpdate html",
+    dependencies = {
+        "nvim-telescope/telescope.nvim",
+        "nvim-lua/plenary.nvim", -- required by telescope
+        "MunifTanjim/nui.nvim",
+
+        -- optional
+        "nvim-treesitter/nvim-treesitter",
+        "rcarriga/nvim-notify",
+        "nvim-tree/nvim-web-devicons",
+    },
+    opts = {
+        -- configuration goes here
+    },
+  }
 }
