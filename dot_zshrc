@@ -121,4 +121,7 @@ export PATH="$PNPM_HOME:$PATH"
 
 export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:$GOPATH/bin
+export PATH="/home/mirf/.moon/bin:$PATH"
+export PATH="$PATH:$(go env GOPATH)/bin"
+
 DOCKER_HOST="unix:///var/run/docker.sock"
