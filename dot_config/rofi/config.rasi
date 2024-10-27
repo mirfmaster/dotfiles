@@ -1,0 +1,9 @@
+configuration {
+  modes: [ combi ];
+  combi-modes: [ window, drun, run ];
+}
+
+//@theme "gruvbox-light"
+ 
+/* Insert theme modifications after this */
+@theme "/usr/share/rofi/themes/Arc-Dark.rasi"
