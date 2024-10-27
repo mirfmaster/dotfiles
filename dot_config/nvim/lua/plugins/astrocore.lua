@@ -45,6 +45,9 @@ return {
         conceallevel = 2, -- disable conceal
         scrolloff = 8,
         scrolljump = 1,
+        
+        shiftwidth = 4,
+        tabstop = 4,
 
         swapfile = false,
         backup = false,
