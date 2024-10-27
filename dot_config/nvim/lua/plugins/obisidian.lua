@@ -95,6 +95,32 @@ return {
       end,
       opts = { buffer = true },
     },
+    -- -- Toggle check-boxes.
+    -- [";on"] = {
+    --   action = ":ObsidianNew<cr>",
+    --   opts = { buffer = true },
+    -- },
+    -- [";ot"] = {
+    --   action = ":ObsidianTemplate<cr>",
+    --   opts = { buffer = true },
+    -- },
+    -- [";ow"] = {
+    --   action = ":ObsidianWorkspace<cr>",
+    --   -- opts = { buffer = true },
+    -- },
+    -- [";od"] = {
+    --   action = ":ObsidianDailies<cr>",
+    --   opts = { buffer = true },
+    -- },
+    -- [";og"] = {
+    --   action = ":ObsidianTags<cr>",
+    --   opts = { buffer = true },
+    -- },
+    -- [";oo"] = {
+    --   action = ":ObsidianOpen<cr>",
+    --   opts = { buffer = true },
+    -- },
+    -- Smart action depending on context, either follow link or toggle checkbox.
     ["<cr>"] = {
       action = function()
         return require("obsidian").util.smart_action()
@@ -152,7 +178,7 @@ return {
 
   -- Optional, boolean or a function that takes a filename and returns a boolean.
   -- `true` indicates that you don't want obsidian.nvim to manage frontmatter.
-  disable_frontmatter = true,
+  disable_frontmatter = false,
 
   -- Optional, alternatively you can customize the frontmatter data.
   ---@return table
@@ -162,7 +188,7 @@ return {
       note:add_alias(note.title)
     end
 
-    local out = { aliases = note.aliases }
+    local out = { aliases = note.aliases, tags = note.tags }
 
     -- `note.metadata` contains any manually added fields in the frontmatter.
     -- So here we just make sure those fields are kept in the frontmatter.
