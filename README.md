@@ -65,3 +65,12 @@ encryption = "gpg"
 ## Custom keybindings
 
 - [Pop_OS! Keybindings](./dot_labs/docs/keybinding_popos.md)
+
+
+# AWESOME WM MODE
+```bash
+sudo apt install scrot awesome-extra unclutter brightnessctl i3lock-fancy rofi bluez bluez-tools blueman
+```
+
+Touchpad enable tapping
+https://www.reddit.com/r/awesomewm/comments/ik15im/comment/g3hjis1/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
