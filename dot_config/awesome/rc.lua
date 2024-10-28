@@ -90,6 +90,7 @@ local function run_once(cmd_arr)
 
     awful.spawn.once("xmodmap ~/.Xmodmap")
     awful.spawn.once("~/.config/awesome/monitor-handler.sh")
+    awful.spawn.once("xinput set-prop 9 332 1")
 end
 
 run_once({
@@ -1006,7 +1007,7 @@ client.connect_signal("request::titlebars", function(c)
             layout  = wibox.layout.flex.horizontal
         },
         { -- Right
-            -- awful.titlebar.widget.maximizedbutton(c),
+            awful.titlebar.widget.maximizedbutton(c),
             awful.titlebar.widget.stickybutton(c),
             awful.titlebar.widget.ontopbutton(c),
             awful.titlebar.widget.closebutton(c),
