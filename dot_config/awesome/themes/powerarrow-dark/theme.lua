@@ -5,19 +5,31 @@
 
 --]]
 
-local gears = require("gears")
-local lain  = require("lain")
-local awful = require("awful")
-local wibox = require("wibox")
-local dpi   = require("beautiful.xresources").apply_dpi
+local gears                                     = require("gears")
+local lain                                      = require("lain")
+local awful                                     = require("awful")
+local wibox                                     = require("wibox")
+local dpi                                       = require("beautiful.xresources").apply_dpi
 
-local os = os
-local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
+local os                                        = os
+local my_table                                  = awful.util.table or gears.table -- 4.{0,1} compatibility
 
 local theme                                     = {}
 theme.dir                                       = os.getenv("HOME") .. "/.config/awesome/themes/powerarrow-dark"
 theme.wallpaper                                 = theme.dir .. "/wall.png"
 theme.font                                      = "Terminus 9"
+-- theme.fg_normal                                 = "#DDDDFF"
+-- theme.fg_focus                                  = "#EA6F81"
+-- theme.fg_urgent                                 = "#CC9393"
+-- theme.bg_normal                                 = "#1A1A1A"
+-- theme.bg_focus                                  = "#313131"
+-- theme.bg_urgent                                 = "#1A1A1A"
+-- theme.border_width                              = dpi(1)
+-- theme.border_normal                             = "#3F3F3F"
+-- theme.border_focus                              = "#7F7F7F"
+-- theme.border_marked                             = "#CC9393"
+-- theme.tasklist_bg_focus                         = "#1A1A1A"
+
 theme.fg_normal                                 = "#DDDDFF"
 theme.fg_focus                                  = "#EA6F81"
 theme.fg_urgent                                 = "#CC9393"
@@ -29,6 +41,7 @@ theme.border_normal                             = "#3F3F3F"
 theme.border_focus                              = "#7F7F7F"
 theme.border_marked                             = "#CC9393"
 theme.tasklist_bg_focus                         = "#1A1A1A"
+
 theme.titlebar_bg_focus                         = theme.bg_focus
 theme.titlebar_bg_normal                        = theme.bg_normal
 theme.titlebar_fg_focus                         = theme.fg_focus
@@ -88,14 +101,14 @@ theme.titlebar_maximized_button_normal_active   = theme.dir .. "/icons/titlebar/
 theme.titlebar_maximized_button_focus_inactive  = theme.dir .. "/icons/titlebar/maximized_focus_inactive.png"
 theme.titlebar_maximized_button_normal_inactive = theme.dir .. "/icons/titlebar/maximized_normal_inactive.png"
 
-local markup = lain.util.markup
-local separators = lain.util.separators
+local markup                                    = lain.util.markup
+local separators                                = lain.util.separators
 
-local keyboardlayout = awful.widget.keyboardlayout:new()
+-- local keyboardlayout                            = awful.widget.keyboardlayout:new()
 
 -- Textclock
-local clockicon = wibox.widget.imagebox(theme.widget_clock)
-local clock = awful.widget.watch(
+-- local clockicon                                 = wibox.widget.imagebox(theme.widget_clock)
+local clock                                     = awful.widget.watch(
     "date +'%a %d %b %R'", 60,
     function(widget, stdout)
         widget:set_markup(" " .. markup.font(theme.font, stdout))
@@ -103,7 +116,7 @@ local clock = awful.widget.watch(
 )
 
 -- Calendar
-theme.cal = lain.widget.cal({
+theme.cal                                       = lain.widget.cal({
     attach_to = { clock },
     notification_preset = {
         font = "Terminus 10",
@@ -113,7 +126,7 @@ theme.cal = lain.widget.cal({
 })
 
 -- Mail IMAP check
-local mailicon = wibox.widget.imagebox(theme.widget_mail)
+-- local mailicon                                  = wibox.widget.imagebox(theme.widget_mail)
 --[[ commented because it needs to be set before use
 mailicon:buttons(my_table.join(awful.button({ }, 1, function () awful.spawn(mail) end)))
 theme.mail = lain.widget.imap({
@@ -137,16 +150,16 @@ theme.mail = lain.widget.imap({
 local musicplr = awful.util.terminal .. " -title Music -e ncmpcpp"
 local mpdicon = wibox.widget.imagebox(theme.widget_music)
 mpdicon:buttons(my_table.join(
-    awful.button({ "Mod4" }, 1, function () awful.spawn(musicplr) end),
-    awful.button({ }, 1, function ()
+    awful.button({ "Mod4" }, 1, function() awful.spawn(musicplr) end),
+    awful.button({}, 1, function()
         os.execute("mpc prev")
         theme.mpd.update()
     end),
-    awful.button({ }, 2, function ()
+    awful.button({}, 2, function()
         os.execute("mpc toggle")
         theme.mpd.update()
     end),
-    awful.button({ }, 3, function ()
+    awful.button({}, 3, function()
         os.execute("mpc next")
         theme.mpd.update()
     end)))
@@ -154,7 +167,7 @@ theme.mpd = lain.widget.mpd({
     settings = function()
         if mpd_now.state == "play" then
             artist = " " .. mpd_now.artist .. " "
-            title  = mpd_now.title  .. " "
+            title  = mpd_now.title .. " "
             mpdicon:set_image(theme.widget_music_on)
         elseif mpd_now.state == "pause" then
             artist = " mpd "
@@ -173,7 +186,8 @@ theme.mpd = lain.widget.mpd({
 local memicon = wibox.widget.imagebox(theme.widget_mem)
 local mem = lain.widget.mem({
     settings = function()
-        widget:set_markup(markup.font(theme.font, " " .. mem_now.used .. "MB "))
+        local used_gb = string.format("%.1f", mem_now.used / 1024)
+        widget:set_markup(markup.font(theme.font, " " .. used_gb .. "GB (" .. mem_now.perc .. "%) "))
     end
 })
 
@@ -194,7 +208,7 @@ local temp = lain.widget.temp({
 })
 
 -- / fs
-local fsicon = wibox.widget.imagebox(theme.widget_hdd)
+-- local fsicon = wibox.widget.imagebox(theme.widget_hdd)
 --[[ commented because it needs Gio/Glib >= 2.54
 theme.fs = lain.widget.fs({
     notification_preset = { fg = theme.fg_normal, bg = theme.bg_normal, font = "Terminus 10" },
@@ -244,28 +258,39 @@ theme.volume = lain.widget.alsa({
     end
 })
 theme.volume.widget:buttons(awful.util.table.join(
-                               awful.button({}, 4, function ()
-                                     awful.util.spawn("amixer set Master 1%+")
-                                     theme.volume.update()
-                               end),
-                               awful.button({}, 5, function ()
-                                     awful.util.spawn("amixer set Master 1%-")
-                                     theme.volume.update()
-                               end)
+    awful.button({}, 4, function()
+        awful.util.spawn("amixer set Master 1%+")
+        theme.volume.update()
+    end),
+    awful.button({}, 5, function()
+        awful.util.spawn("amixer set Master 1%-")
+        theme.volume.update()
+    end)
 ))
 
 -- Net
 local neticon = wibox.widget.imagebox(theme.widget_net)
-local net = lain.widget.net({
+local net     = lain.widget.net({
     settings = function()
         widget:set_markup(markup.font(theme.font,
-                          markup("#7AC82E", " " .. string.format("%06.1f", net_now.received))
-                          .. " " ..
-                          markup("#46A8C3", " " .. string.format("%06.1f", net_now.sent) .. " ")))
+            markup("#7AC82E", " " .. string.format("%06.1f", net_now.received))
+            .. " " ..
+            markup("#46A8C3", " " .. string.format("%06.1f", net_now.sent) .. " ")))
     end
 })
 
--- Separators
+-- local neticon = wibox.widget.imagebox(theme.widget_net)
+-- local net     = lain.widget.net({
+--     settings = function()
+--         -- Format with units based on your working original code
+--         -- but with improved readability
+--         widget:set_markup(markup.font(theme.font,
+--             markup("#7AC82E", " " .. string.format("%06.1f", net_now.received))
+--             .. " " ..
+--             markup("#46A8C3", " " .. string.format("%06.1f", net_now.sent) .. " ")))
+--     end
+-- })
+
 local spr     = wibox.widget.textbox(' ')
 local arrl_dl = separators.arrow_left(theme.bg_focus, "alpha")
 local arrl_ld = separators.arrow_left("alpha", theme.bg_focus)
@@ -290,11 +315,11 @@ function theme.at_screen_connect(s)
     -- We need one layoutbox per screen.
     s.mylayoutbox = awful.widget.layoutbox(s)
     s.mylayoutbox:buttons(my_table.join(
-                           awful.button({}, 1, function () awful.layout.inc( 1) end),
-                           awful.button({}, 2, function () awful.layout.set( awful.layout.layouts[1] ) end),
-                           awful.button({}, 3, function () awful.layout.inc(-1) end),
-                           awful.button({}, 4, function () awful.layout.inc( 1) end),
-                           awful.button({}, 5, function () awful.layout.inc(-1) end)))
+        awful.button({}, 1, function() awful.layout.inc(1) end),
+        awful.button({}, 2, function() awful.layout.set(awful.layout.layouts[1]) end),
+        awful.button({}, 3, function() awful.layout.inc(-1) end),
+        awful.button({}, 4, function() awful.layout.inc(1) end),
+        awful.button({}, 5, function() awful.layout.inc(-1) end)))
     -- Create a taglist widget
     s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, awful.util.taglist_buttons)
 
@@ -315,15 +340,15 @@ function theme.at_screen_connect(s)
             spr,
         },
         s.mytasklist, -- Middle widget
-        { -- Right widgets
+        {             -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             wibox.widget.systray(),
-            keyboardlayout,
-            spr,
-            arrl_ld,
-            wibox.container.background(mpdicon, theme.bg_focus),
-            wibox.container.background(theme.mpd.widget, theme.bg_focus),
-            arrl_dl,
+            -- keyboardlayout,
+            -- spr,
+            -- arrl_ld,
+            -- wibox.container.background(mpdicon, theme.bg_focus),
+            -- wibox.container.background(theme.mpd.widget, theme.bg_focus),
+            -- arrl_dl,
             volicon,
             theme.volume.widget,
             arrl_ld,
@@ -340,7 +365,7 @@ function theme.at_screen_connect(s)
             temp.widget,
             arrl_ld,
             wibox.container.background(fsicon, theme.bg_focus),
-            --wibox.container.background(theme.fs.widget, theme.bg_focus),
+            -- wibox.container.background(theme.fs.widget, theme.bg_focus),
             arrl_dl,
             baticon,
             bat.widget,

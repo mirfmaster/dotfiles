@@ -89,7 +89,7 @@ local function run_once(cmd_arr)
     end
 
     awful.spawn.once("xmodmap ~/.Xmodmap")
-    -- awful.spawn.with_shell("pgrep -u $USER -x nm-applet > /dev/null || (nm-applet &)")
+    awful.spawn.once("~/.config/awesome/monitor-handler.sh")
 end
 
 run_once({
@@ -704,8 +704,8 @@ globalkeys = mytable.join(
             end)
         end,
         { description = "system commands (l=lock, s=shutdown, r=reboot, u=suspend, h=hibernate)", group = "system" }),
-    -- awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle,
-    --           {description = "toggle floating", group = "client"}),
+    -- awful.key({ modkey, "Control" }, "space", awful.client.floating.toggle,
+    --     { description = "toggle floating", group = "client" }),
 
     -- rofi -show-icons -sidebar-mode -show drun -terminal alacritty
 
