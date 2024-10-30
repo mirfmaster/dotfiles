@@ -132,7 +132,7 @@ return {
   -- Where to put new notes. Valid options are
   --  * "current_dir" - put new notes in same directory as the current buffer.
   --  * "notes_subdir" - put new notes in the default notes subdirectory.
-  -- new_notes_location = "notes_subdir",
+  new_notes_location = "current_dir",
 
   -- Optional, customize how note IDs are generated given an optional title.
   ---@param title string
@@ -178,7 +178,7 @@ return {
 
   -- Optional, boolean or a function that takes a filename and returns a boolean.
   -- `true` indicates that you don't want obsidian.nvim to manage frontmatter.
-  disable_frontmatter = false,
+  disable_frontmatter = true,
 
   -- Optional, alternatively you can customize the frontmatter data.
   ---@return table
@@ -224,7 +224,7 @@ return {
   use_advanced_uri = false,
 
   -- Optional, set to true to force ':ObsidianOpen' to bring the app to the foreground.
-  open_app_foreground = false,
+  open_app_foreground = true,
 
   picker = {
     -- Set your preferred picker. Can be one of 'telescope.nvim', 'fzf-lua', or 'mini.pick'.

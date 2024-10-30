@@ -130,3 +130,5 @@ export PATH="/home/mirf/.moon/bin:$PATH"
 export PATH="$PATH:$(go env GOPATH)/bin"
 
 DOCKER_HOST="unix:///var/run/docker.sock"
+
+. "$HOME/.cargo/env"

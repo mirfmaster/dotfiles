@@ -450,7 +450,15 @@ globalkeys = mytable.join(
         { description = "select next", group = "layout" }),
     awful.key({ modkey, "Shift" }, "space", function() awful.layout.inc(-1) end,
         { description = "select previous", group = "layout" }),
-
+    awful.key({ modkey, "Control" }, "n", function()
+        -- Get the oldest/current notification
+        local notification = naughty.notifications[1]
+        if notification and notification.box then
+            -- Simulate a click on the notification
+            notification.box:emit_signal("button::press", 1, 1, 1)
+            notification.box:emit_signal("button::release", 1, 1, 1)
+        end
+    end, { description = "open current notification", group = "custom" }),
     awful.key({ modkey, "Control" }, "n", function()
         local c = awful.client.restore()
         -- Focus restored client
