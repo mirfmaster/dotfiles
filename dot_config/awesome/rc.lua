@@ -89,8 +89,11 @@ local function run_once(cmd_arr)
     end
 
     awful.spawn.once("xmodmap ~/.Xmodmap")
-    awful.spawn.once("~/.config/awesome/monitor-handler.sh")
-    awful.spawn.once("xinput set-prop 9 332 1")
+    awful.spawn.with_shell("~/.config/awesome/monitor-handler.sh")
+    awful.spawn.with_shell("xinput set-prop 9 332 1")
+    awful.spawn.with_shell('[ -n "$SSH_AUTH_SOCK" ] || eval `ssh-agent`')
+    awful.spawn.with_shell('ssh-add ~/.ssh/zot_id_ed25519')
+    awful.spawn.with_shell('ssh -T git@gitlab.zero-one-group.com')
 end
 
 run_once({
@@ -564,25 +567,6 @@ globalkeys = mytable.join(
         { description = "Kill client", group = "client" }),
 
     -- NOTE: CUSTOM
-    -- awful.key({ modkey }, "o",
-    -- function()
-    --     awful.prompt.run {
-    --         prompt       = "Move to tag: ",
-    --         textbox     = awful.screen.focused().mypromptbox.widget,
-    --         exe_callback = function(input)
-    --             if client.focus and input ~= "" then
-    --                 local tag_number = tonumber(input)
-    --                 if tag_number then
-    --                     local tag = client.focus.screen.tags[tag_number]
-    --                     if tag then
-    --                         client.focus:move_to_tag(tag)
-    --                     end
-    --                 end
-    --             end
-    --         end
-    --     }
-    -- end,
-    -- {description = "Move focused client to specific tag", group = "client"}),
     awful.key({ modkey }, "space",
         function()
             awful.spawn(
@@ -594,7 +578,10 @@ globalkeys = mytable.join(
             awful.spawn(explorer)
         end,
         { description = "open file explorer", group = "launcher" }),
-    -- Add these to your global keys section in rc.lua
+    awful.key({ modkey }, "[",
+        function() awful.spawn.with_shell("sh -c 'kitty -d /home/mirf/Documents/Vaults/The\\ Second\\ Brain nvim'") end,
+        { description = "open second brain", group = "launcher" }),
+
     -- NOTE: sudo usermod -aG video mirf
     awful.key({ modkey }, "F11",
         function()
@@ -699,12 +686,12 @@ globalkeys = mytable.join(
                     awful.spawn("systemctl reboot")
                 elseif key == "u" then
                     awful.spawn("systemctl suspend")
-                elseif key == "h" then
-                    awful.spawn("systemctl hibernate")
+                    -- elseif key == "h" then
+                    --     awful.spawn("systemctl hibernate")
                 end
             end)
         end,
-        { description = "system commands (l=lock, s=shutdown, r=reboot, u=suspend, h=hibernate)", group = "system" }),
+        { description = "system commands (l=lock, s=shutdown, r=reboot, u=suspend)", group = "system" }),
     -- awful.key({ modkey, "Control" }, "space", awful.client.floating.toggle,
     --     { description = "toggle floating", group = "client" }),
 
@@ -734,6 +721,12 @@ globalkeys = mytable.join(
     -- Prompt
     awful.key({ modkey }, "r", function() awful.screen.focused().mypromptbox:run() end,
         { description = "run prompt", group = "launcher" }),
+    awful.key({ modkey }, "t", function() awful.spawn(terminal) end,
+        { description = "open a terminal", group = "launcher" }),
+    awful.key({ modkey }, ".", function() awful.screen.focus_relative(1) end,
+        { description = "focus the next screen", group = "screen" }),
+    awful.key({ modkey }, ",", function() awful.screen.focus_relative(-1) end,
+        { description = "focus the previous screen", group = "screen" }),
 
     awful.key({ modkey }, "x",
         function()
@@ -744,9 +737,12 @@ globalkeys = mytable.join(
                 history_path = awful.util.get_cache_dir() .. "/history_eval"
             }
         end,
+        --
         { description = "lua execute prompt", group = "awesome" })
 --]]
 )
+
+
 
 clientkeys = mytable.join(
     awful.key({ altkey, "Shift" }, "m", lain.util.magnify_client,

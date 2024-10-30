@@ -113,6 +113,9 @@ alias ls='ls -lhX --color=auto --group-directories-first'
 # sudo apt install fd-find
 alias sd='cd "$(find ~ -mindepth 1 -maxdepth 4 -name .eclipse -prune -o -type d | fzf --height 20% --bind change:first)"'
 
+# Search directory within ~/spaces and open it using nvim
+alias sv='dir="$(find ~/spaces -mindepth 1 -maxdepth 3 -type d | fzf --height 20% --bind change:first)" && [ -n "$dir" ] && cd "$dir" && nvim || true'
+
 # cd to any directories in git root directory/current working directory
 alias ds='cd "$(find $(git rev-parse --show-toplevel) -mindepth 1 \( -name node_modules -name vendor -o -name .git \) -prune -o -type d | sort -g | fzf --height 20% --bind change:first)"'
 

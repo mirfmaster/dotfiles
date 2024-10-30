@@ -4,11 +4,15 @@
 if xrandr | grep "HDMI-A-0 connected"; then
     # External monitor is connected - set it as primary on the left
     xrandr --output HDMI-A-0 --primary --mode 1920x1080 --pos 0x0 \
-           --output eDP --mode 1280x720 --pos 1920x0
+           --output eDP --mode 1920x480 --pos 1920x0
+           # --output eDP --mode 1280x720 --pos 1920x0
     # xrandr --output HDMI-A-0 --primary --auto --pos 0x0 --output eDP --auto --pos 1920x0
 else
     # External monitor is disconnected - set laptop as primary with full resolution
-    xrandr --output eDP --primary --mode 1920x1080 --pos 0x0 \
+    # xrandr --output eDP --primary --mode 1920x1080 --pos 0x0 \
+    #        --output HDMI-A-0 --off
+
+    xrandr --output eDP --primary --mode 1920x480 --pos 0x0 \
            --output HDMI-A-0 --off
 fi
 
@@ -17,10 +21,10 @@ fi
 # eDP connected primary 1920x1080+0+0 (normal left
 #    1920x1080     60.05*+
 #    1680x1050     60.05  
-#    1280x1024     60.05  
-#    1440x900      60.05  
+#    1280x1024     60.05  nope
+#    1440x900      60.05  slightly okay
 #    1280x800      60.05  
-#    1280x720      60.05  
+#    1280x720      60.05  fit but too big
 #    1024x768      60.05  
 #    800x600       60.05  
 #    640x480       60.05  
