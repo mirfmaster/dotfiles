@@ -81,3 +81,7 @@ psqld() {
     export PAGER=less
     psql -d $DOCKER_POSTGRES_DB -P expanded=auto -P 'null=(null)'
 }
+
+resetPantau() {
+  dcdn --volumes && dcupd && sleep 1 && pnpm migrate up && pnpm seed:mod
+}

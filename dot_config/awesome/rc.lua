@@ -101,6 +101,7 @@ run_once({
     "unclutter -root", -- NOTE: Hide cursor while not used
     "nm-applet",       -- NOTE: Applet for showing network manager
     "blueman-applet",  -- NOTE: Applet for managing bluetooth
+    "superproductivity"
 })
 
 -- This function implements the XDG autostart specification
@@ -590,7 +591,8 @@ globalkeys = mytable.join(
         function() awful.spawn.with_shell("sh -c 'kitty -d /home/mirf/Documents/Vaults/The\\ Second\\ Brain nvim'") end,
         { description = "open second brain", group = "launcher" }),
 
-    -- NOTE: sudo usermod -aG video mirf
+    -- NOTE:
+    -- sudo usermod -aG video $USER
     awful.key({ modkey }, "F11",
         function()
             awful.util.spawn_with_shell("brightnessctl set 10%- -n 1")

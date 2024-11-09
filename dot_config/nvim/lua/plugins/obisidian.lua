@@ -50,31 +50,21 @@ return {
   -- dir = "~/Documents//Personal",
 
   -- Optional, if you keep notes in a specific subdirectory of your vault.
-  -- notes_subdir = "notes",
+  notes_subdir = "00 Zettelkasten/5 Zettels",
 
   -- Optional, set the log level for obsidian.nvim. This is an integer corresponding to one of the log
   -- levels defined by "vim.log.levels.*".
   log_level = vim.log.levels.INFO,
 
   daily_notes = {
-    -- Optional, if you keep daily notes in a separate directory.
-    -- folder = "notes/dailies",
-    -- folder = "~/Documents/Vaults/The Second Brain/00 Zettelkasten/1 Daily Notes",
     folder = "00 Zettelkasten/1 Daily Notes",
-    -- Optional, if you want to change the date format for the ID of daily notes.
     date_format = "%Y/%m/%d",
-    -- Optional, if you want to change the date format of the default alias of daily notes.
-    -- alias_format = "%B %-d, %Y",
-    -- Optional, if you want to automatically insert a template from your template directory like 'daily.md'
-    -- template = "~/Documents/Vaults/The Second Brain/99 Templates/Daily template.md"
     template = "99 Templates/Daily template.md"
   },
 
   -- Optional, completion of wiki links, local markdown links, and tags using nvim-cmp.
   completion = {
-    -- Set to false to disable completion.
     nvim_cmp = true,
-    -- Trigger completion at 2 chars.
     min_chars = 0,
   },
 
@@ -95,31 +85,6 @@ return {
       end,
       opts = { buffer = true },
     },
-    -- -- Toggle check-boxes.
-    -- [";on"] = {
-    --   action = ":ObsidianNew<cr>",
-    --   opts = { buffer = true },
-    -- },
-    -- [";ot"] = {
-    --   action = ":ObsidianTemplate<cr>",
-    --   opts = { buffer = true },
-    -- },
-    -- [";ow"] = {
-    --   action = ":ObsidianWorkspace<cr>",
-    --   -- opts = { buffer = true },
-    -- },
-    -- [";od"] = {
-    --   action = ":ObsidianDailies<cr>",
-    --   opts = { buffer = true },
-    -- },
-    -- [";og"] = {
-    --   action = ":ObsidianTags<cr>",
-    --   opts = { buffer = true },
-    -- },
-    -- [";oo"] = {
-    --   action = ":ObsidianOpen<cr>",
-    --   opts = { buffer = true },
-    -- },
     -- Smart action depending on context, either follow link or toggle checkbox.
     ["<cr>"] = {
       action = function()
@@ -132,7 +97,8 @@ return {
   -- Where to put new notes. Valid options are
   --  * "current_dir" - put new notes in same directory as the current buffer.
   --  * "notes_subdir" - put new notes in the default notes subdirectory.
-  new_notes_location = "current_dir",
+  -- new_notes_location = "current_dir",
+  new_notes_location = "notes_subdir",
 
   -- Optional, customize how note IDs are generated given an optional title.
   ---@param title string
@@ -179,27 +145,6 @@ return {
   -- Optional, boolean or a function that takes a filename and returns a boolean.
   -- `true` indicates that you don't want obsidian.nvim to manage frontmatter.
   disable_frontmatter = true,
-
-  -- Optional, alternatively you can customize the frontmatter data.
-  ---@return table
-  note_frontmatter_func = function(note)
-    -- Add the title of the note as an alias.
-    if note.title then
-      note:add_alias(note.title)
-    end
-
-    local out = { aliases = note.aliases, tags = note.tags }
-
-    -- `note.metadata` contains any manually added fields in the frontmatter.
-    -- So here we just make sure those fields are kept in the frontmatter.
-    if note.metadata ~= nil and not vim.tbl_isempty(note.metadata) then
-      for k, v in pairs(note.metadata) do
-        out[k] = v
-      end
-    end
-
-    return out
-  end,
 
   -- Optional, for templates (see below).
   templates = {
