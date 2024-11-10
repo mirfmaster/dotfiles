@@ -926,6 +926,12 @@ awful.rules.rules = {
             floating = true,
         }
     },
+    {
+        rule_any = {
+            name = { "Media viewer" }
+        },
+        properties = { fullscreen = false, maximized = false, titlebars_enabled = false, floating = true, }
+    },
 
     {
         rule_any = {
