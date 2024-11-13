@@ -1,4 +1,5 @@
 # User configuration
+bindkey -v
 bindkey '^I'   complete-word       # tab          | complete
 bindkey '^[[Z' autosuggest-execute  # shift + tab  | autosuggest
 bindkey '`' autosuggest-accept  # `  | autosuggest-accept
@@ -7,3 +8,4 @@ bindkey '`' autosuggest-accept  # `  | autosuggest-accept
 # bindkey '^[[13;2u' autosuggest-accept # Shift + Enter
 bindkey '^ ' autosuggest-accept # Ctrl + Space
 
+bindkey -M viins 'jj' vi-cmd-mode
