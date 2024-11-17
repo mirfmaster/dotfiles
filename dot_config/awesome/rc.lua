@@ -90,7 +90,8 @@ local function run_once(cmd_arr)
 
     awful.spawn.once("xmodmap ~/.Xmodmap")
     awful.spawn.with_shell("~/.config/awesome/monitor-handler.sh")
-    awful.spawn.with_shell("xinput set-prop 9 332 1")
+    awful.spawn.with_shell("~/.config/awesome/touchpad-fix.sh")
+    -- awful.spawn.with_shell("xinput set-prop 9 332 1")
     awful.spawn.with_shell('[ -n "$SSH_AUTH_SOCK" ] || eval `ssh-agent`')
     awful.spawn.with_shell('ssh-add ~/.ssh/zot_id_ed25519')
     awful.spawn.with_shell('ssh -T git@gitlab.zero-one-group.com')
@@ -101,7 +102,6 @@ run_once({
     "unclutter -root", -- NOTE: Hide cursor while not used
     "nm-applet",       -- NOTE: Applet for showing network manager
     "blueman-applet",  -- NOTE: Applet for managing bluetooth
-    "superproductivity"
 })
 
 -- This function implements the XDG autostart specification
@@ -591,8 +591,7 @@ globalkeys = mytable.join(
         function() awful.spawn.with_shell("sh -c 'kitty -d /home/mirf/Documents/Vaults/The\\ Second\\ Brain nvim'") end,
         { description = "open second brain", group = "launcher" }),
 
-    -- NOTE:
-    -- sudo usermod -aG video $USER
+    -- NOTE: sudo usermod -aG video mirf
     awful.key({ modkey }, "F11",
         function()
             awful.util.spawn_with_shell("brightnessctl set 10%- -n 1")
@@ -925,12 +924,6 @@ awful.rules.rules = {
         properties = {
             floating = true,
         }
-    },
-    {
-        rule_any = {
-            name = { "Media viewer" }
-        },
-        properties = { fullscreen = false, maximized = false, titlebars_enabled = false, floating = true, }
     },
 
     {
