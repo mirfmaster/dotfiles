@@ -41,6 +41,7 @@ cmsync() {
   bl_info "Syncing local changes with working directory"
   cm add ~/.labs/
   cm re-add
+  cmu
 
   cd ~/.local/share/chezmoi
   cmpush
@@ -84,4 +85,33 @@ psqld() {
 
 resetPantau() {
   dcdn --volumes && dcupd && sleep 1 && pnpm migrate up && pnpm seed:mod
+}
+
+up() {
+    # Default number of levels to go up
+    local levels=${1:-1}
+    
+    # Validate input is a positive integer
+    if ! [[ "$levels" =~ ^[0-9]+$ ]] ; then
+        echo "Error: Please provide a positive integer" >&2
+        return 1
+    fi
+    
+    # Build the path string
+    local path=""
+    for ((i=1; i<=levels; i++)); do
+        path="../$path"
+    done
+    
+    # Remove trailing slash
+    path=${path%/}
+    
+    # Check if the target directory exists and is accessible
+    if [ ! -d "$path" ]; then
+        echo "Error: Cannot go up $levels levels - directory does not exist" >&2
+        return 1
+    fi
+    
+    # Change to the target directory
+    cd "$path"
 }
