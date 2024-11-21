@@ -30,7 +30,7 @@ bindkey '^S' history-incremental-search-forward  # Ctrl + S - Search history for
 # bindkey '^D' delete-char                  # Ctrl + D - Delete character
 # bindkey '^H' backward-delete-char         # Ctrl + H - Delete character backward
 
-# Your existing custom bindings
+# existing custom bindings
 bindkey '^I'   complete-word              # tab          | complete
 bindkey '^[[Z' autosuggest-execute       # shift + tab  | autosuggest
 bindkey '`' autosuggest-accept           # `  | autosuggest-accept
