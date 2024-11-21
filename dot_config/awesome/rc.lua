@@ -91,6 +91,7 @@ local function run_once(cmd_arr)
     awful.spawn.once("xmodmap ~/.Xmodmap")
     awful.spawn.with_shell("~/.config/awesome/monitor-handler.sh")
     awful.spawn.with_shell("~/.config/awesome/touchpad-fix.sh")
+    -- awful.spawn.with_shell("xinput set-prop 9 332 1")
     awful.spawn.with_shell('[ -n "$SSH_AUTH_SOCK" ] || eval `ssh-agent`')
     awful.spawn.with_shell('ssh-add ~/.ssh/zot_id_ed25519')
     awful.spawn.with_shell('ssh -T git@gitlab.zero-one-group.com')
@@ -447,7 +448,7 @@ globalkeys = mytable.join(
         { description = "decrease the number of columns", group = "layout" }),
     -- awful.key({ modkey,           }, "space", function () awful.layout.inc( 1)                end,
     awful.key({ modkey, }, "/", function() awful.layout.inc(1) end,
-        { description = "change tile format", group = "layout" }),
+        { description = "select next", group = "layout" }),
     awful.key({ modkey, "Shift" }, "space", function() awful.layout.inc(-1) end,
         { description = "select previous", group = "layout" }),
     awful.key({ modkey, "Control" }, "n", function()
@@ -735,25 +736,6 @@ globalkeys = mytable.join(
         { description = "focus the next screen", group = "screen" }),
     awful.key({ modkey }, ",", function() awful.screen.focus_relative(-1) end,
         { description = "focus the previous screen", group = "screen" }),
-    awful.key({ modkey, "Control" }, ",", function(c)
-            if client.focus then
-                local c = client.focus
-                local index = c.screen.index
-                local target_screen = (index - 1) > 0 and (index - 1) or screen.count()
-                c:move_to_screen(target_screen)
-            end
-        end,
-        { description = "move to left monitor", group = "client" }),
-
-    awful.key({ modkey, "Control" }, ".", function(c)
-            if client.focus then
-                local c = client.focus
-                local index = c.screen.index
-                local target_screen = (index + 1) <= screen.count() and (index + 1) or 1
-                c:move_to_screen(target_screen)
-            end
-        end,
-        { description = "move to right monitor", group = "client" }),
 
     awful.key({ modkey }, "x",
         function()
