@@ -87,14 +87,16 @@ local function run_once(cmd_arr)
     for _, cmd in ipairs(cmd_arr) do
         awful.spawn.with_shell(string.format("pgrep -u $USER -fx '%s' > /dev/null || (%s)", cmd, cmd))
     end
-
     awful.spawn.once("xmodmap ~/.Xmodmap")
-    awful.spawn.with_shell("~/.config/awesome/monitor-handler.sh")
     awful.spawn.with_shell("~/.config/awesome/touchpad-fix.sh")
     -- awful.spawn.with_shell("xinput set-prop 9 332 1")
     awful.spawn.with_shell('[ -n "$SSH_AUTH_SOCK" ] || eval `ssh-agent`')
     awful.spawn.with_shell('ssh-add ~/.ssh/zot_id_ed25519')
     awful.spawn.with_shell('ssh -T git@gitlab.zero-one-group.com')
+
+    awful.spawn.with_shell(
+        '[ -f ~/Applications/superProductivity.AppImage ] && ~/Applications/superProductivity.AppImage')
+    awful.spawn.with_shell("~/.config/awesome/monitor-handler.sh")
 end
 
 run_once({
@@ -318,10 +320,10 @@ globalkeys = mytable.join(
         { description = "go back", group = "tag" }),
 
     -- Non-empty tag browsing
-    awful.key({ altkey }, "Left", function() lain.util.tag_view_nonempty(-1) end,
-        { description = "view  previous nonempty", group = "tag" }),
-    awful.key({ altkey }, "Right", function() lain.util.tag_view_nonempty(1) end,
-        { description = "view  previous nonempty", group = "tag" }),
+    -- awful.key({ altkey }, "Left", function() lain.util.tag_view_nonempty(-1) end,
+    --     { description = "view  previous nonempty", group = "tag" }),
+    -- awful.key({ altkey }, "Right", function() lain.util.tag_view_nonempty(1) end,
+    --     { description = "view  previous nonempty", group = "tag" }),
 
     -- Default client focus
     awful.key({ modkey, altkey }, "l",
