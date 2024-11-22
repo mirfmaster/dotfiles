@@ -85,8 +85,6 @@ psqld() {
 resetPantau() {
   dcdn --volumes && dcupd && sleep 1 && pnpm migrate up && pnpm seed:mod
 }
-<<<<<<< Updated upstream
-||||||| constructed merge base
 
 up() {
     # Default number of levels to go up
@@ -116,40 +114,9 @@ up() {
     # Change to the target directory
     cd "$path"
 }
-=======
 
 remockPantau() {
     bl_warn "Make sure you are inside apps/api"
     mockery --dir=service --output=service/mocks --all
     mockery --dir=internal/rest --output=internal/rest/mocks --all
 }
-
-up() {
-    # Default number of levels to go up
-    local levels=${1:-1}
-    
-    # Validate input is a positive integer
-    if ! [[ "$levels" =~ ^[0-9]+$ ]] ; then
-        echo "Error: Please provide a positive integer" >&2
-        return 1
-    fi
-    
-    # Build the path string
-    local path=""
-    for ((i=1; i<=levels; i++)); do
-        path="../$path"
-    done
-    
-    # Remove trailing slash
-    path=${path%/}
-    
-    # Check if the target directory exists and is accessible
-    if [ ! -d "$path" ]; then
-        echo "Error: Cannot go up $levels levels - directory does not exist" >&2
-        return 1
-    fi
-    
-    # Change to the target directory
-    cd "$path"
-}
->>>>>>> Stashed changes
