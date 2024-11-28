@@ -89,7 +89,7 @@ local function run_once(cmd_arr)
     end
     awful.spawn.once("xmodmap ~/.Xmodmap")
     awful.spawn.with_shell("~/.config/awesome/touchpad-fix.sh")
-    -- awful.spawn.with_shell("xinput set-prop 9 332 1")
+    awful.spawn.with_shell("xinput set-prop 9 332 1")
     awful.spawn.with_shell('[ -n "$SSH_AUTH_SOCK" ] || eval `ssh-agent`')
     awful.spawn.with_shell('ssh-add ~/.ssh/zot_id_ed25519')
     awful.spawn.with_shell('ssh -T git@gitlab.zero-one-group.com')

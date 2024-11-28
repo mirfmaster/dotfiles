@@ -83,7 +83,7 @@ psqld() {
 }
 
 resetPantau() {
-  dcdn --volumes && dcupd && sleep 1 && pnpm migrate up && pnpm seed:mod
+  dcdn --volumes && dcupd && sleep 1.2 && pnpm migrate up && pnpm seed:mod
 }
 
 up() {
