@@ -115,6 +115,37 @@ up() {
     cd "$path"
 }
 
+add_prefix() {
+    # Check if prefix is provided
+    if [ -z "$1" ]; then
+        echo "Usage: add_prefix <prefix>"
+        echo "Example: add_prefix NEW_"
+        return 1
+    fi
+
+    prefix="$1"
+    
+    # Loop through all files in current directory
+    for file in *; do
+        # Skip if it's a directory
+        if [ -d "$file" ]; then
+            continue
+        fi
+        
+        # Skip if the file already starts with the prefix
+        case "$file" in
+            "$prefix"*)
+                echo "Skipping $file - already has prefix"
+                continue
+                ;;
+        esac
+        
+        # Rename the file
+        new_name="$prefix$file"
+        mv "$file" "$new_name"
+        echo "Renamed: $file -> $new_name"
+    done
+}
 remockPantau() {
     bl_warn "Make sure you are inside apps/api"
     mockery --dir=service --output=service/mocks --all
