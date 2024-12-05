@@ -95,7 +95,7 @@ return {
         -- [";f"] = { ":HopChar2<cr>", desc = "Hop" },
         ["F"] = { ":HopChar2<cr>", desc = "Hop" },
         ["f"] = { ":HopWord<cr>", desc = "Hop Word" },
-        ["<C-a>"] = { "ggVG" },
+        -- ["<C-a>"] = { "ggVG" },
         ["<a-s>"] = { ":noa w<CR>" },
 
         -- TERMINAL

@@ -146,8 +146,32 @@ add_prefix() {
         echo "Renamed: $file -> $new_name"
     done
 }
+
 remockPantau() {
     bl_warn "Make sure you are inside apps/api"
     mockery --dir=service --output=service/mocks --all
     mockery --dir=internal/rest --output=internal/rest/mocks --all
+}
+
+rm_contain() {
+    if [ -z "$1" ]; then
+        echo "Usage: delete_files_containing <text_pattern>"
+        echo "Example: delete_files_containing '_test.go'"
+        return 1
+    fi
+    
+    # First list the files that will be deleted
+    echo "The following files will be deleted:"
+    find . -type f -name "*${1}*" -print
+    
+    # Ask for confirmation (zsh compatible)
+    echo -n "Are you sure you want to delete these files? (y/N) "
+    read confirm
+    
+    if [[ "$confirm" == [yY] || "$confirm" == [yY][eE][sS] ]]; then
+        find . -type f -name "*${1}*" -delete
+        echo "Files deleted successfully."
+    else
+        echo "Operation cancelled."
+    fi
 }

@@ -143,7 +143,7 @@ local editor                           = os.getenv("EDITOR") or "nvim"
 local browser                          = "google-chrome"
 
 awful.util.terminal                    = terminal
-awful.util.tagnames                    = { "1", "2", "3", "4", "5" }
+awful.util.tagnames                    = { "1", "2", "3", "4", "5", "6", "7" }
 awful.layout.layouts                   = {
     awful.layout.suit.tile,
     awful.layout.suit.tile.left,
