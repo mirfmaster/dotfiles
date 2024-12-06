@@ -76,10 +76,10 @@ alias nscan="nmap -sP"
 alias nscanhome="nscan 192.168.100.0/24"
 
 alias tm="tmux"
-alias tmls="tmux ls"
+alias tml="tmux ls"
 alias tma="tmux a"
+alias tmn="tmux new -s"
 alias tmat="tmux a -t"
-alias tmns="tmux new -s"
 
 # CURRY
 # sudo apt-get install libnotify-bin

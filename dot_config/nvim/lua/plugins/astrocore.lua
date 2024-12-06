@@ -64,6 +64,10 @@ return {
     mappings = {
       -- first key is the mode
       n = {
+        ["<C-h>"] = "<Nop>",
+        ["<C-j>"] = "<Nop>",
+        ["<C-k>"] = "<Nop>",
+        ["<C-l>"] = "<Nop>",
         -- second key is the lefthand side of the map
 
         -- navigate buffer tabs with `H` and `L`
@@ -136,13 +140,6 @@ return {
         [";r"] = { ':lua require("harpoon.ui").toggle_quick_menu()<cr>' },
         [";a"] = { ':lua require("harpoon.mark").add_file()<cr>' },
         [";s"] = { resession.load},
-        -- [";s"] = {
-        --   function()
-        --     local resession = require("resession")
-        --     resession.setup().load
-        --   end,
-        --   desc = "test"
-        -- },
 
         -- ZEN MODE
         [";z"] = { ':ZenMode<cr>' },
@@ -170,6 +167,12 @@ return {
         ["<M-k>"] = { "<Up>", desc = "Buffers" },
         ["<M-j>"] = { "<Down>", desc = "Buffers" },
         ["<M-l>"] = { "<Right>", desc = "Buffers" },
+
+        -- Alternative with <C-w><C-h> style
+        ["<C-w><C-h>"] = { "<C-\\><C-n><C-w>h", desc = "Move to left window" },
+        ["<C-w><C-j>"] = { "<C-\\><C-n><C-w>j", desc = "Move to bottom window" },
+        ["<C-w><C-k>"] = { "<C-\\><C-n><C-w>k", desc = "Move to top window" },
+        ["<C-w><C-l>"] = { "<C-\\><C-n><C-w>l", desc = "Move to right window" },
 
         ["<C-w><C-v>"] = { "<C-\\><C-n>:vsplit<cr>", desc = "Buffers" },
         ["<C-w><C-s>"] = { "<C-\\><C-n>:split<cr>", desc = "Buffers" },
