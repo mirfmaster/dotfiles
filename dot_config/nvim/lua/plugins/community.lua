@@ -9,4 +9,5 @@ return {
   --
   { import = "astrocommunity.motion.mini-ai" },
   { import = "astrocommunity.motion.mini-surround" },
+  { import = "astrocommunity.terminal-integration.vim-tmux-navigator" },
 }

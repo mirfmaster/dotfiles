@@ -174,6 +174,11 @@ return {
         ["<C-w><C-k>"] = { "<C-\\><C-n><C-w>k", desc = "Move to top window" },
         ["<C-w><C-l>"] = { "<C-\\><C-n><C-w>l", desc = "Move to right window" },
 
+        ["<C-h>"] = { "<cmd>TmuxNavigateLeft<cr>", desc = "Navigate left" },
+        ["<C-j>"] = { "<cmd>TmuxNavigateDown<cr>", desc = "Navigate down" },
+        ["<C-k>"] = { "<cmd>TmuxNavigateUp<cr>", desc = "Navigate up" },
+        ["<C-l>"] = { "<cmd>TmuxNavigateRight<cr>", desc = "Navigate right" },
+
         ["<C-w><C-v>"] = { "<C-\\><C-n>:vsplit<cr>", desc = "Buffers" },
         ["<C-w><C-s>"] = { "<C-\\><C-n>:split<cr>", desc = "Buffers" },
       },
