@@ -75,6 +75,12 @@ alias vsc="code ."
 alias nscan="nmap -sP"
 alias nscanhome="nscan 192.168.100.0/24"
 
+alias tm="tmux"
+alias tmls="tmux ls"
+alias tma="tmux a"
+alias tmat="tmux a -t"
+alias tmns="tmux new -s"
+
 # CURRY
 # sudo apt-get install libnotify-bin
 alias shortbreak='sleep 10m && notify-send -u critical "break end"'

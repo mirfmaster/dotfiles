@@ -28,8 +28,7 @@ customCommands:
   - key: "<C-f>"
     context: "global"
     command: "git fetch --all"
-    loadingText: "Fetching all changes"
-    subprocess: true
+    loadingText: "Fetching all remotes"
   - key: "n"
     context: "localBranches"
     prompts:
