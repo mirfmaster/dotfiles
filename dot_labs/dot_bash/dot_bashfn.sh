@@ -175,3 +175,33 @@ rm_contain() {
         echo "Operation cancelled."
     fi
 }
+
+# Function to search and open tmux sessions using fzf
+# Usage: tmo
+function tmux_open_session() {
+    local session
+
+    # Check if tmux is running
+    if ! command -v tmux >/dev/null 2>&1; then
+        echo "tmux is not installed"
+        return 1
+    fi
+
+    # Get existing sessions
+    session=$(tmux list-sessions -F "#S" 2>/dev/null | fzf --height 20% \
+        --bind change:first \
+        --header "Select tmux session")
+
+    # If no session selected, exit
+    if [ -z "$session" ]; then
+        return 0
+    fi
+
+    # If not in tmux, attach to session
+    if [ -z "$TMUX" ]; then
+        tmux attach-session -t "$session"
+    else
+        # If already in tmux, switch to session
+        tmux switch-client -t "$session"
+    fi
+}

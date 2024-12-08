@@ -163,10 +163,10 @@ return {
         [";h"] = { "<C-\\><C-n>:tabp<cr>", desc = "Previous tab" },
         [";l"] = { "<C-\\><C-n>:tabn<cr>", desc = "Next tab" },
 
-        ["<M-h>"] = { "<Left>", desc = "Buffers" },
-        ["<M-k>"] = { "<Up>", desc = "Buffers" },
-        ["<M-j>"] = { "<Down>", desc = "Buffers" },
-        ["<M-l>"] = { "<Right>", desc = "Buffers" },
+        -- ["<M-h>"] = { "<Left>", desc = "Buffers" },
+        -- ["<M-k>"] = { "<Up>", desc = "Buffers" },
+        -- ["<M-j>"] = { "<Down>", desc = "Buffers" },
+        -- ["<M-l>"] = { "<Right>", desc = "Buffers" },
 
         -- Alternative with <C-w><C-h> style
         ["<C-w><C-h>"] = { "<C-\\><C-n><C-w>h", desc = "Move to left window" },
@@ -174,10 +174,12 @@ return {
         ["<C-w><C-k>"] = { "<C-\\><C-n><C-w>k", desc = "Move to top window" },
         ["<C-w><C-l>"] = { "<C-\\><C-n><C-w>l", desc = "Move to right window" },
 
-        ["<C-h>"] = { "<cmd>TmuxNavigateLeft<cr>", desc = "Navigate left" },
-        ["<C-j>"] = { "<cmd>TmuxNavigateDown<cr>", desc = "Navigate down" },
-        ["<C-k>"] = { "<cmd>TmuxNavigateUp<cr>", desc = "Navigate up" },
-        ["<C-l>"] = { "<cmd>TmuxNavigateRight<cr>", desc = "Navigate right" },
+        ["<C-h>"] = { "<C-\\><C-n>:TmuxNavigateLeft<cr>", desc = "Navigate left" },
+        -- ["<M-h>"] = { "<C-\\><C-n>:TmuxNavigateLeft<cr>", desc = "Navigate left" },
+
+        ["<C-l>"] = { "<C-\\><C-n>:TmuxNavigateRight<cr>", desc = "Navigate right" },
+        -- ["<M-l>"] = { "<C-\\><C-n>:TmuxNavigateRight<cr>", desc = "Navigate right" },
+
 
         ["<C-w><C-v>"] = { "<C-\\><C-n>:vsplit<cr>", desc = "Buffers" },
         ["<C-w><C-s>"] = { "<C-\\><C-n>:split<cr>", desc = "Buffers" },

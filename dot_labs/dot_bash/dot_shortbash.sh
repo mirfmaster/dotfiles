@@ -77,6 +77,7 @@ alias nscanhome="nscan 192.168.100.0/24"
 
 alias tm="tmux"
 alias tml="tmux ls"
+alias tmo="tmux_open_session"
 alias tma="tmux a"
 alias tmn="tmux new -s"
 alias tmat="tmux a -t"
