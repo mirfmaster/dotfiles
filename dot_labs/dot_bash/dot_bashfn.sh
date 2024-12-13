@@ -79,11 +79,11 @@ psqld() {
     fi
     
     export PAGER=less
-    psql -d $DOCKER_POSTGRES_DB -P expanded=auto -P 'null=(null)'
+    psql -d $DOCKER_POSTGRES_DB -P expanded=auto -P 'null=(null)' -P border=2
 }
 
 resetPantau() {
-  dcdn --volumes && dcupd && sleep 1.2 && pnpm migrate up && pnpm seed:mod
+  dcdn --volumes && dcupd && sleep 1.5 && pnpm migrate up && pnpm seed:mod
 }
 
 up() {
@@ -148,9 +148,11 @@ add_prefix() {
 }
 
 remockPantau() {
-    bl_warn "Make sure you are inside apps/api"
+    cd apps/api
+    # bl_warn "Make sure you are inside apps/api"
     mockery --dir=service --output=service/mocks --all
     mockery --dir=internal/rest --output=internal/rest/mocks --all
+    cd -
 }
 
 rm_contain() {

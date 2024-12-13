@@ -484,9 +484,9 @@ globalkeys = mytable.join(
 
     -- Screen brightness
     -- awful.key({ }, "XF86MonBrightnessUp", function () os.execute("xbacklight -inc 10") end,
-    --           {description = "+10%", group = "hotkeys"}),
+    --           {description = "+5%", group = "hotkeys"}),
     -- awful.key({ }, "XF86MonBrightnessDown", function () os.execute("xbacklight -dec 10") end,
-    --           {description = "-10%", group = "hotkeys"}),
+    --           {description = "-5%", group = "hotkeys"}),
 
     -- ALSA volume control
     -- awful.key({ altkey }, "Up",
@@ -596,14 +596,14 @@ globalkeys = mytable.join(
     -- NOTE: sudo usermod -aG video mirf
     awful.key({ modkey }, "F11",
         function()
-            awful.util.spawn_with_shell("brightnessctl set 10%- -n 1")
+            awful.util.spawn_with_shell("brightnessctl set 5%- -n 1")
             awful.util.spawn_with_shell(
-                "if [ $(brightnessctl g) -lt $(( $(brightnessctl m) / 10 )) ]; then brightnessctl set 10%; fi")
+                "if [ $(brightnessctl g) -lt $(( $(brightnessctl m) / 10 )) ]; then brightnessctl set 5%; fi")
         end),
 
     awful.key({ modkey }, "F12",
         function()
-            awful.util.spawn_with_shell("brightnessctl set +10% -n 1")
+            awful.util.spawn_with_shell("brightnessctl set +5% -n 1")
             awful.util.spawn_with_shell(
                 "if [ $(brightnessctl g) -gt $(brightnessctl m) ]; then brightnessctl set 100%; fi")
         end),
@@ -611,14 +611,14 @@ globalkeys = mytable.join(
     -- If you also want function key bindings without Super:
     awful.key({}, "XF86MonBrightnessDown",
         function()
-            awful.util.spawn_with_shell("brightnessctl set 10%- -n 1")
+            awful.util.spawn_with_shell("brightnessctl set 5%- -n 1")
             awful.util.spawn_with_shell(
-                "if [ $(brightnessctl g) -lt $(( $(brightnessctl m) / 10 )) ]; then brightnessctl set 10%; fi")
+                "if [ $(brightnessctl g) -lt $(( $(brightnessctl m) / 10 )) ]; then brightnessctl set 5%; fi")
         end),
 
     awful.key({}, "XF86MonBrightnessUp",
         function()
-            awful.util.spawn_with_shell("brightnessctl set +10% -n 1")
+            awful.util.spawn_with_shell("brightnessctl set +5% -n 1")
             awful.util.spawn_with_shell(
                 "if [ $(brightnessctl g) -gt $(brightnessctl m) ]; then brightnessctl set 100%; fi")
         end),
@@ -737,19 +737,18 @@ globalkeys = mytable.join(
     awful.key({ modkey }, ".", function() awful.screen.focus_relative(1) end,
         { description = "focus the next screen", group = "screen" }),
     awful.key({ modkey }, ",", function() awful.screen.focus_relative(-1) end,
-        { description = "focus the previous screen", group = "screen" }),
+        { description = "focus the previous screen", group = "screen" })
 
-    awful.key({ modkey }, "x",
-        function()
-            awful.prompt.run {
-                prompt       = "Run Lua code: ",
-                textbox      = awful.screen.focused().mypromptbox.widget,
-                exe_callback = awful.util.eval,
-                history_path = awful.util.get_cache_dir() .. "/history_eval"
-            }
-        end,
-        --
-        { description = "lua execute prompt", group = "awesome" })
+-- awful.key({ modkey }, "x",
+--     function()
+--         awful.prompt.run {
+--             prompt       = "Run Lua code: ",
+--             textbox      = awful.screen.focused().mypromptbox.widget,
+--             exe_callback = awful.util.eval,
+--             history_path = awful.util.get_cache_dir() .. "/history_eval"
+--         }
+--     end,
+--     { description = "lua execute prompt", group = "awesome" })
 --]]
 )
 

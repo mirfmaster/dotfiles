@@ -108,6 +108,13 @@ return {
         [";m"] = { ":terminal<cr>", desc = "Open terminal" },
         [";h"] = { ":tabp<cr>", desc = "Previous tab" },
         [";l"] = { ":tabn<cr>", desc = "Next tab" },
+        [";wf"] = {
+          function()
+            local toggleterm = require("toggleterm")
+            toggleterm.toggle(1, 15, nil, "float")
+          end,
+          desc = "Toggle floating terminal",
+        },
 
         -- REFACTOR
         [";dV"] = { function() require('refactoring').debug.print_var({below = false}) end, desc = "Print var before" },
@@ -159,9 +166,17 @@ return {
       t = {
         -- setting a mapping to false will disable it
         -- ["<esc>"] = false,
-        [";;"] = { "<C-\\><C-n>", desc = "Escape the terminal" },
+        -- [";;"] = { "<C-\\><C-n>", desc = "Escape the terminal" },
+        ["//"] = { "<C-\\><C-n>", desc = "Escape the terminal" },
         [";h"] = { "<C-\\><C-n>:tabp<cr>", desc = "Previous tab" },
         [";l"] = { "<C-\\><C-n>:tabn<cr>", desc = "Next tab" },
+        [";wf"] = {
+          function()
+            local toggleterm = require("toggleterm")
+            toggleterm.toggle(1, 15, nil, "float")
+          end,
+          desc = "Toggle floating terminal",
+        },
 
         -- ["<M-h>"] = { "<Left>", desc = "Buffers" },
         -- ["<M-k>"] = { "<Up>", desc = "Buffers" },
