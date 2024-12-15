@@ -110,6 +110,7 @@ return {
 
       -- ADAPTERS
       "nvim-neotest/neotest-go",
+      "olimorris/neotest-phpunit",
       "nvim-neotest/neotest-vim-test",
     },
     config = function()
@@ -128,6 +129,7 @@ return {
           -- your neotest config here
           adapters = {
             require("neotest-go"),
+            require("neotest-phpunit"),
             require("neotest-vim-test"),
         },
       })
