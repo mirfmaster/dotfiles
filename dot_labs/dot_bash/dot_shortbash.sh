@@ -27,6 +27,9 @@ alias gcml="gcm && ggl"
 alias gcD="git branch -D" 
 alias gs="gst"
 alias s="gst"
+# alias gchanges='git log --since="1 week ago" --name-only --pretty=format:"" --diff-filter=ACMRT | sort -u' # To see what files changed in the last 1 week
+# alias gchanges='git log --since="1 week ago" --name-only --pretty=format:"" --diff-filter=ACMRT | grep -v "^node_modules/\|^vendor/" | sort -u'
+alias gchanges='f() { git log --since="1 week ago" --name-only --pretty=format:"" --diff-filter=ACMRT | grep -v "${1:-node_modules}/\|${2:-vendor}/" | sort -u; }; f'
 
 # warp-cli cloudflare
 alias wc="warp-cli"
@@ -67,8 +70,6 @@ alias tfd="terraform-docs"
 ## GOLANG
 alias air='$(go env GOPATH)/bin/air'
 
-alias j="joplin"
-alias jd="~/.joplin/Joplin.AppImage"
 alias ssh-list='grep "^Host " ~/.ssh/config | grep -v "Host \*" | awk "{print NR \": \" \$2}"'
 
 alias vsc="code ."
@@ -91,7 +92,9 @@ alias reload='exec zsh'
 # Verbosity
 alias \
 	cp='cp -iv' \
+    md='mkdir -pv' \
 	mv='mv -iv' \
+	d='dirs -v | head' \
 	rm='rm -vI'
 
 alias \
@@ -104,10 +107,6 @@ alias \
     7='cd ~7' \
     8='cd ~8' \
     9='cd ~9'
-
-alias \
-    md='mkdir -pv' \
-    d='dirs -v | head'
 
 alias ls='ls -lhX --color=auto --group-directories-first'
 
@@ -132,4 +131,7 @@ alias sf='rg --hidden --files | fzf --multi --height 20% --preview="head -$LINES
 #search and open file on git root directory/current working directory in $EDITOR directly
 alias cs='rg --hidden --files $(git rev-parse --show-toplevel 2>/dev/null) | fzf --multi --height 20% --preview="head -$LINES {}" --preview-window=wrap,hidden --bind "ctrl-/:toggle-preview,ctrl-n:preview-down,ctrl-p:preview-up" | xargs -or -I {} $EDITOR "{}"'
 
+# ref: https://askubuntu.com/a/999218
+alias list_app_lru="find /usr/bin -size +1000k -atime +100 -exec ls -ltuh --time-style=long-iso {} \;"
 
+alias myalias='grep "^alias" ~/.labs/.bash/.shortbash.sh'

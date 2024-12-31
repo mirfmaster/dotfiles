@@ -208,47 +208,72 @@ function tmux_open_session() {
     fi
 }
 
-function recopy() {
-    local src config_file="$1"
+recopy () {
+        local src config_file preserve_path=false
+        
+        # Parse arguments
+        while [[ $# -gt 0 ]]; do
+                case $1 in
+                        --preserve-path)
+                                preserve_path=true
+                                shift
+                                ;;
+                        *)
+                                config_file="$1"
+                                shift
+                                ;;
+                esac
+        done
 
-    # Check if config file is provided
-    if [ -z "$config_file" ]; then
-        echo "Usage: recopy <config_file>"
-        return 1
-    fi
-
-    # Check if config file exists
-    if [ ! -f "$config_file" ]; then
-        echo "Config file not found: $config_file"
-        return 1
-    fi
-
-    # Store current dir and get source dir
-    cd ..
-    src="$(pwd)"
-    cd - > /dev/null
-
-    echo "Source: $src"
-    echo "Destination: $(pwd)"
-
-    # Read and process config file
-    while IFS= read -r line || [ -n "$line" ]; do
-        # Skip empty lines and comments
-        [ -z "$line" ] && continue
-        [[ "$line" =~ ^#.*$ ]] && continue
-
-        # Get just the filename without the path
-        local filename=$(basename "$line")
-
-        # Copy file directly to current directory
-        if cp -f "$src/$line" "$filename" 2>/dev/null; then
-            echo "✅ Copied: $line -> $filename"
-        else
-            echo "❌ Failed: $line"
+        if [ -z "$config_file" ]; then
+                echo "Usage: recopy [--preserve-path] <config_file>"
+                return 1
         fi
-    done < "$config_file"
+
+        if [ ! -f "$config_file" ]; then
+                echo "Config file not found: $config_file"
+                return 1
+        fi
+
+        cd ..
+        src="$(pwd)"
+        cd - > /dev/null
+        echo "Source: $src"
+        echo "Destination: $(pwd)"
+
+        while IFS= read -r line || [ -n "$line" ]; do
+                [ -z "$line" ] && continue
+                [[ "$line" =~ ^#.*$ ]] && continue
+
+                local filename
+                if [ "$preserve_path" = true ]; then
+                        filename="$line"
+                        # Create directory structure if it doesn't exist
+                        local dirname=$(dirname "$filename")
+                        [ "$dirname" != "." ] && mkdir -p "$dirname"
+                else
+                        filename=$(basename "$line")
+                fi
+
+                # Check if the path ends with *
+                if [[ "$line" == *\* ]]; then
+                        # Remove the trailing * from the source path
+                        local src_dir="${src}/${line%\*}"
+                        # Create the destination directory if it doesn't exist
+                        mkdir -p "$filename"
+                        # Copy contents of the directory
+                        if cp -rvf "$src_dir"/* "$filename/" 2>/dev/null; then
+                                echo "✅ Copied contents: $line -> $filename/"
+                        else
+                                echo "❌ Failed to copy contents: $line"
+                        fi
+                else
+                        # Regular file copy
+                        if cp -ivf -f "$src/$line" "$filename" 2>/dev/null; then
+                                echo "✅ Copied: $line -> $filename"
+                        else
+                                echo "❌ Failed: $line"
+                        fi
+                fi
+        done < "$config_file"
 }
-
-# Add completion for the recopy function
-compdef '_files' recopy
-

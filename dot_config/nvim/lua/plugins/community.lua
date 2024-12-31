@@ -10,4 +10,7 @@ return {
   { import = "astrocommunity.motion.mini-ai" },
   { import = "astrocommunity.motion.mini-surround" },
   { import = "astrocommunity.terminal-integration.vim-tmux-navigator" },
+  { import = "astrocommunity.markdown-and-latex.render-markdown-nvim" },
+
+  { import = "astrocommunity.pack.blade" },
 }

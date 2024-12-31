@@ -11,3 +11,5 @@ bindkey '^ ' autosuggest-accept # Ctrl + Space
 bindkey '^R' history-incremental-search-backward
 bindkey '^S' history-incremental-search-forward
 bindkey -M viins 'jj' vi-cmd-mode
+bindkey '^X^E' edit-command-line
+
