@@ -309,7 +309,7 @@ docker_compose_up() {
         case "$1" in
             -f)
                 if [ -n "$2" ]; then
-                    compose_file="-f $2"
+                    compose_file=(-f "$2")
                     shift 2
                 else
                     echo "Error: -f requires a file argument"
@@ -332,5 +332,34 @@ docker_compose_up() {
         docker compose $compose_file up -d $build_flag
     else
         docker compose up -d $build_flag
+    fi
+}
+
+docker_compose_down() {
+    local compose_file=""
+    
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            -f)
+                if [ -n "$2" ]; then
+                    compose_file=(-f "$2")
+                    shift 2
+                else
+                    echo "Error: -f requires a file argument"
+                    return 1
+                fi
+                ;;
+            *)
+                echo "Unknown option: $1"
+                echo "Usage: dcdown [-f compose-file]"
+                return 1
+                ;;
+        esac
+    done
+    
+    if [ -n "${compose_file[*]}" ]; then
+        docker compose "${compose_file[@]}" down
+    else
+        docker compose down
     fi
 }

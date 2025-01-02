@@ -86,7 +86,7 @@ alias tmat="tmux a -t"
 
 # Docker compose aliases
 alias dcupd=docker_compose_up
-alias dcdn="docker compose down"                 # Stop and remove containers
+alias dcdn=docker_compose_down
 alias dcls="docker compose ls"                   # List Docker Compose projects
 alias dcps="docker compose ps"                   # List containers
 alias dcr="docker compose restart"               # Restart services
