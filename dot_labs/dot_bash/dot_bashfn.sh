@@ -208,72 +208,129 @@ function tmux_open_session() {
     fi
 }
 
-recopy () {
-        local src config_file preserve_path=false
-        
-        # Parse arguments
-        while [[ $# -gt 0 ]]; do
-                case $1 in
-                        --preserve-path)
-                                preserve_path=true
-                                shift
-                                ;;
-                        *)
-                                config_file="$1"
-                                shift
-                                ;;
-                esac
-        done
+function recopy() {
+    local src config_file preserve_path=false
+    
+    # Parse arguments
+    while [[ $# -gt 0 ]]; do
+        case $1 in
+            --preserve-path)
+                preserve_path=true
+                shift
+                ;;
+            *)
+                config_file="$1"
+                shift
+                ;;
+        esac
+    done
 
-        if [ -z "$config_file" ]; then
-                echo "Usage: recopy [--preserve-path] <config_file>"
-                return 1
+    # Check if config file is provided
+    if [ -z "$config_file" ]; then
+        echo "Usage: recopy [--preserve-path] <config_file>"
+        return 1
+    fi
+
+    # Check if config file exists
+    if [ ! -f "$config_file" ]; then
+        echo "Config file not found: $config_file"
+        return 1
+    fi
+
+    # Store current dir and get source dir
+    cd ..
+    src="$(pwd)"
+    cd - > /dev/null
+
+    echo "Source: $src"
+    echo "Destination: $(pwd)"
+
+    # Read and process config file
+    while IFS= read -r line || [ -n "$line" ]; do
+        # Skip empty lines and comments
+        [ -z "$line" ] && continue
+        [[ "$line" =~ ^#.*$ ]] && continue
+
+        # Check if the line ends with /*
+        if [[ "$line" == *"/*" ]]; then
+            # Remove the /* from the end to get the directory path
+            dir_path="${line%/*}"
+            
+            # Check if the source directory exists
+            if [ ! -d "$src/$dir_path" ]; then
+                echo "❌ Failed: Directory not found - $dir_path"
+                continue
+            fi
+
+            # Create target directory if it doesn't exist
+            if [ "$preserve_path" = true ]; then
+                mkdir -p "$dir_path"
+                target_dir="$dir_path"
+            else
+                target_dir="."
+            fi
+
+            # Copy all contents of the directory
+            if cp -rf "$src/$dir_path/"* "$target_dir/" 2>/dev/null; then
+                echo "✅ Copied contents of: $dir_path/* -> $target_dir/"
+            else
+                echo "❌ Failed to copy contents of: $dir_path"
+            fi
+        else
+            # Handle regular file copying
+            local filename
+            if [ "$preserve_path" = true ]; then
+                filename="$line"
+                # Create directory structure if it doesn't exist
+                local dirname=$(dirname "$filename")
+                [ "$dirname" != "." ] && mkdir -p "$dirname"
+            else
+                filename=$(basename "$line")
+            fi
+
+            if cp -f "$src/$line" "$filename" 2>/dev/null; then
+                echo "✅ Copied: $line -> $filename"
+            else
+                echo "❌ Failed: $line"
+            fi
         fi
+    done < "$config_file"
+}
 
-        if [ ! -f "$config_file" ]; then
-                echo "Config file not found: $config_file"
+# Add completion for the recopy function
+compdef '_files' recopy
+
+# Docker compose up with detach mode and optional build
+docker_compose_up() {
+    local compose_file=""
+    local build_flag=""
+    
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            -f)
+                if [ -n "$2" ]; then
+                    compose_file="-f $2"
+                    shift 2
+                else
+                    echo "Error: -f requires a file argument"
+                    return 1
+                fi
+                ;;
+            -b|--build)
+                build_flag="--build"
+                shift
+                ;;
+            *)
+                echo "Unknown option: $1"
+                echo "Usage: dcupd [-f compose-file] [-b|--build]"
                 return 1
-        fi
-
-        cd ..
-        src="$(pwd)"
-        cd - > /dev/null
-        echo "Source: $src"
-        echo "Destination: $(pwd)"
-
-        while IFS= read -r line || [ -n "$line" ]; do
-                [ -z "$line" ] && continue
-                [[ "$line" =~ ^#.*$ ]] && continue
-
-                local filename
-                if [ "$preserve_path" = true ]; then
-                        filename="$line"
-                        # Create directory structure if it doesn't exist
-                        local dirname=$(dirname "$filename")
-                        [ "$dirname" != "." ] && mkdir -p "$dirname"
-                else
-                        filename=$(basename "$line")
-                fi
-
-                # Check if the path ends with *
-                if [[ "$line" == *\* ]]; then
-                        # Remove the trailing * from the source path
-                        local src_dir="${src}/${line%\*}"
-                        # Create the destination directory if it doesn't exist
-                        mkdir -p "$filename"
-                        # Copy contents of the directory
-                        if cp -rvf "$src_dir"/* "$filename/" 2>/dev/null; then
-                                echo "✅ Copied contents: $line -> $filename/"
-                        else
-                                echo "❌ Failed to copy contents: $line"
-                        fi
-                else
-                        # Regular file copy
-                        if cp -ivf -f "$src/$line" "$filename" 2>/dev/null; then
-                                echo "✅ Copied: $line -> $filename"
-                        else
-                                echo "❌ Failed: $line"
-                        fi
-                fi
-        done < "$config_file"
+                ;;
+        esac
+    done
+    
+    if [ -n "$compose_file" ]; then
+        docker compose $compose_file up -d $build_flag
+    else
+        docker compose up -d $build_flag
+    fi
 }

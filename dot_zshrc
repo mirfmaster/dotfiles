@@ -77,7 +77,8 @@ ZSH_THEME="spaceship"
 # git clone https://github.com/zdharma-continuum/fast-syntax-highlighting.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/fast-syntax-highlighting
 # git clone https://github.com/zpm-zsh/ls.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/ls
 
-plugins=(git docker docker-compose laravel ls 
+plugins=(git 
+  ls 
   zsh-autosuggestions 
   zsh-syntax-highlighting 
   fast-syntax-highlighting 

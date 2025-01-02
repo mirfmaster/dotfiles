@@ -83,6 +83,55 @@ alias tma="tmux a"
 alias tmn="tmux new -s"
 alias tmat="tmux a -t"
 
+
+# Docker compose aliases
+alias dcupd=docker_compose_up
+alias dcdn="docker compose down"                 # Stop and remove containers
+alias dcls="docker compose ls"                   # List Docker Compose projects
+alias dcps="docker compose ps"                   # List containers
+alias dcr="docker compose restart"               # Restart services
+alias dcrm="docker compose rm"                   # Remove stopped containers
+alias dcl="docker compose logs"                  # View output from containers
+alias dclf="docker compose logs -f"              # Follow log output
+alias dcpull="docker compose pull"               # Pull service images
+alias dcstart="docker compose start"             # Start services
+alias dcstop="docker compose stop"               # Stop services
+alias dce="docker compose exec"                  # Execute command in running container
+alias dcrun="docker compose run --rm"            # Run one-off command
+alias dcrb="docker compose up -d --force-recreate --build"  # Rebuild and recreate containers
+
+# Laravel compose aliases
+alias art="php artisan"
+alias pas="php artisan serve"
+alias pats="php artisan serve"
+alias paoc='php artisan optimize:clear'
+alias pao='php artisan optimize'
+
+alias pamf='php artisan migrate:fresh'
+alias pamfs='php artisan migrate:fresh --seed'
+alias pamr='php artisan migrate:rollback'
+
+alias pamc='php artisan make:controller'
+alias pamcl='php artisan make:class'
+alias pame='php artisan make:event'
+alias pamen='php artisan make:enum'
+alias pamfa='php artisan make:factory'
+alias pami='php artisan make:interface'
+alias pamj='php artisan make:job'
+alias paml='php artisan make:listener'
+alias pamm='php artisan make:model'
+alias pamn='php artisan make:notification'
+alias pamp='php artisan make:policy'
+alias pampp='php artisan make:provider'
+alias pams='php artisan make:seeder'
+alias pamt='php artisan make:test'
+alias pamtr='php artisan make:trait'
+alias paql='php artisan queue:listen'
+alias paqr='php artisan queue:retry'
+alias paqt='php artisan queue:table'
+alias paqw='php artisan queue:work'
+
+
 # CURRY
 # sudo apt-get install libnotify-bin
 alias shortbreak='sleep 10m && notify-send -u critical "break end"'
@@ -97,6 +146,8 @@ alias \
 	d='dirs -v | head' \
 	rm='rm -vI'
 
+alias ls='ls -lhX --color=auto --group-directories-first'
+
 alias \
     1='cd ~1' \
     2='cd ~2' \
@@ -108,7 +159,6 @@ alias \
     8='cd ~8' \
     9='cd ~9'
 
-alias ls='ls -lhX --color=auto --group-directories-first'
 
 # ref: https://www.linuxquestions.org/questions/linux-newbie-8/xargs-cd-is-not-working-796219/#post3906430 (why cd does not work with xargs).
 # ref: https://www.linuxquestions.org/questions/linux-newbie-8/xargs-cd-is-not-working-796219/#post3907371 (about pipeline).
