@@ -96,7 +96,7 @@ alias dclf="docker compose logs -f"              # Follow log output
 alias dcpull="docker compose pull"               # Pull service images
 alias dcstart="docker compose start"             # Start services
 alias dcstop="docker compose stop"               # Stop services
-alias dce="docker compose exec"                  # Execute command in running container
+alias dce="docker exec"                  # Execute command in running container
 alias dcrun="docker compose run --rm"            # Run one-off command
 alias dcrb="docker compose up -d --force-recreate --build"  # Rebuild and recreate containers
 
