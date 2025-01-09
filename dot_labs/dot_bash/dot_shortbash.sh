@@ -18,6 +18,8 @@ alias lg=lazygit
 alias ld=lazydocker
 # alias postman="~/Applications/Postman/Postman"
 alias postman="nohup ~/Applications/Postman/Postman &>/dev/null &"
+alias py="python"
+alias pym="python manage.py"
 
 # git extension
 # remove committed & clean workspace
@@ -96,9 +98,37 @@ alias dclf="docker compose logs -f"              # Follow log output
 alias dcpull="docker compose pull"               # Pull service images
 alias dcstart="docker compose start"             # Start services
 alias dcstop="docker compose stop"               # Stop services
-alias dce="docker exec"                  # Execute command in running container
 alias dcrun="docker compose run --rm"            # Run one-off command
 alias dcrb="docker compose up -d --force-recreate --build"  # Rebuild and recreate containers
+
+# Docker command aliases
+alias d="docker"                          # Base docker command
+alias dp="docker ps"                      # List running containers
+alias dpa="docker ps -a"                  # List all containers
+alias di="docker images"                  # List images
+alias dip="docker image prune"            # Remove unused images
+alias dcp="docker container prune"        # Remove stopped containers
+alias dvp="docker volume prune"           # Remove unused volumes
+alias dsp="docker system prune"           # Remove unused data
+alias dspa="docker system prune -a"       # Remove all unused data
+alias dl="docker logs"                    # View container logs
+alias dlf="docker logs -f"                # Follow container logs
+alias dstat="docker stats"                # Show container resource usage
+alias dtop="docker top"                   # Show container processes
+alias dex="docker exec -it"               # Execute command in running container
+alias dst="docker stop"                   # Docker stop
+alias dstall="docker stop $(docker ps --format '{{.Names}}' | grep -v buildkit)"
+alias dr="docker run --rm"                # Run container and remove it after exit
+alias drm="docker rm"                     # Remove containers
+alias drmi="docker rmi"                   # Remove images
+alias db="docker build"                   # Build an image
+alias dt="docker tag"                     # Tag an image
+alias dh="docker history"                 # Show image history
+alias dn="docker network"                 # Network management
+alias dv="docker volume"                  # Volume management
+alias dvl="docker volume ls"              # List volumes
+alias dnl="docker network ls"             # List networks
+
 
 # Laravel compose aliases
 alias art="php artisan"
@@ -143,7 +173,6 @@ alias \
 	cp='cp -iv' \
     md='mkdir -pv' \
 	mv='mv -iv' \
-	d='dirs -v | head' \
 	rm='rm -vI'
 
 alias ls='ls -lhX --color=auto --group-directories-first'

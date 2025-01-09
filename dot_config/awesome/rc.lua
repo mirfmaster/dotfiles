@@ -453,7 +453,7 @@ globalkeys = mytable.join(
         { description = "select next", group = "layout" }),
     awful.key({ modkey, "Shift" }, "space", function() awful.layout.inc(-1) end,
         { description = "select previous", group = "layout" }),
-    awful.key({ modkey, "Control" }, "n", function()
+    awful.key({ modkey }, "n", function()
         -- Get the oldest/current notification
         local notification = naughty.notifications[1]
         if notification and notification.box then
@@ -462,13 +462,35 @@ globalkeys = mytable.join(
             notification.box:emit_signal("button::release", 1, 1, 1)
         end
     end, { description = "open current notification", group = "custom" }),
-    awful.key({ modkey, "Control" }, "n", function()
-        local c = awful.client.restore()
-        -- Focus restored client
-        if c then
-            c:emit_signal("request::activate", "key.unminimize", { raise = true })
+    awful.key({ modkey, "Control" }, "m", function()
+        if client.focus then
+            -- If there's a focused window
+            if client.focus.minimized then
+                -- If it's minimized, restore it
+                client.focus:emit_signal("request::activate", "key.unminimize", { raise = true })
+                client.focus.minimized = false
+            else
+                -- If it's not minimized, minimize it
+                client.focus.minimized = true
+            end
+        else
+            -- If no window is focused, try to restore the last minimized window
+            local c = awful.client.restore()
+            if c then
+                c:emit_signal("request::activate", "key.unminimize", { raise = true })
+            end
         end
-    end, { description = "restore minimized", group = "client" }),
+    end, { description = "toggle minimize window", group = "client" }),
+    awful.key({ modkey, "Shift" }, "o", function()
+        awful.spawn.with_shell("~/.labs/scripts/utils/rofi-otp.sh")
+    end, { description = "OTP menu", group = "launcher" }),
+    -- awful.key({ modkey, "Control" }, "n", function()
+    --     local c = awful.client.restore()
+    --     -- Focus restored client
+    --     if c then
+    --         c:emit_signal("request::activate", "key.unminimize", { raise = true })
+    --     end
+    -- end, { description = "restore minimized", group = "client" }),
 
     -- Dropdown application
     -- awful.key({ modkey, }, "z", function () awful.screen.focused().quake:toggle() end,
@@ -773,13 +795,13 @@ clientkeys = mytable.join(
         { description = "move to screen", group = "client" }),
     awful.key({ modkey, }, "t", function(c) c.ontop = not c.ontop end,
         { description = "toggle keep on top", group = "client" }),
-    awful.key({ modkey, }, "n",
-        function(c)
-            -- The client currently has the input focus, so it cannot be
-            -- minimized, since minimized clients can't have the focus.
-            c.minimized = true
-        end,
-        { description = "minimize", group = "client" }),
+    -- awful.key({ modkey, }, "n",
+    --     function(c)
+    --         -- The client currently has the input focus, so it cannot be
+    --         -- minimized, since minimized clients can't have the focus.
+    --         c.minimized = true
+    --     end,
+    --     { description = "minimize", group = "client" }),
     awful.key({ modkey, }, "m",
         function(c)
             c.maximized = not c.maximized
