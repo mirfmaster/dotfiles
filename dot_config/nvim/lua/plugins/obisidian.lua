@@ -39,7 +39,7 @@ return {
           daily_notes = {
             folder = "01 Timebox",
             date_format = "%Y/%m/%d",
-            template = "99 Templates/Time boxing template.md"
+            template = "00 ZK/9 Templates/Time boxing template.md"
           },
       }
     },
@@ -50,16 +50,16 @@ return {
   -- dir = "~/Documents//Personal",
 
   -- Optional, if you keep notes in a specific subdirectory of your vault.
-  notes_subdir = "00 Zettelkasten/5 Zettels",
+  notes_subdir = "00 ZK/5 Zettels",
 
   -- Optional, set the log level for obsidian.nvim. This is an integer corresponding to one of the log
   -- levels defined by "vim.log.levels.*".
   log_level = vim.log.levels.INFO,
 
   daily_notes = {
-    folder = "00 Zettelkasten/1 Daily Notes",
-    date_format = "%Y/%m/%d",
-    template = "99 Templates/Daily template.md"
+    folder = "00 ZK/1 Daily",
+    date_format = "%Y/%m/%Y-%m-%d",
+    template = "00 ZK/9 Templates/Daily template.md"
   },
 
   -- Optional, completion of wiki links, local markdown links, and tags using nvim-cmp.
@@ -148,7 +148,7 @@ return {
 
   -- Optional, for templates (see below).
   templates = {
-    subdir = "99 Templates",
+    subdir = "00 ZK/9 Templates",
     date_format = "%Y-%m-%d",
     time_format = "%H:%M",
     -- A map for custom variables, the key should be the variable and the value a function

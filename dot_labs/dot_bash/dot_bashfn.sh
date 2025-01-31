@@ -209,13 +209,13 @@ function tmux_open_session() {
 }
 
 function recopy() {
-    local src config_file preserve_path=false
+    local src config_file flatten_names=false
     
     # Parse arguments
     while [[ $# -gt 0 ]]; do
         case $1 in
-            --preserve-path)
-                preserve_path=true
+            --flatten-names)
+                flatten_names=true
                 shift
                 ;;
             *)
@@ -227,7 +227,7 @@ function recopy() {
 
     # Check if config file is provided
     if [ -z "$config_file" ]; then
-        echo "Usage: recopy [--preserve-path] <config_file>"
+        echo "Usage: recopy [--flatten-names] <config_file>"
         return 1
     fi
 
@@ -262,32 +262,41 @@ function recopy() {
                 continue
             fi
 
-            # Create target directory if it doesn't exist
-            if [ "$preserve_path" = true ]; then
-                mkdir -p "$dir_path"
-                target_dir="$dir_path"
-            else
-                target_dir="."
-            fi
-
             # Copy all contents of the directory
-            if cp -rf "$src/$dir_path/"* "$target_dir/" 2>/dev/null; then
-                echo "✅ Copied contents of: $dir_path/* -> $target_dir/"
+            if [ "$flatten_names" = true ]; then
+                # Copy and rename each file individually
+                for file in "$src/$dir_path/"*; do
+                    if [ -f "$file" ]; then
+                        local rel_path="${file#$src/}"
+                        local flat_name=$(echo "${rel_path%/*}/${rel_path##*/}" | tr '/' '_')
+                        if cp -f "$file" "$flat_name" 2>/dev/null; then
+                            echo "✅ Copied: $rel_path -> $flat_name"
+                        else
+                            echo "❌ Failed to copy: $rel_path"
+                        fi
+                    fi
+                done
             else
-                echo "❌ Failed to copy contents of: $dir_path"
+                if cp -rf "$src/$dir_path/"* "./" 2>/dev/null; then
+                    echo "✅ Copied contents of: $dir_path/* -> ./"
+                else
+                    echo "❌ Failed to copy contents of: $dir_path"
+                fi
             fi
         else
             # Handle regular file copying
             local filename
-            if [ "$preserve_path" = true ]; then
-                filename="$line"
-                # Create directory structure if it doesn't exist
-                local dirname=$(dirname "$filename")
-                [ "$dirname" != "." ] && mkdir -p "$dirname"
+            if [ "$flatten_names" = true ]; then
+                # Convert path to flattened name
+                filename=$(echo "$line" | tr '/' '_')
             else
                 filename=$(basename "$line")
             fi
 
+            # Remove existing file if it exists
+            [ -e "$filename" ] && rm -f "$filename"
+
+            # Copy with force flag
             if cp -f "$src/$line" "$filename" 2>/dev/null; then
                 echo "✅ Copied: $line -> $filename"
             else
@@ -296,9 +305,6 @@ function recopy() {
         fi
     done < "$config_file"
 }
-
-# Add completion for the recopy function
-compdef '_files' recopy
 
 # Docker compose up with detach mode and optional build
 docker_compose_up() {

@@ -15,7 +15,7 @@ alias h=history
 alias xport="kill-port"
 alias clear_history='cat /dev/null > ~/.bash_history && history -c'
 alias lg=lazygit
-alias ld=lazydocker
+alias ld='DOCKER_HOST="unix:///var/run/docker.sock" lazydocker'
 # alias postman="~/Applications/Postman/Postman"
 alias postman="nohup ~/Applications/Postman/Postman &>/dev/null &"
 alias py="python"
@@ -87,6 +87,7 @@ alias tmat="tmux a -t"
 
 
 # Docker compose aliases
+alias dcc="docker compose"                          # Base docker compose command
 alias dcupd=docker_compose_up
 alias dcdn=docker_compose_down
 alias dcls="docker compose ls"                   # List Docker Compose projects
@@ -117,7 +118,8 @@ alias dstat="docker stats"                # Show container resource usage
 alias dtop="docker top"                   # Show container processes
 alias dex="docker exec -it"               # Execute command in running container
 alias dst="docker stop"                   # Docker stop
-alias dstall="docker stop $(docker ps --format '{{.Names}}' | grep -v buildkit)"
+# alias dstall='docker stop $(docker ps -q 2>/dev/null) 2>/dev/null || true'
+alias dstall='docker stop $(docker ps --format "{{.Names}}" | grep -v buildkit)'
 alias dr="docker run --rm"                # Run container and remove it after exit
 alias drm="docker rm"                     # Remove containers
 alias drmi="docker rmi"                   # Remove images
