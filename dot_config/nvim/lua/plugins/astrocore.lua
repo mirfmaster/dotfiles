@@ -47,6 +47,7 @@ return {
         swapfile = false,
         backup = false,
         writebackup = false,
+        foldenable = false,
       },
       g = {                    -- vim.g.<key>
         -- configure global vim variables (vim.g)

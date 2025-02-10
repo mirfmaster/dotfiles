@@ -7,6 +7,14 @@
 
 --tte
 return {
+  options = {
+    opt = {
+      foldenable = false,
+      foldexpr = "0",
+      foldmethod = "manual",
+      foldlevel = 99,
+    },
+  },
   -- disabling alpha nvim
   {
     "rcarriga/nvim-notify",

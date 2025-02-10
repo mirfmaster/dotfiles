@@ -34,11 +34,11 @@ alias s="gst"
 alias gchanges='f() { git log --since="1 week ago" --name-only --pretty=format:"" --diff-filter=ACMRT | grep -v "${1:-node_modules}/\|${2:-vendor}/" | sort -u; }; f'
 
 # warp-cli cloudflare
-alias wc="warp-cli"
-alias wcs="wc status"
-alias wcc="wc connect"
-alias wcd="wc disconnect"
-alias wcr="wc disconnect && wc connect"
+alias wpc="warp-cli"
+alias wpcs="wpc status"
+alias wpcc="wpc connect"
+alias wpcd="wpc disconnect"
+alias wpcr="wpc disconnect && wc connect"
 
 # Chezmoi
 alias cm="chezmoi"
