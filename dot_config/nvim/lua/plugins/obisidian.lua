@@ -50,7 +50,7 @@ return {
   -- dir = "~/Documents//Personal",
 
   -- Optional, if you keep notes in a specific subdirectory of your vault.
-  notes_subdir = "00 ZK/5 Zettels",
+  notes_subdir = "00 ZK/3 Notes",
 
   -- Optional, set the log level for obsidian.nvim. This is an integer corresponding to one of the log
   -- levels defined by "vim.log.levels.*".
