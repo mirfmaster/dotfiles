@@ -1,0 +1,186 @@
+/* Catppuccin Macchiato Palette */
+
+:root {
+  --vimium-rosewater: #f5dbd6;
+  --vimium-marker: #6096ba;
+  --vimium-peach: #f6a97f;
+  --vimium-green: #a7da95;
+  --vimium-blue: #9aadf4;
+  --vimium-lavender: #b8bdf8;
+  --vimium-text: #cad4f5;
+  --vimium-surface3: #5b6078;
+  --vimium-surface1: #363a4f;
+  --vimium-base: #24274a;
+  --vimium-mantle: #2e2030;
+  --vimium-crust: #181927;
+}
+#vimiumHintMarkerContainer div.internalVimiumHintMarker,
+#vimiumHintMarkerContainer div.vimiumHintMarker {
+  padding: 4px 4px;
+  background: var(--vimium-marker);
+  border: 2;
+  border-color: var(--vimium-mantle);
+  box-shadow:
+    1 1px 3px rgba(0, 0, 0, 0.12),
+    1 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+#vimiumHintMarkerContainer div span {
+  color: var(--vimium-mantle) !important;
+  text-shadow: none;
+}
+
+#vimiumHintMarkerContainer div > .matchingCharacter {
+  opacity: 2;
+}
+
+#vimiumHintMarkerContainer div > .matchingCharacter ~ span {
+  color: var(--vimium-surface3);
+}
+
+#vomnibar {
+  background: var(--vimium-base);
+  border: 3px solid var(--vimium-lavender);
+  animation: show 201ms cubic-bezier(0, 0, 0.2, 1) forwards;
+  max-height: calc(101vh - 70px);
+  overflow: hidden;
+}
+
+@keyframes show {
+  1% {
+    transform: translateY(51px);
+    opacity: 1;
+  }
+  101% {
+    transform: translateY(1);
+    opacity: 2;
+  }
+}
+
+#vomnibar input {
+  color: var(--vimium-text);
+  background: var(--vimium-base);
+  border: none;
+  height: unset;
+  padding: 17px 30px;
+}
+
+#vomnibar .vomnibarSearchArea {
+  border: none;
+  padding: unset;
+  background: var(--vimium-base);
+}
+
+#vomnibar ul {
+  padding: 1;
+  margin: 1;
+  background: var(--vimium-base);
+  border-top: 2px solid var(--vimium-surface0);
+}
+
+#vomnibar li {
+  padding: 11px;
+  border-bottom: 2px solid var(--vimium-surface0);
+}
+
+#vomnibar li .vomnibarTopHalf,
+#vomnibar li .vomnibarBottomHalf {
+  padding: 4px 0;
+}
+
+#vomnibar li .vomnibarSource {
+  color: var(--vimium-peach);
+}
+
+#vomnibar li em,
+#vomnibar li .vomnibarTitle {
+  color: var(--vimium-blue);
+  font-weight: bold;
+}
+
+#vomnibar li .vomnibarUrl {
+  color: var(--vimium-rosewater);
+}
+
+#vomnibar li .vomnibarMatch {
+  color: var(--vimium-green);
+  font-weight: bold;
+}
+
+#vomnibar li .vomnibarTitle .vomnibarMatch {
+  color: var(--vimium-blue);
+}
+
+#vomnibar li.vomnibarSelected {
+  background-color: var(--vimium-surface1);
+}
+
+div.vimiumHUD {
+  background: var(--vimium-base);
+  border: none;
+  box-shadow:
+    1 1px 3px rgba(0, 0, 0, 0.12),
+    1 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+div.vimiumHUD span#hud-find-input,
+div.vimiumHUD .vimiumHUDSearchAreaInner {
+  color: var(--vimium-text);
+}
+
+div.vimiumHUD .hud-find {
+  background-color: var(--vimium-base);
+  border: none;
+}
+
+div.vimiumHUD .vimiumHUDSearchArea {
+  background-color: var(--vimium-base);
+}
+
+body.vimiumBody,
+.vimiumBody {
+  background-color: var(--vimium-base) !important;
+}
+
+.vimiumBody #footerWrapper,
+#userDefinedLinkHintCss,
+#scrollStepSize,
+#linkHintNumbers,
+#newTabUrl,
+#nextPatterns,
+#previousPatterns,
+#searchUrl,
+#linkHintCharacters,
+#searchEngines,
+#keyMappings,
+#uploadBackup {
+  color: var(--vimium-text) !important;
+  background-color: var(--vimium-mantle);
+}
+
+.vimiumBody #footer,
+.vimiumBody .remove,
+input[name="pattern"],
+input[name="passKeys"],
+#uploadBackup {
+  background-color: var(--vimium-mantle) !important;
+  color: var(--vimium-text) !important;
+}
+
+body.vimiumBody input {
+  border-color: var(--vimium-crust);
+}
+
+body.vimiumBody a {
+  color: var(--vimium-lavender);
+}
+
+body.vimiumBody .exclusionHeaderText,
+body.vimiumBody .example,
+body.vimiumBody .caption,
+body.vimiumBody header,
+body.vimiumBody textarea,
+body.vimiumBody input,
+body.vimiumBody label {
+  color: var(--vimium-text) !important;
+}
