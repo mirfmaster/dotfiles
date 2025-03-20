@@ -420,10 +420,35 @@ globalkeys = mytable.join(
         { description = "reload awesome", group = "awesome" }),
     awful.key({ modkey, "Shift" }, "q", awesome.quit,
         { description = "quit awesome", group = "awesome" }),
-    awful.key({ modkey }, "-", function() awful.tag.incmwfact(0.05) end,
-        { description = "increase master width factor", group = "layout" }),
-    awful.key({ modkey }, "=", function() awful.tag.incmwfact(-0.05) end,
-        { description = "view previous tag", group = "tag" }),
+    -- Combined keys for both master width factor and floating window size
+    awful.key({ modkey }, "-", function()
+        if client.focus and client.focus.floating then
+            -- Decrease floating window size
+            local c = client.focus
+            local geo = c:geometry()
+            c:geometry({
+                width = math.max(20, geo.width - 20),
+                height = math.max(20, geo.height - 20)
+            })
+        else
+            -- Increase master width factor
+            awful.tag.incmwfact(0.05)
+        end
+    end, { description = "decrease floating window size or increase master width factor", group = "client" }),
+    awful.key({ modkey }, "=", function()
+        if client.focus and client.focus.floating then
+            -- Increase floating window size
+            local c = client.focus
+            local geo = c:geometry()
+            c:geometry({
+                width = geo.width + 20,
+                height = geo.height + 20
+            })
+        else
+            -- Decrease master width factor
+            awful.tag.incmwfact(-0.05)
+        end
+    end, { description = "increase floating window size or decrease master width factor", group = "client" }),
     awful.key({ modkey, "Shift" }, "h", awful.tag.viewprev,
         { description = "view next tag", group = "tag" }),
     awful.key({ modkey, "Shift" }, "l", awful.tag.viewnext,
@@ -657,6 +682,7 @@ clientkeys = mytable.join(
                 -- If there's a tracked minimized client for this tag, maximize it
                 local min_c = last_minimized_by_tag[tag_index]
                 min_c.minimized = false
+                min_c.floating = true
                 min_c:raise()
                 client.focus = min_c
                 last_minimized_by_tag[tag_index] = nil
@@ -693,27 +719,6 @@ clientkeys = mytable.join(
         client.focus = next_client
         next_client:raise()
     end, { description = "navigate to next window (including minimized)", group = "client" }),
-    -- Resize both dimensions at once
-    awful.key({ modkey, altkey }, "=", function()
-        if client.focus and client.focus.floating then
-            local c = client.focus
-            local geo = c:geometry()
-            c:geometry({
-                width = geo.width + 20,
-                height = geo.height + 20
-            })
-        end
-    end, { description = "increase floating window size", group = "client" }),
-    awful.key({ modkey, altkey }, "-", function()
-        if client.focus and client.focus.floating then
-            local c = client.focus
-            local geo = c:geometry()
-            c:geometry({
-                width = math.max(20, geo.width - 20),
-                height = math.max(20, geo.height - 20)
-            })
-        end
-    end, { description = "decrease floating window size", group = "client" }),
     awful.key({ modkey, altkey }, "=", function()
         if client.focus and client.focus.floating then
             local c = client.focus

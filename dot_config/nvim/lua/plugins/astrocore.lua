@@ -145,6 +145,19 @@ return {
 
         -- ZEN MODE
         [";z"] = { ':ZenMode<cr>' },
+
+        ["<Leader>tl"] = {
+          function()
+            if vim.env.TMUX then
+              -- Inside tmux: open lazygit in a new tmux window
+              vim.fn.system("tmux new-window -n lazygit -c '#{pane_current_path}' 'lazygit'")
+            else
+              -- Not in tmux: open lazygit normally within Neovim
+              require("astronvim.utils").toggle_term_cmd("lazygit")
+            end
+          end,
+          desc = "Open lazygit (tmux window if available)"
+        },
       },
       i = {
         ["<M-h>"] = { "<Left>", desc = "Buffers" },
