@@ -60,7 +60,7 @@ customCommands:
     context: "files"
     prompts:
       - type: "input"
-        title: "Enter commit message"
+        title: "Enter commit message (NO VERIFY!)"
         key: "CommitMessage"
         initialValue: ""
     command: >

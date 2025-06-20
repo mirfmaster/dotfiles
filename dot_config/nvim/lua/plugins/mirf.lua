@@ -96,7 +96,7 @@ return {
             },
             go = {
                 'fmt.Println(fmt.Sprintf("%s %%+v ", %s))'
-            }
+            },
         },
         printf_statements = {
             -- add a custom print var statement for cpp

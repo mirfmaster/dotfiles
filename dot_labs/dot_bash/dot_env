@@ -5,3 +5,5 @@ export PATH="$VOLTA_HOME/bin:$PATH"
 export PATH="$PATH:/home/$USER/.local/bin"
 #export EDITOR='lvim'
 export EDITOR='nvim'
+ export PATH="/home/mirf/.moon/bin:$PATH"
+

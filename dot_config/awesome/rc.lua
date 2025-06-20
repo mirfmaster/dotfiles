@@ -520,8 +520,17 @@ globalkeys = mytable.join(
         end,
         { description = "open file explorer", group = "launcher" }),
     awful.key({ modkey }, "[",
-        function() awful.spawn.with_shell("sh -c 'kitty -d /home/mirf/Documents/Vaults/The\\ Second\\ Brain nvim'") end,
+        function()
+            awful.spawn.with_shell("kitty -d \"/home/mirf/Documents/Vaults/The Second Brain\" nvim")
+        end,
         { description = "open second brain", group = "launcher" }),
+
+    awful.key({ modkey }, "]",
+        function()
+            awful.spawn.with_shell(
+                "kitty -d \"/home/mirf/Documents/Vaults/The Second Brain/01 Personal/Trash Notes\" nvim")
+        end,
+        { description = "open trash notes", group = "launcher" }),
 
     -- NOTE: sudo usermod -aG video mirf
     awful.key({ modkey }, "F11",
