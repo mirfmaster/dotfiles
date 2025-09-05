@@ -119,7 +119,10 @@ export PATH="$VOLTA_HOME/bin:$PATH"
 
 # pnpm
 export PNPM_HOME="/home/mirf/.local/share/pnpm"
-export PATH="$PNPM_HOME:$PATH"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
 # pnpm end. 
 
 # Personal config 
@@ -136,5 +139,7 @@ export PATH="/home/mirf/.moon/bin:$PATH"
 export PATH="$PATH:$(go env GOPATH)/bin"
 
 DOCKER_HOST="unix:///var/run/docker.sock"
+
+eval "$(zoxide init --cmd cd zsh)"
 
 # . "$HOME/.cargo/env"

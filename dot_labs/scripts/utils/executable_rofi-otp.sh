@@ -1,20 +1,83 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# passmenu — unified launcher: OTP (from totp/) + normal passwords
 
-# Get clean paths using tree to list the totp directory, but include .gpg files
-selected=$(tree ~/.password-store/totp -f --noreport | 
-    grep '\.gpg' | 
-    sed 's|.*/totp/||' | 
-    sed 's|\.gpg$||' |
-    rofi -dmenu -i -p "OTP")
+# ------------------------------------------------------------------
+# CONFIGURATION
+# ------------------------------------------------------------------
+declare -a IGNORE_FOLDERS=(
+    "docker-credential-helpers"
+)
 
-if [ -n "$selected" ]; then
-    # Remove trailing whitespace and ensure no empty selection
-    clean_path=$(echo "$selected" | tr -d '[:space:]')
-    if [ -n "$clean_path" ]; then
-        if pass otp "totp/$clean_path" -c; then
-            notify-send "OTP" "Code copied for $clean_path"
-        else
-            notify-send -u critical "OTP Error" "Failed to get OTP for $clean_path"
-        fi
+# Order applies only to OTP entries
+declare -a ORDERED_OTP_FOLDERS=(
+    "zog"
+    "bjs"
+    "mirf"
+)
+
+ignore_pattern=$(IFS='|'; echo "${IGNORE_FOLDERS[*]}")
+
+# ------------------------------------------------------------------
+# 1. OTP entries (from totp/)
+# ------------------------------------------------------------------
+otp_raw=$(
+    tree ~/.password-store/totp -f --noreport -I "$ignore_pattern" |
+    grep '\.gpg$' |
+    sed -E 's|.*/totp/||; s|\.gpg$||'
+)
+
+# Apply custom order to OTP
+otp_ordered=""
+otp_rest=""
+while IFS= read -r path; do
+    dir="${path%/*}"
+    matched=0
+    for wanted in "${ORDERED_OTP_FOLDERS[@]}"; do
+        [[ "$dir" == "$wanted" ]] && { matched=1; break; }
+    done
+    if (( matched )); then
+        otp_ordered+="$path"$'\n'
+    else
+        otp_rest+="$path"$'\n'
     fi
-fi
+done <<< "$otp_raw"
+otp_list=$(printf '%s%s' "$otp_ordered" "$(printf '%s' "$otp_rest" | sort)")
+
+# ------------------------------------------------------------------
+# 2. Normal passwords (everything except totp/)
+# ------------------------------------------------------------------
+pass_list=$(
+    tree ~/.password-store -f --noreport -I "$ignore_pattern|totp" |
+    grep '\.gpg$' |
+    sed -E 's|.*/\.password-store/||; s|\.gpg$||' |
+    sort
+)
+
+# ------------------------------------------------------------------
+# 3. Build menu: OTP first, then passwords
+# ------------------------------------------------------------------
+menu=$(
+    printf '%s\n' "$otp_list" | sed 's/$/\tOTP/'   # mark OTP
+    printf '%s\n' "$pass_list" | sed 's/$/\tpwd/' # mark password
+)
+
+# ------------------------------------------------------------------
+# 4. ROFI SELECTION
+# ------------------------------------------------------------------
+choice=$(printf '%s' "$menu" | column -t -s $'\t' | rofi -dmenu -i -p "pass")
+
+[[ -z $choice ]] && exit
+
+path=$(echo "$choice" | awk '{print $1}')
+type=$(echo "$choice" | awk '{print $2}')
+
+case "$type" in
+    OTP)
+        pass otp "totp/$path" -c &&
+            notify-send "OTP" "Code copied for $path"
+        ;;
+    pwd)
+        pass show -c "$path" &&
+            notify-send "pass" "Password copied for $path"
+        ;;
+esac || notify-send -u critical "error" "Could not copy $type for $path"

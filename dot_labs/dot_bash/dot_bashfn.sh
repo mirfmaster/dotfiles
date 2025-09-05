@@ -208,6 +208,57 @@ function tmux_open_session() {
     fi
 }
 
+function tmux_smart_open() {
+    local session
+
+    # Check if tmux is running
+    if ! command -v tmux >/dev/null 2>&1; then
+        echo "tmux is not installed"
+        return 1
+    fi
+
+    # Get existing sessions
+    local existing_sessions
+    existing_sessions=$(tmux list-sessions -F "#S" 2>/dev/null)
+
+    if [ -z "$existing_sessions" ]; then
+        # No existing sessions, just open tmux
+        echo "No existing tmux sessions. Opening a new tmux session."
+        tmux
+    else
+        # If already inside a tmux session, offer to switch, otherwise attach
+        if [ -n "$TMUX" ]; then
+            # We are inside tmux, so list sessions for switching
+            session=$(echo "$existing_sessions" | fzf --height 20% \
+                --bind change:first \
+                --header "Select tmux session to switch to or press ESC to create new")
+
+            # If no session selected (ESC pressed), create a new tmux session
+            if [ -z "$session" ]; then
+                echo "No session selected. Opening a new tmux session."
+                tmux new-session
+            else
+                # Switch to the selected session
+                tmux switch-client -t "$session"
+            fi
+        else
+            # We are not inside tmux, so list sessions for attaching
+            session=$(echo "$existing_sessions" | fzf --height 20% \
+                --bind change:first \
+                --header "Select tmux session to attach to or press ESC to create new")
+
+            # If no session selected (ESC pressed), create a new tmux session
+            if [ -z "$session" ]; then
+                echo "No session selected. Opening a new tmux session."
+                tmux
+            else
+                # Attach to the selected session
+                tmux attach-session -t "$session"
+            fi
+        fi
+    fi
+}
+
 function recopy() {
     local src config_file flatten_names=false
     

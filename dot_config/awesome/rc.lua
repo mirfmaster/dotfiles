@@ -94,8 +94,12 @@ local function run_once(cmd_arr)
     awful.spawn.with_shell('ssh-add ~/.ssh/zot_id_ed25519')
     awful.spawn.with_shell('ssh -T git@gitlab.zero-one-group.com')
 
-    awful.spawn.with_shell(
-        '[ -f ~/Applications/superProductivity.AppImage ] && ~/Applications/superProductivity.AppImage')
+    local sp_app = "appimagekit_18db52d57666dc0ee52f2e83e14e98da-superproductivity.desktop"
+
+    -- Grab tag #7 on the focused (or primary) screen
+    local home   = os.getenv("HOME")
+
+    awful.spawn.with_shell(home .. "/Applications/" .. sp_app)
     awful.spawn.with_shell("~/.config/awesome/monitor-handler.sh")
 end
 
@@ -528,7 +532,7 @@ globalkeys = mytable.join(
     awful.key({ modkey }, "]",
         function()
             awful.spawn.with_shell(
-                "kitty -d \"/home/mirf/Documents/Vaults/The Second Brain/01 Personal/Trash Notes\" nvim")
+                "kitty -d \"/home/mirf/Documents/Vaults/The Second Brain/00 ZK/9 Dump\" nvim")
         end,
         { description = "open trash notes", group = "launcher" }),
 
@@ -896,7 +900,9 @@ root.keys(globalkeys)
 -- }}}
 
 -- {{{ Rules
-
+local s           = awful.screen.focused() or screen.primary
+local tags        = s and s.tags or {}
+local lastTag     = tags[#tags]
 -- Rules to apply to new clients (through the "manage" signal).
 awful.rules.rules = {
     -- All clients will match this rule.
@@ -980,6 +986,19 @@ awful.rules.rules = {
         properties = { titlebars_enabled = true }
     },
 
+    {
+        rule_any = {
+            -- replace or extend these with whatever `xprop WM_CLASS` tells you
+            class = { "SuperProductivity", "superproductivity" },
+            -- sometimes Electron apps show up with a window title:
+            name  = { "Super Productivity" },
+        },
+        properties = {
+            screen         = s,
+            tag            = lastTag,
+            switch_to_tags = true,
+        },
+    },
     -- Set Firefox to always map on the tag named "2" on screen 1.
     -- { rule = { class = "Firefox" },
     --   properties = { screen = 1, tag = "2" } },

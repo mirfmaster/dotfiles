@@ -11,6 +11,11 @@ return {
   { import = "astrocommunity.motion.mini-surround" },
   { import = "astrocommunity.terminal-integration.vim-tmux-navigator" },
   { import = "astrocommunity.markdown-and-latex.render-markdown-nvim" },
+  -- { import = "astrocommunity.markdown-and-latex.markview-nvim" },
 
   { import = "astrocommunity.pack.blade" },
+
+  { import = "astrocommunity.game.leetcode-nvim" },
+  { import = "astrocommunity.completion.cmp-cmdline" },
+  { import = "astrocommunity.completion.cmp-cmdline" },
 }

@@ -78,12 +78,16 @@ alias vsc="code ."
 alias nscan="nmap -sP"
 alias nscanhome="nscan 192.168.100.0/24"
 
-alias tm="tmux"
+alias tm="tmux_smart_open"
+# alias tm="tmux"
+# alias tmo="tmux_open_session"
 alias tml="tmux ls"
-alias tmo="tmux_open_session"
 alias tma="tmux a"
 alias tmn="tmux new -s"
 alias tmat="tmux a -t"
+
+alias mr="mise run"
+alias fm="spf"
 
 
 # Docker compose aliases
@@ -91,8 +95,7 @@ alias dcc="docker compose"                          # Base docker compose comman
 alias dcupd=docker_compose_up
 alias dcdn=docker_compose_down
 alias dcls="docker compose ls"                   # List Docker Compose projects
-alias dcps="docker compose ps"                   # List containers
-alias dcr="docker compose restart"               # Restart services
+alias dcps="docker compose ps"                   # List containers alias dcr="docker compose restart"               # Restart services
 alias dcrm="docker compose rm"                   # Remove stopped containers
 alias dcl="docker compose logs"                  # View output from containers
 alias dclf="docker compose logs -f"              # Follow log output
@@ -203,11 +206,12 @@ alias sd='cd "$(find ~ -mindepth 1 -maxdepth 4 -name .eclipse -prune -o -type d 
 # Search directory within ~/spaces and open it using nvim
 alias sv='dir="$(find ~/spaces -mindepth 1 -maxdepth 3 -type d | fzf --height 20% --bind change:first)" && [ -n "$dir" ] && cd "$dir" && nvim || true'
 
+# NOTE: deprecated cos rare usage and replaced by zoxide
 # cd to any directories in git root directory/current working directory
-alias ds='cd "$(find $(git rev-parse --show-toplevel) -mindepth 1 \( -name node_modules -name vendor -o -name .git \) -prune -o -type d | sort -g | fzf --height 20% --bind change:first)"'
+# alias ds='cd "$(find $(git rev-parse --show-toplevel) -mindepth 1 \( -name node_modules -name vendor -o -name .git \) -prune -o -type d | sort -g | fzf --height 20% --bind change:first)"'
 
 #search and open file on current working directory in $EDITOR directly
-alias sf='rg --hidden --files | fzf --multi --height 20% --preview="head -$LINES {}" --preview-window=wrap,hidden --bind "ctrl-/:toggle-preview,ctrl-n:preview-down,ctrl-p:preview-up" | xargs -or -I {} $EDITOR "{}"'
+# alias sf='rg --hidden --files | fzf --multi --height 20% --preview="head -$LINES {}" --preview-window=wrap,hidden --bind "ctrl-/:toggle-preview,ctrl-n:preview-down,ctrl-p:preview-up" | xargs -or -I {} $EDITOR "{}"'
 
 #search and open file on git root directory/current working directory in $EDITOR directly
 alias cs='rg --hidden --files $(git rev-parse --show-toplevel 2>/dev/null) | fzf --multi --height 20% --preview="head -$LINES {}" --preview-window=wrap,hidden --bind "ctrl-/:toggle-preview,ctrl-n:preview-down,ctrl-p:preview-up" | xargs -or -I {} $EDITOR "{}"'
