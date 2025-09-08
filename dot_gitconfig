@@ -39,3 +39,6 @@
 	required = true
 [url "git@github.com:"]
 	insteadOf = https://github.com/
+[user]
+	email = muhamadiqbal.idn@gmail.com
+	name = Muhamad Iqbal
