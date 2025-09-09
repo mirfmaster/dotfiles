@@ -14,5 +14,5 @@ end
 # pnpm end
 
 mise activate fish | source
-starship init fish | source
+# starship init fish | source
 
