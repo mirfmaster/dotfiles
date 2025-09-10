@@ -25,3 +25,4 @@ alias cmcd="cm cd"
 alias cmdryrun="cm git pull -- --rebase && cm diff"
 alias cmu="cm update"
 
+alias art="php83 artisan"
