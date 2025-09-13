@@ -17,7 +17,3 @@ source = ~/.config/hypr/input.conf
 source = ~/.config/hypr/bindings.conf
 source = ~/.config/hypr/envs.conf
 source = ~/.config/hypr/autostart.conf
-
-
-monitor=eDP-1,1366x768@60.00,1136x1088,1.00
-monitor=DP-2,1920x1080@60.00,864x-16,1.00

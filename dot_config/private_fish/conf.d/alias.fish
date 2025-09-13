@@ -7,8 +7,12 @@ alias ls='ls -lhX --color=auto --group-directories-first'
 alias d="docker"                          # Base docker command
 alias dp="docker ps"                      # List running containers
 
+alias dcupd="docker compose up -d"
+alias dcup="docker compose up"
+alias dcdn="docker compose down"
+
 # Tmux
-alias tm="tmux_smart_open"
+alias tm="t"
 alias tml="tmux ls"
 alias tma="tmux a"
 alias tmn="tmux new -s"
@@ -25,4 +29,5 @@ alias cmcd="cm cd"
 alias cmdryrun="cm git pull -- --rebase && cm diff"
 alias cmu="cm update"
 
-alias art="php83 artisan"
+alias art="php artisan"
+alias mr="mise run"

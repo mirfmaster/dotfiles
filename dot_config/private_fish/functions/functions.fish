@@ -3,6 +3,24 @@ function s
     and ssh $host
 end
 
+function pkgpurge --description 'Purge all installed packages matching <substring>'
+    set -l pattern $argv[1]
+    if test -z "$pattern"
+        echo "Usage: pkgpurge <substring>"
+        echo "Example: pkgpurge php83"
+        return 1
+    end
+
+    set -l hits (pacman -Qq | grep $pattern)
+    if test -z "$hits"
+        echo "No packages match '$pattern' – nothing to remove."
+        return 0
+    end
+
+    echo "Removing: $hits"
+    yay -Rns $hits
+end
+
 function tmux_smart_open
     # 1. tmux installed?
     if not command -q tmux
