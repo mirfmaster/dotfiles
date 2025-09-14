@@ -74,13 +74,14 @@ function t --description "fuzzy tmux attach / switch / create"
 
     # 2. build colour-free list
     set -l raw (tmux list-sessions -F "#S" 2>/dev/null | string trim)
+
+    # 3. no sessions → just run plain tmux (let tmux-resurrection do its thing)
     if test -z "$raw"
-        echo "No sessions – creating one"
-        __t_new
+        tmux
         return
     end
 
-    # 3. interactive picker
+    # 4. interactive picker
     set -l choice $(
         printf '%s\n' $raw |
         fzf --bind 'ctrl-n:reload(echo Create-new)+accept' \

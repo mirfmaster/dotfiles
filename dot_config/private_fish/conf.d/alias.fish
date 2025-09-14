@@ -31,3 +31,5 @@ alias cmu="cm update"
 
 alias art="php artisan"
 alias mr="mise run"
+
+alias ccc="ccr code"
