@@ -59,11 +59,18 @@ function t --description "fuzzy tmux attach / switch / create"
 
     # 0. helper to create a new session
     function __t_new
-        set -l name (string replace ' ' '-' (basename $PWD))  # default name
-        read -p 'New session name> ' -l name
-        test -z "$name"; and set name (basename $PWD)
-        tmux new-session -ds (string trim "$name")
-        tmux switch-client -t "$name"
+        # Default name: replace spaces with dashes
+        set -l default_name (string replace -a ' ' '-' (basename $PWD))
+        read -P 'New session name> ' -l name
+
+        # Fallback to default if empty
+        test -z "$name"; and set name "$default_name"
+
+        # Always trim and sanitize session name
+        set -l clean_name (string trim (string replace -a ' ' '-' "$name"))
+
+        tmux new-session -ds "$clean_name"
+        tmux switch-client -t "$clean_name"
     end
 
     # 1. tmux installed?
@@ -72,8 +79,8 @@ function t --description "fuzzy tmux attach / switch / create"
         return 1
     end
 
-    # 2. build colour-free list
-    set -l raw (tmux list-sessions -F "#S" 2>/dev/null | string trim)
+    # 2. build colour-free list (quote properly)
+    set -l raw (tmux list-sessions -F "#{session_name}" 2>/dev/null | string trim)
 
     # 3. no sessions → just run plain tmux (let tmux-resurrection do its thing)
     if test -z "$raw"
@@ -82,7 +89,7 @@ function t --description "fuzzy tmux attach / switch / create"
     end
 
     # 4. interactive picker
-    set -l choice $(
+    set -l choice (
         printf '%s\n' $raw |
         fzf --bind 'ctrl-n:reload(echo Create-new)+accept' \
             --header '↑↓ choose session  |  Ctrl-N = create new  |  ESC = cancel' \
