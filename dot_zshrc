@@ -143,3 +143,5 @@ DOCKER_HOST="unix:///var/run/docker.sock"
 eval "$(zoxide init --cmd cd zsh)"
 
 # . "$HOME/.cargo/env"
+
+. "$HOME/.local/share/../bin/env"
