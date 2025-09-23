@@ -33,3 +33,5 @@ alias art="php artisan"
 alias mr="mise run"
 
 alias ccc="ccr code"
+alias ld=lazydocker
+alias lg=lazygit
