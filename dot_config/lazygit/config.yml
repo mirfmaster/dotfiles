@@ -13,23 +13,23 @@ os:
 gui:
   authorColors:
     "Muhamad Iqbal": "#4682B4"
-  theme:
-    selectedLineBgColor:
-      - reverse
+  # theme:
+  #   selectedLineBgColor:
+  #     - reverse
 
 customCommands:
   - key: "<c-r>"
     context: "commits"
     command: 'hub browse -- "commit/{{.SelectedLocalCommit.Hash}}"'
-  - key: "a"
-    context: "files"
-    command: "git {{if .SelectedFile.HasUnstagedChanges}} add {{else}} reset {{end}} {{.SelectedFile.Name | quote}}"
-    description: "Toggle file staged"
+  # - key: "a"
+  #   context: "files"
+  #   command: "git {{if .SelectedFile.HasUnstagedChanges}} add {{else}} reset {{end}} {{.SelectedFile.Name | quote}}"
+  #   description: "Toggle file staged"
   - key: "<C-f>"
     context: "global"
     command: "git fetch --all"
     loadingText: "Fetching all remotes"
-  - key: "n"
+  - key: "<C-n>"
     context: "localBranches"
     prompts:
       - type: "menu"
@@ -67,7 +67,7 @@ customCommands:
       git commit -m "{{.Form.CommitMessage}}" --no-verify
     loadingText: "Committing changes (no-verify)"
   # Updated command for other no-verify actions
-  - key: "N"
+  - key: "V"
     context: "global"
     prompts:
       - type: "menu"
