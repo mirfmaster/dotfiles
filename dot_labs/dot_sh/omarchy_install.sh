@@ -68,6 +68,7 @@ sudo pacman -S --needed \
     # starship \
     gnupg \
     xclip \
+    xsel \
     timeshift \
     go
 
