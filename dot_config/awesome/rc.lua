@@ -497,6 +497,8 @@ globalkeys = mytable.join(
         end
     end, { description = "toggle minimize window", group = "client" }),
     awful.key({ modkey, "Shift" }, "o", function()
+        -- awful.spawn(terminal .. " -e " .. os.getenv("HOME") .. "/.labs/scripts/utils/pass-cp.sh")
+
         awful.spawn.with_shell("~/.labs/scripts/utils/rofi-otp.sh")
     end, { description = "OTP menu", group = "launcher" }),
 
@@ -1013,6 +1015,13 @@ client.connect_signal("manage", function(c)
     -- Set the windows at the slave,
     -- i.e. put it at the end of others instead of setting it master.
     -- if not awesome.startup then awful.client.setslave(c) end
+    -- if c.class == "kitty" and c.name and c.name:match("pass") then
+    --     c.floating = true
+    --     awful.placement.centered(c, { honor_workarea = true })
+    --     c.width = 800
+    --     c.height = 600
+    --     c.ontop = true
+    -- end
 
     if awesome.startup
         and not c.size_hints.user_position
