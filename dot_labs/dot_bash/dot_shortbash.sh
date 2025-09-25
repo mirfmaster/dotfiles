@@ -172,6 +172,7 @@ alias paqw='php artisan queue:work'
 alias shortbreak='sleep 10m && notify-send -u critical "break end"'
 alias myip='curl ifconfig.co'
 alias reload='exec zsh'
+alias ccc='ccr code'
 
 # Verbosity
 alias \
