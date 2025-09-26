@@ -42,3 +42,5 @@
 [user]
 	email = muhamadiqbal.idn@gmail.com
 	name = Muhamad Iqbal
+[rebase]
+	updateRefs = true

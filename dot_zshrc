@@ -145,3 +145,6 @@ eval "$(zoxide init --cmd cd zsh)"
 # . "$HOME/.cargo/env"
 
 # . "$HOME/.local/share/../bin/env"
+
+# opencode
+export PATH=/home/mirf/.opencode/bin:$PATH

@@ -173,6 +173,7 @@ alias shortbreak='sleep 10m && notify-send -u critical "break end"'
 alias myip='curl ifconfig.co'
 alias reload='exec zsh'
 alias ccc='ccr code'
+alias oc='opencode'
 
 # Verbosity
 alias \
@@ -183,16 +184,16 @@ alias \
 
 alias ls='ls -lhX --color=auto --group-directories-first'
 
-alias \
-    1='cd ~1' \
-    2='cd ~2' \
-    3='cd ~3' \
-    4='cd ~4' \
-    5='cd ~5' \
-    6='cd ~6' \
-    7='cd ~7' \
-    8='cd ~8' \
-    9='cd ~9'
+# alias \
+#     1='cd ~1' \
+#     2='cd ~2' \
+#     3='cd ~3' \
+#     4='cd ~4' \
+#     5='cd ~5' \
+#     6='cd ~6' \
+#     7='cd ~7' \
+#     8='cd ~8' \
+#     9='cd ~9'
 
 
 # ref: https://www.linuxquestions.org/questions/linux-newbie-8/xargs-cd-is-not-working-796219/#post3906430 (why cd does not work with xargs).
@@ -202,10 +203,10 @@ alias \
 #it's kind of overwhelm to search the entire home directory
 # alias sd='cd "$(fd -aHI -d 2 -E .git -E node_modules -E .cache/npm/_cacache -t d . ~ | fzf --height 20%)"'
 # sudo apt install fd-find
-alias sd='cd "$(find ~ -mindepth 1 -maxdepth 4 -name .eclipse -prune -o -type d | fzf --height 20% --bind change:first)"'
+# alias sd='cd "$(find ~ -mindepth 1 -maxdepth 4 -name .eclipse -prune -o -type d | fzf --height 20% --bind change:first)"'
 
 # Search directory within ~/spaces and open it using nvim
-alias sv='dir="$(find ~/spaces -mindepth 1 -maxdepth 3 -type d | fzf --height 20% --bind change:first)" && [ -n "$dir" ] && cd "$dir" && nvim || true'
+# alias sv='dir="$(find ~/spaces -mindepth 1 -maxdepth 3 -type d | fzf --height 20% --bind change:first)" && [ -n "$dir" ] && cd "$dir" && nvim || true'
 
 # NOTE: deprecated cos rare usage and replaced by zoxide
 # cd to any directories in git root directory/current working directory
@@ -215,7 +216,7 @@ alias sv='dir="$(find ~/spaces -mindepth 1 -maxdepth 3 -type d | fzf --height 20
 # alias sf='rg --hidden --files | fzf --multi --height 20% --preview="head -$LINES {}" --preview-window=wrap,hidden --bind "ctrl-/:toggle-preview,ctrl-n:preview-down,ctrl-p:preview-up" | xargs -or -I {} $EDITOR "{}"'
 
 #search and open file on git root directory/current working directory in $EDITOR directly
-alias cs='rg --hidden --files $(git rev-parse --show-toplevel 2>/dev/null) | fzf --multi --height 20% --preview="head -$LINES {}" --preview-window=wrap,hidden --bind "ctrl-/:toggle-preview,ctrl-n:preview-down,ctrl-p:preview-up" | xargs -or -I {} $EDITOR "{}"'
+# alias cs='rg --hidden --files $(git rev-parse --show-toplevel 2>/dev/null) | fzf --multi --height 20% --preview="head -$LINES {}" --preview-window=wrap,hidden --bind "ctrl-/:toggle-preview,ctrl-n:preview-down,ctrl-p:preview-up" | xargs -or -I {} $EDITOR "{}"'
 
 # ref: https://askubuntu.com/a/999218
 alias list_app_lru="find /usr/bin -size +1000k -atime +100 -exec ls -ltuh --time-style=long-iso {} \;"
