@@ -9,8 +9,8 @@ return {
     -- E.g. "BufReadPre " .. vim.fn.expand "~" .. "/my-vault/**.md"
     "BufReadPre " .. vim.fn.expand "~" .. "/Personal/**.md",
     "BufNewFile " .. vim.fn.expand "~" .. "/Personal/**.md",
-    "BufReadPre " .. vim.fn.expand "~" .. "/The Second Brain/**.md",
-    "BufNewFile " .. vim.fn.expand "~" .. "/The Second Brain/**.md",
+    "BufReadPre " .. vim.fn.expand "~" .. "/The-Second-Brain/**.md",
+    "BufNewFile " .. vim.fn.expand "~" .. "/The-Second-Brain/**.md",
     -- "BufReadPre /home/mirf/Documents/Personal/**.md",
     -- "BufNewFile /home/mirf/Documents/Personal/**.md",
   },
@@ -29,8 +29,8 @@ return {
   -- current markdown file being edited.
   workspaces = {
     {
-      name = "The Second Brain",
-      path = "~/Documents/Vaults/The Second Brain",
+      name = "The-Second-Brain",
+      path = "~/Documents/Vaults/The-Second-Brain",
     },
     {
       name = "Personal",

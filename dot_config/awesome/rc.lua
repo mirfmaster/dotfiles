@@ -527,7 +527,7 @@ globalkeys = mytable.join(
         { description = "open file explorer", group = "launcher" }),
     awful.key({ modkey }, "[",
         function()
-            awful.spawn.with_shell("kitty -d \"/home/mirf/Documents/Vaults/The Second Brain\" nvim")
+            awful.spawn.with_shell("kitty -d \"/home/mirf/Documents/Vaults/The-Second-Brain\" nvim")
         end,
         { description = "open second brain", group = "launcher" }),
 

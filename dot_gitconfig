@@ -3,6 +3,7 @@
 
 [core]
     pager = delta
+	autocrlf = input
 
 [interactive]
     diffFilter = delta --color-only --features=interactive
@@ -44,3 +45,5 @@
 	name = Muhamad Iqbal
 [rebase]
 	updateRefs = true
+[push]
+	default = current
