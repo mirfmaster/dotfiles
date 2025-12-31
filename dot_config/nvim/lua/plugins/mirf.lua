@@ -92,11 +92,12 @@ return {
             -- add a custom print var statement for cpp
             php = {
                 -- 'dump("Variable: %s", %s);'
-                'dump(\'Variable: %s %s\', %s);'
+                -- 'dump(\'Variable: %s %s\', %s);'
+                'dump(\'Variable: %s %s\', %s, PHP_EOL);'
             },
             go = {
                 'fmt.Println(fmt.Sprintf("%s %%+v ", %s))'
-            },
+            }
         },
         printf_statements = {
             -- add a custom print var statement for cpp

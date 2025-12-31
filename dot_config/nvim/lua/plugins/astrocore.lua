@@ -1,5 +1,31 @@
 -- if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
 
+local function smart_navigate(direction)
+  local directions = {
+    h = "Left",
+    j = "Down",
+    k = "Up",
+    l = "Right",
+  }
+
+  -- Always leave terminal insert mode
+  if vim.fn.mode() == "t" then
+    vim.cmd("stopinsert")
+  end
+
+  local buftype = vim.bo.buftype
+  local in_terminal = buftype == "terminal"
+  local in_tmux = vim.env.TMUX ~= nil
+  local cmd = "wincmd " .. direction
+
+  -- Only use TmuxNavigate if we're NOT in a Neovim terminal
+  if in_tmux and not in_terminal then
+    cmd = "TmuxNavigate" .. directions[direction]
+  end
+
+  pcall(vim.cmd, cmd)
+end
+
 -- AstroCore provides a central place to modify mappings, vim options, autocommands, and more!
 -- Configuration documentation can be found with `:h astrocore`
 -- NOTE: We highly recommend setting up the Lua Language Server (`:LspInstall lua_ls`)
@@ -99,19 +125,24 @@ return {
         ["<C-a>"] = { "ggVG" },
         ["<a-s>"] = { ":noa w<CR>" },
 
-        -- TERMINAL
+        -- TAB MANAGEMENT(or window)
         [";wq"] = { ":tabc<cr>", desc = "Close current tab" },
         [";wa"] = { ":tabnew<cr>", desc = "Open current tab" },
+	      [";wf"] = { ":tab split<cr>", desc = "Open current file in new tab" },
         [";m"] = { ":terminal<cr>", desc = "Open terminal" },
         [";h"] = { ":tabp<cr>", desc = "Previous tab" },
         [";l"] = { ":tabn<cr>", desc = "Next tab" },
-        [";wf"] = {
-          function()
-            local toggleterm = require("toggleterm")
-            toggleterm.toggle(1, 15, nil, "float")
-          end,
-          desc = "Toggle floating terminal",
-        },
+
+        [";wo"] = { ":tabonly<cr>", desc = "Close all other tabs" },
+        [";wh"] = { ":tabprevious<cr>", desc = "Previous tab" },
+        [";wl"] = { ":tabnext<cr>", desc = "Next tab" },
+        [";wm"] = { ":terminal<cr>", desc = "Open terminal in current tab" },
+        [";wr"] = { ":tabedit %<cr>", desc = "Reopen current file in this tab" },
+        [";ws"] = { ":w<cr>", desc = "Save current file" },
+        [";ww"] = { ":w<cr>:tabnext<cr>", desc = "Save and move to next tab" },
+        [";wn"] = { ":tabnew %<cr>", desc = "Duplicate current file in new tab" },
+        [";wi"] = { ":tabmove +1<cr>", desc = "Move current tab right" },
+        [";wu"] = { ":tabmove -1<cr>", desc = "Move current tab left" },
 
         -- REFACTOR
         [";dV"] = { function() require('refactoring').debug.print_var({below = false}) end, desc = "Print var before" },
@@ -198,12 +229,40 @@ return {
         ["<C-w><C-k>"] = { "<C-\\><C-n><C-w>k", desc = "Move to top window" },
         ["<C-w><C-l>"] = { "<C-\\><C-n><C-w>l", desc = "Move to right window" },
 
-        ["<C-h>"] = { "<C-\\><C-n>:TmuxNavigateLeft<cr>", desc = "Navigate left" },
+        -- ["<C-h>"] = { "<C-\\><C-n>:TmuxNavigateLeft<cr>", desc = "Navigate left" },
         -- ["<M-h>"] = { "<C-\\><C-n>:TmuxNavigateLeft<cr>", desc = "Navigate left" },
 
-        ["<C-l>"] = { "<C-\\><C-n>:TmuxNavigateRight<cr>", desc = "Navigate right" },
+        -- ["<C-l>"] = { "<C-\\><C-n>:TmuxNavigateRight<cr>", desc = "Navigate right" },
         -- ["<M-l>"] = { "<C-\\><C-n>:TmuxNavigateRight<cr>", desc = "Navigate right" },
+        -- Safe navigation (works with or without tmux)
+        -- ["<C-h>"] = {
+        --   function()
+        --     vim.cmd("stopinsert") -- escape terminal insert mode
+        --     if vim.env.TMUX then
+        --       vim.cmd("TmuxNavigateLeft")
+        --     else
+        --       vim.cmd("wincmd h")
+        --     end
+        --   end,
+        --   desc = "Move to left window",
+        -- },
+        -- ["<C-l>"] = {
+        --   function()
+        --     vim.cmd("stopinsert")
+        --     if vim.env.TMUX then
+        --       vim.cmd("TmuxNavigateRight")
+        --     else
+        --       vim.cmd("wincmd l")
+        --     end
+        --   end,
+        --   desc = "Move to right window",
+        -- },
 
+        
+  ["<C-h>"] = { function() smart_navigate "h" end, desc = "Smart move left" },
+  ["<C-j>"] = { function() smart_navigate "j" end, desc = "Smart move down" },
+  ["<C-k>"] = { function() smart_navigate "k" end, desc = "Smart move up" },
+  ["<C-l>"] = { function() smart_navigate "l" end, desc = "Smart move right" },
 
         ["<C-w><C-v>"] = { "<C-\\><C-n>:vsplit<cr>", desc = "Buffers" },
         ["<C-w><C-s>"] = { "<C-\\><C-n>:split<cr>", desc = "Buffers" },
