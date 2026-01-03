@@ -54,3 +54,6 @@ PREFIX="v${YEAR}.${MONTH}.${DAY}"
 echo "Today's release tags (${PREFIX}.*):"
 git tag -l "${PREFIX}.*" | sort -V
 '''
+
+[tools]
+go = "latest"
