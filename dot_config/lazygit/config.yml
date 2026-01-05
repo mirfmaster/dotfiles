@@ -1,22 +1,18 @@
 git:
-  paging:
-    colorArg: always
-    pager: delta --line-numbers --dark --paging=never
-
+  pagers:
+    - colorArg: always
+      pager: delta --line-numbers --dark --paging=never
 services:
   "gitlab.zero-one-group.com": "gitlab:gitlab.zero-one-group.com"
-
 os:
   editPreset: "nvim"
   open: "xdg-open {{filename}} >/dev/null"
-
 gui:
   authorColors:
     "Muhamad Iqbal": "#4682B4"
   # theme:
   #   selectedLineBgColor:
   #     - reverse
-
 customCommands:
   - key: "<c-r>"
     context: "commits"
@@ -54,6 +50,7 @@ customCommands:
         initialValue: ""
     command: >
       bash -c 'branch_type="{{.Form.BranchType}}"; branch_name="{{.Form.BranchName}}"; sanitized_branch_name=$(echo "$branch_name" | sed "s/ /-/g"); new_branch="${branch_type}/${sanitized_branch_name}"; git checkout -b "$new_branch"'
+
     loadingText: "Creating branch"
   # New command for commit with no-verify
   - key: "C"
@@ -65,6 +62,7 @@ customCommands:
         initialValue: ""
     command: >
       git commit -m "{{.Form.CommitMessage}}" --no-verify
+
     loadingText: "Committing changes (no-verify)"
   # Updated command for other no-verify actions
   - key: "V"
@@ -84,9 +82,8 @@ customCommands:
             description: "Amend commit (no-verify, keep current message)"
             value: "amend"
     command: >
-      bash -c '
-      action="{{.Form.NoVerifyAction}}";
-      case "$action" in
+      bash -c ' action="{{.Form.NoVerifyAction}}"; case "$action" in
+
         "push")
           if git ls-remote --exit-code --heads origin $(git symbolic-ref --short HEAD) >/dev/null 2>&1; then
             git push --no-verify
@@ -101,4 +98,5 @@ customCommands:
           git commit --amend --no-edit --no-verify
           ;;
       esac'
+
     loadingText: "Performing no-verify action"

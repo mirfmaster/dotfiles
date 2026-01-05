@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Script: password-selector.sh (optimized + correct OTP handling)
-# Description: Password/TOTP selector for pass that prefers OTP codes
+# Script: pass-cp.sh (optimized + correct OTP handling + fzf support)
+# Description: Password/TOTP selector for pass with fzf fuzzy search
 
 # Colors for output
 RED='\033[0;31m'
@@ -38,6 +38,10 @@ detect_clipboard() {
   return 1
 }
 detect_clipboard >/dev/null 2>&1
+
+# fzf detection (done once)
+FZF_AVAILABLE=0
+command -v fzf >/dev/null 2>&1 && FZF_AVAILABLE=1
 
 # OTP plugin detection (checks actual pass subcommand)
 PASS_OTP_AVAILABLE=0
@@ -220,11 +224,77 @@ list_entries() {
     echo -e "${RED}No entries found${NC}"
     return
   fi
-  printf '%s\n' "${ENTRIES[@]}"
+  for entry in "${ENTRIES[@]}"; do
+    local display="$entry"
+    [[ "$entry" == totp/* ]] && display="$entry [TOTP]"
+    printf '%s\n' "$display"
+  done
   echo -e "${GREEN}Total: ${#ENTRIES[@]} entries ($TOTP_COUNT TOTP est.)${NC}"
 }
 
-show_menu() {
+show_menu_fzf() {
+  build_entries
+  local count=${#ENTRIES[@]}
+  if ((count == 0)); then
+    echo -e "${RED}No entries found${NC}"
+    exit 1
+  fi
+
+  # Format entries for fzf: "entry-name [TOTP]"
+  local formatted_entries=()
+  for entry in "${ENTRIES[@]}"; do
+    local display="$entry"
+    [[ "$entry" == totp/* ]] && display="$entry [TOTP]"
+    formatted_entries+=("$display")
+  done
+
+  # Show OTP tool status
+  if ((PASS_OTP_AVAILABLE == 1)); then
+    echo -e "${GREEN}✓ pass-otp detected (OTP preferred)${NC}"
+  elif has_oathtool; then
+    echo -e "${GREEN}✓ oathtool detected (OTP via URL)${NC}"
+  else
+    echo -e "${YELLOW}! No OTP tools detected; falling back to passwords${NC}"
+  fi
+  echo ""
+
+  # Use fzf to select entry
+  local selected_display
+  selected_display="$(printf '%s\n' "${formatted_entries[@]}" | fzf --height=40% --prompt='Select entry > ' --cycle --reverse)"
+
+  local exit_code=$?
+  if ((exit_code != 0)) || [[ -z "$selected_display" ]]; then
+    exit 0
+  fi
+
+  # Remove " [TOTP]" suffix to get actual entry name
+  local selected="${selected_display%% \[TOTP\]}"
+
+  echo ""
+  echo -e "${YELLOW}Getting $selected...${NC}"
+
+  local secret
+  secret="$(get_secret_best_effort "$selected")"
+  local is_totp="false"
+  $IS_TOTP && is_totp="true"
+
+  if [[ -n "$secret" ]]; then
+    copy_to_clipboard "$secret" "$selected" "$is_totp"
+
+    # Auto-clear in background
+    local clear_time=45
+    [[ "$is_totp" == "true" ]] && clear_time=30
+    (sleep "$clear_time"; clear_clipboard) &
+
+    echo -e "${GREEN}✓ Done! Clipboard will clear in ${clear_time}s${NC}"
+    exit 0
+  else
+    echo -e "${RED}✗ Failed to get secret${NC}"
+    exit 1
+  fi
+}
+
+show_menu_numbered() {
   build_entries
   local count=${#ENTRIES[@]}
   if ((count == 0)); then
@@ -287,6 +357,14 @@ show_menu() {
   done
 }
 
+show_menu() {
+  if ((FZF_AVAILABLE == 1)); then
+    show_menu_fzf
+  else
+    show_menu_numbered
+  fi
+}
+
 # Copy a specific service quickly
 copy_specific() {
   local service="$1"
@@ -328,7 +406,7 @@ while [[ $# -gt 0 ]]; do
       echo "  -s SERVICE  Copy specific service (OTP preferred)"
       echo "  -l          List entries"
       echo "  -t          Test clipboard"
-      echo "  (no args)   Interactive menu"
+      echo "  (no args)   Interactive menu (fzf if available)"
       exit 0
       ;;
     -l)
