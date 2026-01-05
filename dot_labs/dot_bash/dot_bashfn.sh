@@ -25,10 +25,6 @@ gtfd() {
   /usr/sbin/terraform-docs --sort-by "required" -c "$template" "$path" >"$path/readme.md"
 }
 
-cmall() {
-  chezmoi add ~/.labs/
-}
-
 cmpush() {
   echo -e "\033[1;34m[INFO]\033[0m Syncing working directory with remote repository"
   sleep 1
@@ -38,14 +34,20 @@ cmpush() {
 }
 
 cmsync() {
-  echo -e "\033[1;34m[INFO]\033[0m Syncing local changes with working directory"
+  echo -e "\033[1;34m[INFO]\033[0m Syncing local changes to repo"
+
+  # Add/update files from local to repo
   chezmoi add ~/.labs/
-  chezmoi re-add
 
   cd ~/.local/share/chezmoi
+
+  # Remove files from repo that were deleted locally
+  chezmoi status | grep "^D " | awk '{print $2}' | xargs -r rm -f
+
   cmpush
-  echo -e "\033[1;34m[INFO]\033[0m Sync success, redirecting to previous pwd~"
+
   cd -
+  echo -e "\033[1;34m[INFO]\033[0m Sync success"
 }
 
 # NOTE: USAGE
