@@ -36,20 +36,28 @@ cmpush() {
 cmsync() {
   echo -e "\033[1;34m[INFO]\033[0m Syncing local changes to repo"
 
-  # Add/update files from local to repo
   chezmoi add ~/.labs/
 
   cd ~/.local/share/chezmoi
 
-  # Remove files from repo that were deleted locally
-  chezmoi status | grep "^D " | awk '{print $2}' | xargs -r rm -f
+  # Find and remove deleted files, with logging
+  deleted=$(chezmoi status | grep "^D " | awk '{print $2}')
+
+  if [ -n "$deleted" ]; then
+    echo -e "\033[1;33m[WARN]\033[0m Removing deleted files:"
+    echo "$deleted" | while read file; do
+      echo "  - $file"
+      rm -f "$file"
+    done
+  else
+    echo -e "\033[1;32m[OK]\033[0m No deleted files"
+  fi
 
   cmpush
 
   cd -
   echo -e "\033[1;34m[INFO]\033[0m Sync success"
 }
-
 # NOTE: USAGE
 # psqld -e                  # uses all values from .env
 # psqld -e other_database   # uses .env but overrides database name
