@@ -1,0 +1,34 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "username": "Iqbal",
+  "instructions": [".cursor/rules/*.mdc"],
+  "disabled_providers": [
+    // "opencode",
+    // "google",
+    // "anthropic"
+  ],
+  "keybinds": {
+    "messages_page_up": "ctrl+b",
+    "messages_page_down": "ctrl+f",
+    "messages_half_page_up": "ctrl+u",
+    "messages_half_page_down": "ctrl+d",
+    "messages_first": "ctrl+g",
+    "messages_last": "ctrl+e",
+    "theme_list": "none",
+    "session_share": "none",
+
+    "leader": "ctrl+x",
+    "session_compact": "<leader>c",
+    "messages_copy": "<leader>y",
+    "messages_undo": "<leader>u",
+    "messages_redo": "<leader>r",
+    "session_unshare": "none"
+  },
+  "mcp": {
+    "context7": {
+      "type": "local",
+      "command": ["pnpx", "-y", "@upstash/context7-mcp"],
+      "enabled": false
+    }
+  }
+}
