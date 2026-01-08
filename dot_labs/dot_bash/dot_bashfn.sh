@@ -389,3 +389,9 @@ docker_compose_down() {
     docker compose down
   fi
 }
+
+# Personal Wallpaper Sync Function
+# Syncs wallpapers from ~/Pictures/Wallpapers/Personal/ to theme backgrounds
+wp-sync() {
+  ~/.labs/scripts/wp-sync.sh "$@"
+}
