@@ -1,0 +1,37 @@
+# If not running interactively, don't do anything (leave this at the top of this file)
+[[ $- != *i* ]] && return
+
+# All the default Omarchy aliases and functions
+# (don't mess with these directly, just overwrite them here!)
+source ~/.local/share/omarchy/default/bash/rc
+
+# Add your own exports, aliases, and functions here.
+#
+# Make an alias for invoking commands you use constantly
+# alias p='python'
+export PATH="$HOME/.config/composer/vendor/bin:/home/mirf/.moon/bin:~/.bun/bin:$PATH"
+
+export terminal="kitty"
+alias sv='sudo -E HOME=$HOME nvim'
+
+# Source personal aliases
+. ~/.labs/.bash/aliases.sh
+
+. "$HOME/.atuin/bin/env"
+
+[[ -f ~/.bash-preexec.sh ]] && source ~/.bash-preexec.sh
+[[ -f ~/.labs/.bash/.bashfn.sh ]] && source ~/.labs/.bash/.bashfn.sh
+
+eval "$(atuin init bash)"
+
+# # Vim keybindings for Atuin in bash
+# bind -x '"\C-r": "atuin-search-vicmd"'
+# bind '"\C-r": "\C-x\C-r"'
+
+# pnpm
+export PNPM_HOME="/home/mirf/.local/share/pnpm"
+case ":$PATH:" in
+*":$PNPM_HOME:"*) export PATH="$PNPM_HOME:$PATH:/home/mirf/.local/bin" ;;
+*) export PATH="$PNPM_HOME:$PATH:/home/mirf/.local/bin" ;;
+esac
+# pnpm end

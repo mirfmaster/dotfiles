@@ -2,13 +2,13 @@ alias clear_history='cat /dev/null > ~/.bash_history && history -c'
 
 ################# FUNCTIONS ########################
 setRepoConfigProfile() {
-  bl_info "Setting up repo config using personal email"
+  echo -e "\033[1;34m[INFO]\033[0m Setting up repo config using personal email"
   git config user.email "mirfmaster@gmail.com"
   git config user.name "Muhamad Iqbal"
 }
 
 setRepoConfigProfileZOT() {
-  bl_info "Setting up repo config using ZOT email"
+  echo -e "\033[1;34m[INFO]\033[0m Setting up repo config using ZOT email"
   git config user.email "iqbal@zero-one-group.com"
   git config user.name "Muhamad Iqbal"
 }
