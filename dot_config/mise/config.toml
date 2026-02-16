@@ -57,3 +57,4 @@ git tag -l "${PREFIX}.*" | sort -V
 
 [tools]
 go = "latest"
+node = "latest"

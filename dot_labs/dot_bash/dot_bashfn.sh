@@ -47,7 +47,60 @@ cmsync() {
     chezmoi add ~/.labs/
     
     echo -e "\n\033[1;33m[STEP]\033[0m Re-adding modified files..."
-    chezmoi re-add
+    
+    # Capture re-add output to check for errors
+    if ! readd_output=$(chezmoi re-add 2>&1); then
+        echo -e "\033[1;31m[ERROR]\033[0m chezmoi re-add failed"
+        
+        # Display detailed error message
+        echo -e "\n\033[1;31m[ERROR DETAILS]\033[0m"
+        echo "$readd_output" | grep -E "gpg:|chezmoi:" | sed 's/^/  /'
+        
+        # Ensure gpg-agent is running for longer caching
+        if ! pgrep -x gpg-agent > /dev/null; then
+            echo -e "\n\033[1;33m[INFO]\033[0m Starting gpg-agent for longer passphrase caching (24h)..."
+            gpg-agent --daemon --default-cache-ttl 86400 --max-cache-ttl 86400 2>/dev/null
+            export GPG_TTY=$(tty)
+        fi
+        
+        echo -e "\nOptions:"
+        echo "  [1] Provide GPG passphrase and retry (default)"
+        echo "  [2] Skip re-add and continue"
+        echo "  [3] Cancel"
+        read -p "Choose option [1/2/3]: " -r
+        echo
+        
+        # Default to option 1 if empty
+        choice="${REPLY:-1}"
+        
+        case $choice in
+            1)
+                read -s -p "Enter GPG passphrase: " passphrase
+                echo
+                export GPG_TTY=$(tty)
+                
+                # Cache passphrase in gpg-agent for 24 hours
+                echo "$passphrase" | gpg --batch --pinentry-mode loopback --passphrase-fd 0 -s mirfmaster@gmail.com 2>/dev/null || true
+                unset passphrase
+                
+                echo -e "\033[1;33m[RETRY]\033[0m Retrying re-add with cached passphrase..."
+                chezmoi re-add
+                ;;
+            2)
+                echo -e "\033[1;33m[SKIP]\033[0m Skipping re-add, continuing with git changes"
+                ;;
+            3)
+                echo -e "\033[1;31m[CANCELLED]\033[0m Operation aborted"
+                cd - > /dev/null
+                return 1
+                ;;
+            *)
+                echo -e "\033[1;31m[INVALID]\033[0m Invalid choice, cancelling"
+                cd - > /dev/null
+                return 1
+                ;;
+        esac
+    fi
     
     echo -e "\n\033[1;33m[STEP]\033[0m Staging git changes..."
     git add -A

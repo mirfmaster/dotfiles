@@ -15,7 +15,13 @@ alias dcdn="docker compose down"
 alias tm="t"
 alias tml="tmux ls"
 alias tma="tmux a"
-alias tmn="tmux new -s"
+function tmn
+    if test (count $argv) -eq 0
+        tmux new -s (basename $PWD)
+    else
+        tmux new -s $argv[1]
+    end
+end
 alias tmat="tmux a -t"
 
 # Chezmoi
