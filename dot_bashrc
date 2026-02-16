@@ -24,6 +24,12 @@ alias sv='sudo -E HOME=$HOME nvim'
 
 eval "$(atuin init bash)"
 
+if [ -z "$SSH_AUTH_SOCK" ]; then
+    eval "$(ssh-agent -s)" > /dev/null 2>&1
+fi
+
+eval "$(mise activate bash)"
+
 # # Vim keybindings for Atuin in bash
 # bind -x '"\C-r": "atuin-search-vicmd"'
 # bind '"\C-r": "\C-x\C-r"'
@@ -35,3 +41,8 @@ case ":$PATH:" in
 *) export PATH="$PNPM_HOME:$PATH:/home/mirf/.local/bin" ;;
 esac
 # pnpm end
+
+# opencode
+export PATH=/home/mirf/.opencode/bin:$PATH
+
+. "$HOME/.local/share/../bin/env"

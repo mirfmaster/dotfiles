@@ -25,38 +25,115 @@ gtfd() {
   /usr/sbin/terraform-docs --sort-by "required" -c "$template" "$path" >"$path/readme.md"
 }
 
-cmpush() {
-  echo -e "\033[1;34m[INFO]\033[0m Syncing working directory with remote repository"
-  sleep 1
-  git add .
-  git commit -m "."
-  git push
+cmadd() {
+    local target_path="${1:-~/.labs/}"
+    
+    echo -e "\033[1;34m[INFO]\033[0m Adding directory to chezmoi: $target_path"
+    
+    chezmoi add "$target_path"
+    
+    echo -e "\n\033[1;33m[ADDED FILES]\033[0m"
+    cd ~/.local/share/chezmoi || return 1
+    git status --short
+    cd - > /dev/null
 }
 
 cmsync() {
-  echo -e "\033[1;34m[INFO]\033[0m Syncing local changes to repo"
+    echo -e "\033[1;34m[INFO]\033[0m Syncing local changes to remote repository"
+    
+    cd ~/.local/share/chezmoi || return 1
+    
+    echo -e "\033[1;33m[STEP]\033[0m Adding new files in ~/.labs/..."
+    chezmoi add ~/.labs/
+    
+    echo -e "\n\033[1;33m[STEP]\033[0m Re-adding modified files..."
+    chezmoi re-add
+    
+    echo -e "\n\033[1;33m[STEP]\033[0m Staging git changes..."
+    git add -A
+    
+    echo -e "\n\033[1;33m[CHANGES STAGED]\033[0m"
+    git status --short
+    
+    local timestamp=$(date '+%Y-%m-%d %H:%M')
+    git commit -m "Update dotfiles - $timestamp"
+    
+    git push
+    
+    cd - > /dev/null
+    
+    echo -e "\033[1;32m[SUCCESS]\033[0m Sync completed"
+}
 
-  chezmoi add ~/.labs/
+cmsyncplan() {
+    echo -e "\033[1;34m[PLAN]\033[0m Reviewing changes to sync with remote repository"
+    
+    cd ~/.local/share/chezmoi || return 1
+    
+    echo -e "\n\033[1;33m[FILE CHANGES]\033[0m"
+    git diff --stat
+    
+    echo -e "\n\033[1;33m[DETAILED CHANGES]\033[0m"
+    git diff
+    
+    cd - > /dev/null
+}
 
-  cd ~/.local/share/chezmoi
+cmpull() {
+    echo -e "\033[1;34m[PLAN]\033[0m Reviewing changes from remote repository"
+    
+    cd ~/.local/share/chezmoi || return 1
+    
+    echo -e "\nFetching from remote..."
+    git fetch --quiet
+    
+    echo -e "\n\033[1;33m[INCOMING CHANGES]\033[0m"
+    git diff --stat HEAD...origin/main
+    
+    echo -e "\n\033[1;33m[COMMIT HISTORY]\033[0m"
+    git log HEAD..origin/main --oneline --graph
+    
+    echo -e "\n\033[1;36m[ACTION]\033[0m"
+    read -p "Proceed with pull? (y/n/q): " -n 1 -r
+    echo
+    
+    case $REPLY in
+        [Yy]*)
+            echo -e "\033[1;34m[INFO]\033[0m Pulling and applying changes..."
+            chezmoi update --interactive
+            echo -e "\033[1;32m[SUCCESS]\033[0m Pull completed"
+            ;;
+        [Qq]*)
+            echo -e "\033[1;31m[CANCELLED]\033[0m Operation aborted"
+            cd - > /dev/null
+            return 1
+            ;;
+        *)
+            echo -e "\033[1;33m[SKIPPED]\033[0m Pull operation skipped"
+            ;;
+    esac
+    
+    cd - > /dev/null
+}
 
-  # Find and remove deleted files, with logging
-  deleted=$(chezmoi status | grep "^D " | awk '{print $2}')
-
-  if [ -n "$deleted" ]; then
-    echo -e "\033[1;33m[WARN]\033[0m Removing deleted files:"
-    echo "$deleted" | while read file; do
-      echo "  - $file"
-      rm -f "$file"
-    done
-  else
-    echo -e "\033[1;32m[OK]\033[0m No deleted files"
-  fi
-
-  cmpush
-
-  cd -
-  echo -e "\033[1;34m[INFO]\033[0m Sync success"
+cmpullplan() {
+    echo -e "\033[1;34m[PLAN]\033[0m Previewing changes from remote repository"
+    
+    cd ~/.local/share/chezmoi || return 1
+    
+    echo -e "Fetching from remote..."
+    git fetch --quiet
+    
+    echo -e "\n\033[1;33m[INCOMING CHANGES]\033[0m"
+    git diff --stat HEAD...origin/main
+    
+    echo -e "\n\033[1;33m[DETAILED CHANGES]\033[0m"
+    git diff HEAD...origin/main
+    
+    echo -e "\n\033[1;33m[COMMIT HISTORY]\033[0m"
+    git log HEAD..origin/main --oneline --graph
+    
+    cd - > /dev/null
 }
 # NOTE: USAGE
 # psqld -e                  # uses all values from .env

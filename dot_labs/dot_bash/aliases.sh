@@ -26,7 +26,10 @@ alias tm="tmux_smart_open"
 # alias tm="tmux"
 # alias tml="tmux ls"
 # alias tma="tmux a"
-alias tmn="tmux new -s"
+tmn() {
+    local session_name="${1:-$(basename "$PWD")}"
+    tmux new -s "$session_name"
+}
 alias tmat="tmux a -t"
 
 alias ls='ls -lhX --color=auto --group-directories-first'

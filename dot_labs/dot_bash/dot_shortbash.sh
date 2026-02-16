@@ -83,7 +83,10 @@ alias tm="tmux_smart_open"
 # alias tmo="tmux_open_session"
 alias tml="tmux ls"
 alias tma="tmux a"
-alias tmn="tmux new -s"
+tmn() {
+    local session_name="${1:-$(basename "$PWD")}"
+    tmux new -s "$session_name"
+}
 alias tmat="tmux a -t"
 
 alias mr="mise run"
