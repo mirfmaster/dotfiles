@@ -46,3 +46,4 @@ esac
 export PATH=/home/mirf/.opencode/bin:$PATH
 
 . "$HOME/.local/share/../bin/env"
+export PATH="$HOME/.config/composer/vendor/bin:$PATH"

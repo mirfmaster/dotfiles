@@ -2,6 +2,67 @@
   "$schema": "https://opencode.ai/config.json",
   "username": "Iqbal",
   "instructions": [".cursor/rules/*.mdc"],
+  "permission": {
+    "read": {
+      "*": "allow",
+      "*.env": "ask",
+      "*.env.*": "ask",
+      "*secrets*": "ask",
+      "*credential*": "ask",
+      "~/.ssh/*": "ask",
+      "~/.gnupg/*": "ask"
+    },
+    "edit": {
+      "/home/mirf/projects/**/*": "allow",
+      "/home/mirf/spaces/**/*": "allow",
+      "~/.config/**/*": "ask",
+      "/etc/**/*": "deny",
+      "/usr/**/*": "deny",
+      "/var/**/*": "deny"
+    },
+    "bash": {
+      "cat *": "allow",
+      "ls *": "allow",
+      "grep *": "allow",
+      "head *": "allow",
+      "tail *": "allow",
+      "pwd": "allow",
+      "git *": "allow",
+      "npm *": "allow",
+      "yarn *": "allow",
+      "pnpm *": "allow",
+      "bun *": "allow",
+      "python *": "allow",
+      "node *": "allow",
+      "hyprctl reload*": "allow",
+      "omarchy-restart-waybar*": "allow",
+      "rm *": "ask",
+      "mv *": "ask",
+      "cp *": "ask",
+      "pacman -R*": "ask",
+      "sudo": "deny",
+      "su": "deny"
+    },
+    "glob": "allow",
+    "grep": "allow",
+    "list": "allow",
+    "codesearch": "allow",
+    "webfetch": "allow",
+    "websearch": "allow",
+    "question": "allow",
+    "todowrite": "allow",
+    "todoread": "allow",
+    "task": "ask",
+    "skill": {
+      "Omarchy": "allow"
+    },
+    "external_directory": {
+      "~/.local/share/*": "allow",
+      "~/.claude/skills/omarchy/*": "allow",
+      "/home/mirf/projects/**/*": "allow",
+      "/home/mirf/spaces/**/*": "allow"
+    }
+  },
   "disabled_providers": [
     // "opencode",
     // "google",
