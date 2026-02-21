@@ -15,6 +15,9 @@
     "edit": {
       "/home/mirf/projects/**/*": "allow",
       "/home/mirf/spaces/**/*": "allow",
+      "~/.config/nvim/*": "allow",
+      "~/.config/kitty/*": "allow",
+      "~/.config/opencode/*": "allow",
       "~/.config/**/*": "ask",
       "/etc/**/*": "deny",
       "/usr/**/*": "deny",
@@ -52,7 +55,7 @@
     "question": "allow",
     "todowrite": "allow",
     "todoread": "allow",
-    "task": "ask",
+    "task": "allow",
     "skill": {
       "Omarchy": "allow"
     },
@@ -60,7 +63,8 @@
       "~/.local/share/*": "allow",
       "~/.claude/skills/omarchy/*": "allow",
       "/home/mirf/projects/**/*": "allow",
-      "/home/mirf/spaces/**/*": "allow"
+      "/home/mirf/spaces/**/*": "allow",
+      "/tmp/*": "allow"
     }
   },
   "disabled_providers": [
